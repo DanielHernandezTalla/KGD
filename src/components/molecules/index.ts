@@ -1,0 +1,11 @@
+export { default as Search } from './Search';
+// export { default as SearchFechas } from './SearchFechas';
+// export { default as SearchSelect } from './SearchSelect';
+// export { default as SearchSelectDouble } from './SearchSelectDouble';
+export { default as Nav } from './Nav';
+export { default as CrudTable } from './CrudTable';
+export * from './TitlePage';
+// export * from './Aside';
+// export { default as Modal } from './Modal';
+// export { default as CalendarEvent } from './CalendarEvent';
+export { default as Pager } from './Pager';

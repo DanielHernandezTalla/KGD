@@ -1,0 +1,70 @@
+.pagination_container {
+  margin-top: 20px;
+}
+
+.pagination_container_numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pagination_number {
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
+
+  background-color: rgba(5, 97, 252, 0.1);
+  border-radius: 12px;
+
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+
+  color: #0561fc;
+
+  cursor: pointer;
+}
+
+.pagination_number:hover {
+  background-color: rgba(5, 97, 252, 0.3);
+}
+
+.active {
+  background-color: rgba(5, 97, 252, 0.3);
+}
+
+.container-checkInput {
+  /* display: flex;
+    flex-direction: row; */
+  max-width: 240px;
+  align-items: center;
+  padding: 5px;
+}
+
+/* .checkbox-label{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} */
+
+/* .checkbox-label input{
+    width: 15px;
+    height: 15px;
+    margin-right: 10px
+} */
+
+.checkbox-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-input input {
+  max-width: 100px;
+  height: 30px;
+  padding: 5px;
+
+  outline: none;
+}

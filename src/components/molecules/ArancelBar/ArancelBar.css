@@ -1,0 +1,6 @@
+/* Forzar a ocultar los botones numericUpDown*/
+.no-numeric-up-down::-webkit-inner-spin-button,
+.no-numeric-up-down::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

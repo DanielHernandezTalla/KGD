@@ -51,13 +51,12 @@ export const handlePost = async ({
   }
 
   if (!data.ok) {
-
     if (data.msg) tryToast(data.msg, "Error", "error");
     else if (messageError && data.errors) {
-      const msg = `${messageError}. \nErrores: ${Object.entries(data.errors).map((v: any) => {
-        return `\n ${v[1].msg}`;
-      })}`;
-      tryToast(msg, "Error", "error")
+      // const msg = `${messageError}. \nErrores: ${Object.entries(data.errors).map((v: any) => {
+      //   return `\n ${v[1].msg}`;
+      // })}`;
+      tryToast(data?.errors?.msg, "Error", "error")
     }
     else if (typeof messageError === 'string') tryToast(messageError, "Error", "error");
     else if (messageError) {

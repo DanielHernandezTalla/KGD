@@ -8,7 +8,8 @@ export default function Home() {
     <MainLayout>
       <div className='flex h-full min-h-full flex-col gap-7 xl:flex-row'>
         <div className='flex w-full flex-col gap-5 md:gap-10'>
-          <TitlePage title='Inicio' />
+          <h1>Home</h1>
+          {/* <TitlePage title='Inicio' />
 
           <div className='flex flex-col gap-4 lg:flex-row'>
             <InfoIndex
@@ -29,7 +30,7 @@ export default function Home() {
               <QuickAction href='/citas/registrar' icon='calendarPlus' text='Registrar Cita' disabled/>
               <QuickAction href='/reportes/diario' icon='folder' text='Reporte diario'/>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </MainLayout>

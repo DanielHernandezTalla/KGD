@@ -65,8 +65,8 @@ export default function Toast({ title, message, icon, permanent = false }: Toast
       break;
     case 'info':
       currentIcon = 'info';
-      currentColor = 'text-blue-500';
-      currentBgColor = 'bg-blue-500';
+      currentColor = 'text-blue-600';
+      currentBgColor = 'bg-blue-600';
       break;
     case 'warning':
       currentIcon = 'exclamation';

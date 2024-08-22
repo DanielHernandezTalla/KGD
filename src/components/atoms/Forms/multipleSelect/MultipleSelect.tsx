@@ -63,7 +63,7 @@ const CustomInput = ({
             ) : type === "textarea" ? (
                 <textarea
                     type={type}
-                    className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-600  ${
+                    className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-800  ${
                         errors[field.name]
                             ? "focus:border-red-300"
                             : "focus:border-blue-300"
@@ -84,7 +84,7 @@ const CustomInput = ({
                 <input
                     type={type}
                     {...inputProps}
-                    className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-600  ${
+                    className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-800  ${
                         errors[field.name]
                             ? "focus:border-red-300"
                             : "focus:border-blue-300"

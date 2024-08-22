@@ -179,7 +179,7 @@ export default function GrupoDeClientesEditor({ grupo, readOnly = false, disable
 
       <div className='flex justify-between pl-4 pr-2 min-h-[44px]'>
         <div className='flex items-center gap-2'>
-          <div className={`px-2 py-0.5 rounded-2xl ${disabled ? "bg-gray-300 cursor-default" : "bg-blue-500 cursor-pointer"}`}>
+          <div className={`px-2 py-0.5 rounded-2xl ${disabled ? "bg-gray-300 cursor-default" : "bg-blue-600 cursor-pointer"}`}>
             <p className='text-white font-bold line-clamp-1 flex justify-center items-center'>
               {grupo.nombre}
             </p>

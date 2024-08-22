@@ -13,10 +13,10 @@ const Datos = () => {
       <div className='flex flex-col gap-5 md:gap-10'>
         <TitlePage title='Empresa' />
         <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-          <ButtonData icon='faMapLocationDot' text='Estados' href='/datos/tiposDeEstudio' />
-          <ButtonData icon='faCity' text='Ciudades' href='/datos/tiposDeEstudio' />
-          <ButtonData icon='hotel' text='Empresas' href='/datos/tiposDeEstudio' />
-          <ButtonData icon='faHouseFlag' text='Sucursales' href='/datos/tiposDeEstudio' />
+          <ButtonData icon='faMapLocationDot' text='Estados' href='/empresa/estados' />
+          <ButtonData icon='faCity' text='Ciudades' href='/empresa/ciudades' />
+          <ButtonData icon='hotel' text='Empresas' href='/empresa/empresas' />
+          <ButtonData icon='faHouseFlag' text='Sucursales' href='/empresa/sucursales' />
           {/* <ButtonData icon='grupos' text='Estudios' href='/datos/estudios' />
           <ButtonData
             icon='dollarSing'

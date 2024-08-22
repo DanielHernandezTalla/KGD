@@ -97,7 +97,7 @@ const CustomInput = ({
       ) : type === 'textarea' ? (
         <textarea
           type={type}
-          className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-600  ${
+          className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-800  ${
             errors[field.name] ? 'focus:border-red-300' : 'focus:border-blue-300'
           } focus:outline-none disabled:opacity-50`}
           {...inputProps}
@@ -116,7 +116,7 @@ const CustomInput = ({
             {Object.values(myValue)?.length ? (
               Object.values(myValue).map((input, index) => (
                 <div key={index} className='flex items-center border rounded-lg px-2 gap-1'>
-                  <span className=' text-sm  text-blue-600'>
+                  <span className=' text-sm  text-blue-800'>
                     {options?.[options?.findIndex((item) => item.value == input)].label}
                   </span>
                   <span
@@ -130,7 +130,7 @@ const CustomInput = ({
               ))
             ) : (
               <div className='flex items-center border rounded-lg px-2 gap-1'>
-                <span className=' text-sm  text-blue-600'>Sin especialidades asignadas</span>
+                <span className=' text-sm  text-blue-800'>Sin especialidades asignadas</span>
                 <span className='block h-6 w-0 text-center leading-[21px] cursor-pointer'></span>
               </div>
             )}
@@ -155,7 +155,7 @@ const CustomInput = ({
         <input
           type={type}
           {...inputProps}
-          className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-600  ${
+          className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm text-blue-800  ${
             errors[field.name] ? 'focus:border-red-300' : 'focus:border-blue-300'
           } focus:outline-none disabled:opacity-50`}
         />

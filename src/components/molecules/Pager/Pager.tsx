@@ -95,7 +95,7 @@ const Pager: React.FC<PagerProps> = ({
             onClick={onPrevious}
           >
             <span className={s.arrowContainer}>
-              <span className='cursor-pointer rounded-xl py-2 px-3 font-semibold text-blue-600 transition-colors hover:bg-blue-500 hover:text-white'>
+              <span className='cursor-pointer rounded-xl py-2 px-3 font-semibold text-blue-800 transition-colors hover:bg-blue-600 hover:text-white'>
                 Anterior
               </span>
             </span>
@@ -118,11 +118,11 @@ const Pager: React.FC<PagerProps> = ({
                   className={`
                 ${
                   currentPage === pageNumber
-                    ? 'bg-blue-500 text-white hover:brightness-110'
-                    : 'bg-blue-200 text-blue-500'
+                    ? 'bg-blue-600 text-white hover:brightness-110'
+                    : 'bg-blue-200 text-blue-600'
                 }
                 flex h-8 w-auto min-w-[2rem] px-1 cursor-pointer items-center justify-center rounded-lg text-center text-sm font-bold 
-                transition-colors hover:bg-blue-500 hover:text-white
+                transition-colors hover:bg-blue-600 hover:text-white
               `}
                 >
                   {pageNumber}
@@ -139,7 +139,7 @@ const Pager: React.FC<PagerProps> = ({
             onClick={onNext}
           >
             <span className={s.arrowContainer}>
-              <span className='cursor-pointer rounded-xl py-2 px-3 font-semibold text-blue-600 transition-colors hover:bg-blue-500 hover:text-white'>
+              <span className='cursor-pointer rounded-xl py-2 px-3 font-semibold text-blue-800 transition-colors hover:bg-blue-600 hover:text-white'>
                 Siguiente
               </span>
             </span>

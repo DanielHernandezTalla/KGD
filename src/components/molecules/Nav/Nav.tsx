@@ -9,7 +9,7 @@ const Nav = () => {
   return (
     <nav className='flex h-full w-full flex-col gap-2'>
       <NextLink href='/' text='Inicio' icon='home' />
-      <NextLink href='/pacientes' text='Pacientes' icon='paciente' />
+      {/*<NextLink href='/pacientes' text='Pacientes' icon='paciente' /> */}
       {/* <NextLink href="/medico" text="Médico" icon="doctor" /> */}
       {/* {(user?.tipo === TipoPersonal.medico || user?.tipo === TipoPersonal.administrador) && (
       )} */}
@@ -19,17 +19,17 @@ const Nav = () => {
       {/* <NextLink href='/honorarios' text='Honorarios' icon='aseguradora' /> */}
       {/* {(user?.tipo === TipoPersonal.terapeuta || user?.tipo === TipoPersonal.administrador) && (
         )} */}
-      <NextLink href='/datos' text='Datos' icon='datos' />
-      <NextLink href='/multiples' text='Multiples' icon='settings' />
+      <NextLink href='/empresa' text='Empresa' icon='hotel' />
+      {/* <NextLink href='/multiples' text='Multiples' icon='settings' /> */}
       {/* {(user?.tipo === TipoPersonal.administrador || user?.tipo === TipoPersonal.secretaria) && (
       )} */}
-      <NextLink href='/arancel' text='Arancel' icon='coins' />
-      <NextLink href='/reportes' text='Reportes' icon='reports' />
+      {/* <NextLink href='/arancel' text='Arancel' icon='coins' />
+      <NextLink href='/reportes' text='Reportes' icon='reports' /> */}
       {/* <NextLink href='/dashboard' text='Dashboard' icon='dashboard' /> */}
       {/* {(user?.tipo === TipoPersonal.administrador || user?.tipo === TipoPersonal.secretaria) && (
       )} */}
-      <NextLink href='/usuarios' text='Usuarios' icon='userGroup' />
-      <NextLink href='/perfil' text='Perfil' icon='grupos' />
+      {/* <NextLink href='/usuarios' text='Usuarios' icon='userGroup' />
+      <NextLink href='/perfil' text='Perfil' icon='grupos' /> */}
     </nav>
   );
 };

@@ -38,7 +38,7 @@ export default function QuickAction({ icon, text, href, disabled = false }: Quic
       >
           <Link href={href}>
               <div className='grid place-items-center rounded-xl rounded-t-lg bg-blue-100 p-8'>
-                <Icon className='text-7xl text-blue-600' icon={icon} />
+                <Icon className='text-7xl text-blue-800' icon={icon} />
               </div>
               <span className='flex justify-center py-4 text-lg font-semibold text-gray-600'>
                 {text}
@@ -61,7 +61,7 @@ export default function QuickAction({ icon, text, href, disabled = false }: Quic
         <Link href={href}>
           <a>
             <div className='grid place-items-center rounded-xl rounded-t-lg bg-blue-100 p-8'>
-              <Icon className='text-7xl text-blue-600' icon={icon} />
+              <Icon className='text-7xl text-blue-800' icon={icon} />
             </div>
             <span className='flex justify-center py-4 text-lg font-semibold text-gray-600'>
               {text}

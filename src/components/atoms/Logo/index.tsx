@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LogoCEFIS from "./../../../images/logo.png";
+import LogoCEFIS from "./../../../images/logotipo.png";
 
 interface LogoProps {
     heigth: number;

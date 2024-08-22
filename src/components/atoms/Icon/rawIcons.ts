@@ -52,6 +52,11 @@ import {
   faCopy,
   faPaste,
   faMagnifyingGlassDollar,
+  faHotel,
+  faHouseFlag,
+  faCity,
+  faShop,
+  faMapLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -107,5 +112,10 @@ export const ICONS = {
   tableCells: faTableCells,
   copy: faCopy,
   paste: faPaste,
-  magnifyingGlassDollar: faMagnifyingGlassDollar
+  magnifyingGlassDollar: faMagnifyingGlassDollar,
+  hotel: faHotel,
+  faHouseFlag,
+  faCity,
+  faShop,
+  faMapLocationDot
 };

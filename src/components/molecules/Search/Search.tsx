@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({
           onKeyPress={({ key }) => {
             if (key === 'Enter') {
               getValue({
-                nombre: value
+                FiltroName: value
               });
             }
           }}
@@ -51,7 +51,7 @@ const Search: React.FC<SearchProps> = ({
             variant='green'
             size='small'
             disabled={disabled}
-            onClick={() => getValue({ nombre: value })}
+            onClick={() => getValue({ FiltroName: value })}
           />
         )}
       </div>

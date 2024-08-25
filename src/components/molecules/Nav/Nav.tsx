@@ -20,6 +20,8 @@ const Nav = () => {
       {/* {(user?.tipo === TipoPersonal.terapeuta || user?.tipo === TipoPersonal.administrador) && (
         )} */}
       <NextLink href='/empresa' text='Empresa' icon='hotel' />
+      <NextLink href='/personal' text='Personal' icon='personal' />
+      {/* <NextLink href='/articulos' text='Articulos' icon='tableList' /> */}
       {/* <NextLink href='/multiples' text='Multiples' icon='settings' /> */}
       {/* {(user?.tipo === TipoPersonal.administrador || user?.tipo === TipoPersonal.secretaria) && (
       )} */}

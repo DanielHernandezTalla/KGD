@@ -57,6 +57,9 @@ import {
   faCity,
   faShop,
   faMapLocationDot,
+  faCircleDown,
+  faImage,
+  faScrewdriverWrench,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -117,5 +120,8 @@ export const ICONS = {
   faHouseFlag,
   faCity,
   faShop,
-  faMapLocationDot
+  faMapLocationDot,
+  faCircleDown,
+  faImage,
+  faScrewdriverWrench
 };

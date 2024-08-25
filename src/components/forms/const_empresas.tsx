@@ -115,21 +115,14 @@ export const FormEmpresas = ({
       submitButton={true}
       isBack
       onSubmit={(values) => {
-        values = {
-          ...values,
-          codigos_descuento_id: !values.codigos_descuento_id ? null : values.codigos_descuento_id
-        };
-
-        // data?.relacion?.ciudades.find(item=>)
-
-        console.log(values);
-
-        // handlePost({
-        //   url,
-        //   values,
-        //   method: isEditForm ? 'PUT' : 'POST',
-        //   toast
-        // });
+        console.log('sending');
+        
+        handlePost({
+          url,
+          values,
+          method: isEditForm ? 'PUT' : 'POST',
+          toast
+        });
       }}
       isEditForm={isEditForm}
     />

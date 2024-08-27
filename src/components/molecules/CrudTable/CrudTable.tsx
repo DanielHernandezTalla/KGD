@@ -22,7 +22,7 @@ const CrudTable: React.FC<CrudTableProps> = ({
   // const { user } = useContext(AuthContext);
 
   return (
-    <section className='max-w-6xl'>
+    <section className=''>
       <div className='mb-4 flex justify-between'>
         <Text variant='heading' text={title} weight='semibold' />
         {/* {(user?.tipo === TipoPersonal.administrador || user?.tipo === TipoPersonal.secretaria) && ( */}

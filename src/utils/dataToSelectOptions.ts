@@ -1,3 +1,15 @@
+export const getCategoriaArticulos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_CATEGORIA_ARTICULOS,
+    label: item.categoriA_ARTICULOS
+  }));
+
+export const getCategoriaActivos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_ACTIVOS,
+    label: item.activo
+  }));
+
 export const getCiudades = (data: any, filter: { iD_ESTADO: number; },) =>
   data?.filter((item: any) => item.iD_ESTADO === filter.iD_ESTADO)
     ?.map((item: any) => ({

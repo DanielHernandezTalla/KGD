@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 
-export default function Articulos({ searchParams }: { searchParams: { page: number } }) {
+export default function TipoTransacciones({ searchParams }: { searchParams: { page: number } }) {
   const [valueSearch, setValueSearch] = useState({});
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('articulos', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('tipotransaccion', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
@@ -18,51 +18,15 @@ export default function Articulos({ searchParams }: { searchParams: { page: numb
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_ITEM'
+      name: 'iD_TIPO_TRANSACCION'
     },
     {
-      name: 'item',
-      label: 'Codigo'
+      name: 'tipO_TRANSACCION',
+      label: 'Tipo transacción'
     },
     {
       name: 'descripcion',
-      label: 'Articulo'
-    },
-    {
-      name: 'nombrE_UNIDAD_PRIMARIA',
-      label: 'Unidad'
-    },
-    {
-      name: 'nombrE_CATEGORIA',
-      label: 'Categoria'
-    },
-    {
-      name: 'transF_INVENTARIOS',
-      label: 'Transferencia'
-    },
-    {
-      name: 'controL_MAX_MIX',
-      label: 'Min Max'
-    },
-    {
-      name: 'inV_MINIMO',
-      label: 'Inv MIN'
-    },
-    {
-      name: 'inV_MAXIMO',
-      label: 'Inv MAX'
-    },
-    {
-      name: 'activO_FIJO',
-      label: 'Activo fijo'
-    },
-    {
-      name: 'nombrE_CATEGORIA_ACTIVO',
-      label: 'Categoria activo'
-    },
-    {
-      name: 'codigO_SAT',
-      label: 'Cod SAT'
+      label: 'Descripción'
     },
     {
       name: 'estatus',
@@ -91,17 +55,12 @@ export default function Articulos({ searchParams }: { searchParams: { page: numb
           <DataViewer
             isLoading={isLoading}
             isError={isError}
-            title='Artículos'
-            idColumn='iD_ITEM'
-            createHref='articulos/articulos'
-            singleHref='articulos/articulos'
+            title='Tipo de transacciones'
+            idColumn='iD_TIPO_TRANSACCION'
+            createHref='articulos/tipoTransacciones'
+            singleHref='articulos/tipoTransacciones'
             cols={tableHeaders}
-            data={data?.listado?.map((articulo: any, index: any) => ({
-              ...articulo,
-              transF_INVENTARIOS: articulo.transF_INVENTARIOS ? 'Si' : 'No',
-              controL_MAX_MIX: articulo.controL_MAX_MIX ? 'Si' : 'No',
-              activO_FIJO: articulo.activO_FIJO ? 'Si' : 'No'
-            }))}
+            data={data?.listado}
           />
         </>
       </Pager>

@@ -26,7 +26,7 @@ const DataViewer: React.FC<DataListProps> = ({
   if (isError) return <div>Error</div>;
 
   return (
-    <div className='w-full'>
+    <div className='max-w-6xl'>
       {isLoading ? (
         <LoadingSpinner />
       ) : (

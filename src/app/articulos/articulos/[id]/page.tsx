@@ -18,10 +18,11 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
           iD_CATEGORIA: data?.dato?.iD_CATEGORIA,
           transF_INVENTARIOS: data?.dato?.transF_INVENTARIOS,
           controL_MAX_MIX: data?.dato?.controL_MAX_MIX,
-          inV_MINIMO: data?.dato?.inV_MINIMO,
-          inV_MAXIMO: data?.dato?.inV_MAXIMO,
+          inV_MINIMO: data?.dato?.inV_MINIMO === 0 ? '' : data?.dato?.inV_MINIMO,
+          inV_MAXIMO: data?.dato?.inV_MAXIMO === 0 ? '' : data?.dato?.inV_MAXIMO,
           activO_FIJO: data?.dato?.activO_FIJO,
-          iD_CATEGORIA_ACTIVO: data?.dato?.iD_CATEGORIA_ACTIVO,
+          iD_CATEGORIA_ACTIVO:
+            data?.dato?.iD_CATEGORIA_ACTIVO === 0 ? undefined : data?.dato?.iD_CATEGORIA_ACTIVO,
           codigO_SAT: data?.dato?.codigO_SAT,
           estatus: data?.dato?.estatus
         }}

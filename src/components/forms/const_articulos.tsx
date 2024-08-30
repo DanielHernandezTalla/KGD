@@ -10,7 +10,8 @@ import {
   getCategoriaArticulos,
   getCiudades,
   getData,
-  getEstados
+  getEstados,
+  getUnidadMedida
 } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
@@ -25,6 +26,10 @@ export const FormArticulos = ({
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('articulos/relacion');
+  const [{ activoFijo, controL_MAX_MIX }, setDataFilter] = useState({
+    activoFijo: initialValues?.activO_FIJO || false,
+    controL_MAX_MIX: initialValues?.controL_MAX_MIX || false
+  });
 
   const formInputs: FORMINPUT[] = [
     {
@@ -32,7 +37,6 @@ export const FormArticulos = ({
       label: 'Código',
       type: 'text',
       placeholder: 'Escribe el código...'
-      // fullWidth: true
     },
     {
       name: 'codigO_SAT',
@@ -59,53 +63,67 @@ export const FormArticulos = ({
       label: 'Mínimos y máximos',
       type: 'checkbox',
       placeholder: 'Mínimos y máximos...'
-      // fullWidth: true
     },
     {
       name: 'iD_UOM_PRIMARIA',
-      label: 'Unidad de medida',
-      type: 'number',
-      placeholder: 'Escribe la unidad de medida...'
-      // fullWidth: true
-    },
-    {
+      label: 'Categoría artículo',
+      type: 'select',
+      options: getUnidadMedida(data?.relacion?.unidadMedida)
+    }
+  ];
+
+  if (controL_MAX_MIX) {
+    formInputs.push({
       name: 'inV_MINIMO',
       label: 'Mínimos',
       type: 'number',
       placeholder: 'Ingresa el mínimo...'
-    },
-    {
+    });
+    formInputs.push({
       name: 'inV_MAXIMO',
       label: 'Máximo',
       type: 'number',
       placeholder: 'Ingresa el máximo...'
-    },
-    {
+    });
+  }
+
+  if (!activoFijo) {
+    formInputs.push({
+      name: 'activO_FIJO',
+      label: 'Activo fijo',
+      type: 'checkbox',
+      placeholder: 'Activo fijo...',
+      fullWidth: true
+    });
+  }
+
+  if (activoFijo) {
+    formInputs.push({
       name: 'activO_FIJO',
       label: 'Activo fijo',
       type: 'checkbox',
       placeholder: 'Activo fijo...'
-    },
-    {
+    });
+    formInputs.push({
       name: 'iD_CATEGORIA_ACTIVO',
       label: 'Categoría activo',
       type: 'select',
       options: getCategoriaActivos(data?.relacion?.articulosCategoriaAct)
-      // fullWidth: true
-    },
-    {
-      name: 'transF_INVENTARIOS',
-      label: 'Transferencia inventarios',
-      type: 'checkbox',
-      placeholder: 'Transferencia de inventarios...'
-      // fullWidth: true
-    },
-    {
-      name: 'estatus',
-      label: 'Activo',
-      type: 'checkbox'
-    }
-  ];
+    });
+  }
+
+  formInputs.push({
+    name: 'transF_INVENTARIOS',
+    label: 'Transferencia inventarios',
+    type: 'checkbox',
+    placeholder: 'Transferencia de inventarios...'
+  });
+
+  formInputs.push({
+    name: 'estatus',
+    label: 'Activo',
+    type: 'checkbox'
+  });
 
   const validationSchema = Yup.object().shape({
     item: Yup.string()
@@ -115,12 +133,50 @@ export const FormArticulos = ({
       .min(3, 'El descuento tiene que tener 3 caracteres')
       .required('Este campo es requerido'),
     iD_CATEGORIA: Yup.number().required('Este campo es requerido'),
-    iD_CATEGORIA_ACTIVO: Yup.number().required('Este campo es requerido')
+    iD_UOM_PRIMARIA: Yup.number().required('Este campo es requerido'),
+    iD_CATEGORIA_ACTIVO: Yup.number().when('activO_FIJO', ([activO_FIJO]) => {
+      if (activO_FIJO) {
+        return Yup.number().required('Este campo es requerido');
+      } else {
+        return Yup.number();
+      }
+    }),
+    inV_MINIMO: Yup.number().when('controL_MAX_MIX', ([controL_MAX_MIX]) => {
+      if (controL_MAX_MIX) {
+        return Yup.number().required('Este campo es requerido');
+      } else {
+        return Yup.number();
+      }
+    }),
+    inV_MAXIMO: Yup.number().when('controL_MAX_MIX', ([controL_MAX_MIX]) => {
+      if (controL_MAX_MIX) {
+        return Yup.number().required('Este campo es requerido');
+      } else {
+        return Yup.number();
+      }
+    })
   });
+
+  const onChange = (props: any) => {
+    if (props?.target.name == 'activO_FIJO') {
+      setDataFilter((rest) => ({
+        ...rest,
+        activoFijo: props?.target.value === 'false'
+      }));
+    }
+
+    if (props?.target.name == 'controL_MAX_MIX') {
+      setDataFilter((rest) => ({
+        ...rest,
+        controL_MAX_MIX: props?.target.value === 'false'
+      }));
+    }
+  };
 
   return (
     <Form
       initialValues={initialValues}
+      onChange={onChange}
       formInputs={formInputs}
       validationSchema={validationSchema}
       cancelButton={true}
@@ -129,7 +185,9 @@ export const FormArticulos = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          creadO_POR: 3
+          creadO_POR: 3,
+          inV_MINIMO: values.inV_MINIMO ? values.inV_MINIMO : 0,
+          inV_MAXIMO: values.inV_MAXIMO ? values.inV_MAXIMO : 0
         };
 
         handlePost({

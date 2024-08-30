@@ -60,6 +60,8 @@ import {
   faCircleDown,
   faImage,
   faScrewdriverWrench,
+  faPenRuler,
+  faRightLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -123,5 +125,7 @@ export const ICONS = {
   faMapLocationDot,
   faCircleDown,
   faImage,
-  faScrewdriverWrench
+  faScrewdriverWrench,
+  faPenRuler,
+  faRightLeft
 };

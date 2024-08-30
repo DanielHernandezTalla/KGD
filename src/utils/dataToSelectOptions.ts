@@ -1,3 +1,9 @@
+export const getUnidadMedida = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_UOM,
+    label: item.unidaD_MEDIDA
+  }));
+
 export const getCategoriaArticulos = (data: any) =>
   data?.map((item: any) => ({
     value: item.iD_CATEGORIA_ARTICULOS,

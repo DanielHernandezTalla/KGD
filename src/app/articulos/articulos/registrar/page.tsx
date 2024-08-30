@@ -9,14 +9,14 @@ export default function RegistrarArticulo() {
         initialValues={{
           item: '',
           descripcion: '',
-          iD_UOM_PRIMARIA: '3',
+          iD_UOM_PRIMARIA: '',
           iD_CATEGORIA: '',
           transF_INVENTARIOS: false,
           controL_MAX_MIX: false,
-          inV_MINIMO: 0,
-          inV_MAXIMO: 0,
+          inV_MINIMO: '',
+          inV_MAXIMO: '',
           activO_FIJO: false,
-          iD_CATEGORIA_ACTIVO: '',
+          iD_CATEGORIA_ACTIVO: undefined,
           codigO_SAT: '',
           estatus: true
         }}

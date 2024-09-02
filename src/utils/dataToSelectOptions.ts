@@ -16,8 +16,9 @@ export const getCategoriaActivos = (data: any) =>
     label: item.activo
   }));
 
-export const getCiudades = (data: any, filter: { iD_ESTADO: number; },) =>
-  data?.filter((item: any) => item.iD_ESTADO === filter.iD_ESTADO)
+export const getCiudades = (data: any, filter: { iD_ESTADO: number }) =>
+  data
+    ?.filter((item: any) => item.iD_ESTADO === filter.iD_ESTADO)
     ?.map((item: any) => ({
       value: item.iD_CIUDAD,
       label: item.nombrE_CIUDAD
@@ -43,12 +44,18 @@ export const getData = (data: any) =>
 
 export const getFilterEstudios = (
   data: any,
-  filter: { id: number; grupo_de_clientes_id: number; },
+  filter: { id: number; grupo_de_clientes_id: number },
   id?: number
-) => (data
-  ?.filter((item: any) => item.grupo_de_clientes_id === filter.grupo_de_clientes_id)
-  .map((item: any) => ({
+) =>
+  data
+    ?.filter((item: any) => item.grupo_de_clientes_id === filter.grupo_de_clientes_id)
+    .map((item: any) => ({
+      value: item.id,
+      label: item.nombre
+    }));
+
+export const getSexo = (data: any) =>
+  data?.map((item: any) => ({
     value: item.id,
-    label: item.nombre,
-  }))
-);
+    label: item.nombre
+  }));

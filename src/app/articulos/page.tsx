@@ -18,6 +18,7 @@ const Articulos = () => {
           <ButtonData icon='faPenRuler' text='Unidades de medida' href='/articulos/unidadesDeMedida' />
           <ButtonData icon='faRightLeft' text='Tipo transacciones' href='/articulos/tipoTransacciones' />
           <ButtonData icon='faScrewdriverWrench' text='Artículos' href='/articulos/articulos' />
+          <ButtonData icon='faShuffle' text='Conversiones' href='/articulos/conversiones' />
           {/* <ButtonData icon='faImage' text='Imagenes' href='/articulos/sucursales' /> */}
         </div>
       </div>

@@ -16,6 +16,12 @@ export const getCategoriaActivos = (data: any) =>
     label: item.activo
   }));
 
+export const getArticulos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_ITEM,
+    label: item.descripcion
+  }));
+
 export const getCiudades = (data: any, filter: { iD_ESTADO: number }) =>
   data
     ?.filter((item: any) => item.iD_ESTADO === filter.iD_ESTADO)

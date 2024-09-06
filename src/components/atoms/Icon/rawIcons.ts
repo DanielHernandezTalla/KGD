@@ -62,7 +62,8 @@ import {
   faScrewdriverWrench,
   faPenRuler,
   faRightLeft,
-  faShuffle
+  faShuffle,
+  faWarehouse
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -129,5 +130,6 @@ export const ICONS = {
   faScrewdriverWrench,
   faPenRuler,
   faRightLeft,
-  faShuffle
+  faShuffle,
+  faWarehouse
 };

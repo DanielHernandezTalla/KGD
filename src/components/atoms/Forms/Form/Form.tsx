@@ -24,6 +24,7 @@ interface FormProps {
   submitButtonText?: string;
   disabledValues?: boolean;
   isBack?: any;
+  isBackOnCancel?: boolean;
   closeModal?: (value: any) => void;
 }
 
@@ -38,11 +39,18 @@ const CustomForm = ({
   validationSchema,
   onSubmit,
   cancelButton,
-  cancelButtonOnClick = (router: any) => router.back(),
+  cancelButtonOnClick = (router: any) => {
+    if (isBackOnCancel) {
+      router.back();
+    } else {
+      if (closeModal) closeModal(false);
+    }
+  },
   submitButton,
   children,
   closeModal,
-  isBack
+  isBack,
+  isBackOnCancel = true
 }: FormProps) => {
   const router = useRouter();
   const [isEditable, setIsEditable] = useState(isEditForm);
@@ -58,7 +66,7 @@ const CustomForm = ({
         if (onSubmit) {
           if (isBack) values = { ...values, isBack: backPage };
           onSubmit(values);
-          if (closeModal) {
+          if (closeModal && !isBackOnCancel) {
             closeModal(false);
           }
         }
@@ -82,7 +90,9 @@ const CustomForm = ({
               <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
                 {formInputs &&
                   formInputs.map((input: FORMINPUT) =>
-                    input.type == 'select' || input.type == 'textarea' || input.type == 'selectmultiple' ? (
+                    input.type == 'select' ||
+                    input.type == 'textarea' ||
+                    input.type == 'selectmultiple' ? (
                       <Field
                         key={input.name}
                         name={input.name}

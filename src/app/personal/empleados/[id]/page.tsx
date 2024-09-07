@@ -3,6 +3,7 @@ import { Button, LoadingSpinner } from '@/components/atoms';
 import { InfoData } from '@/components/atoms/InfoData';
 import { Status } from '@/components/atoms/Status';
 import { FormArticulos } from '@/components/forms/const_articulos';
+import { FormContratoEmpleados } from '@/components/forms/const_contratoEmpleados';
 import { FormDireccionEmpleados } from '@/components/forms/const_direccionEmpleados';
 import { FormEmpleados } from '@/components/forms/const_empleados';
 import Layout from '@/components/layouts/MainLayout';
@@ -18,9 +19,13 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
   const [showModalDireccion, setShowModalDireccion] = useState(false);
   const [showModalContrato, setShowModalContrato] = useState(false);
 
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest(`empleados/${params.id}`);
+  const { data, isLoading }: IDataResponse<any> = useRequest(`empleados/${params.id}`, {
+    showModalPaciente,
+    showModalDireccion,
+    showModalContrato
+  });
 
-  console.log(data);
+  // console.log(showModalPaciente, showModalDireccion, showModalContrato);
 
   return (
     <Layout>
@@ -65,7 +70,15 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
               />
               <InfoData
                 title='Fecha Nacimiento'
-                info={data?.dato?.fechA_NACIMIENTO || 'No tiene'}
+                info={
+                  data?.dato?.fechA_NACIMIENTO
+                    ? new Date(data.dato.fechA_NACIMIENTO).toLocaleDateString('es-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                      })
+                    : 'No tiene'
+                }
               />
               <InfoData title='Sexo' info={data?.dato?.sexo == 'M' ? 'Mujer' : 'Hombre'} />
               <InfoData title='CRUP' info={data?.dato?.curp || 'No tiene'} />
@@ -93,20 +106,31 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
                 size='small'
                 rounded
                 variant='primary'
-                text='Modificar dirección'
+                text='Modificar Dirección'
                 icon='plus'
                 onClick={() => setShowModalDireccion(true)}
               />
             </div>
 
-            <div className='mt-4 mb-6 grid grid-cols-4 gap-1 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid'>
-              <InfoData title='Calle' info={data?.dato?.calle || 'No tiene'} />
-              <InfoData title='No Exterior' info={data?.dato?.nO_EXTERIOR || 'No tiene'} />
-              <InfoData title='Colonia' info={data?.dato?.colonia || 'No tiene'} />
-              <InfoData title='Codigo Postal' info={data?.dato?.codigO_POSTAL || 'No tiene'} />
-              <InfoData title='Ciudad' info={data?.dato?.nombrE_CIUDAD || 'No tiene'} />
-              <InfoData title='Entidad' info={data?.dato?.nombrE_ENTIDAD || 'No tiene'} />
-            </div>
+            {data?.dato?.calle ||
+            data?.dato?.nO_EXTERIOR ||
+            data?.dato?.colonia ||
+            data?.dato?.codigO_POSTAL ||
+            data?.dato?.nombrE_CIUDAD ||
+            data?.dato?.nombrE_ENTIDAD ? (
+              <div className='mt-4 mb-6 grid grid-cols-4 gap-1 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid'>
+                <InfoData title='Calle' info={data?.dato?.calle || 'No tiene'} />
+                <InfoData title='No Exterior' info={data?.dato?.nO_EXTERIOR || 'No tiene'} />
+                <InfoData title='Colonia' info={data?.dato?.colonia || 'No tiene'} />
+                <InfoData title='Codigo Postal' info={data?.dato?.codigO_POSTAL || 'No tiene'} />
+                <InfoData title='Ciudad' info={data?.dato?.nombrE_CIUDAD || 'No tiene'} />
+                <InfoData title='Entidad' info={data?.dato?.nombrE_ENTIDAD || 'No tiene'} />
+              </div>
+            ) : (
+              <div className='col-span-4 mt-4 mb-5 rounded-xl bg-slate-200 p-3 text-center'>
+                <div className='py-10 font-semibold text-slate-500'>No tiene dirección</div>
+              </div>
+            )}
           </div>
 
           {/* Datos/Contrato */}
@@ -117,44 +141,77 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
                 size='small'
                 rounded
                 variant='primary'
-                text='Modificar datos'
+                text='Modificar Contrato'
                 icon='plus'
                 onClick={() => setShowModalContrato(true)}
               />
             </div>
 
-            <div className='mt-4 mb-6 grid grid-cols-4 gap-1 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid'>
-              <InfoData title='Fecha de Ingreso' info={data?.dato?.fechA_INGRESO || 'No tiene'} />
-              <InfoData
-                title='Fecha de Antigüedad'
-                info={data?.dato?.fechA_ANTIGUEDAD || 'No tiene'}
-              />
-              <InfoData title='Tipo de Pago' info={data?.dato?.nombrE_TIPO_PAGO || 'No tiene'} />
-              <InfoData
-                title='Tipo de Salario'
-                info={data?.dato?.nombrE_TIPO_SALARIO || 'No tiene'}
-              />
-              <InfoData
-                title='Motivo de Baja'
-                info={data?.dato?.nombrE_MOTIVO_BAJA || 'No tiene'}
-              />
-              <InfoData
-                title='Fecha de Finiquito'
-                info={data?.dato?.fechA_FINIQUITO || 'No tiene'}
-              />
-              <InfoData title='Área' info={data?.dato?.nombrE_AREA || 'No tiene'} />
-              <InfoData title='Correo' info={data?.dato?.correo || 'No tiene'} />
-              <InfoData title='Celular' info={data?.dato?.celular || 'No tiene'} />
-              <InfoData
-                title='Celular de Emergencia'
-                info={data?.dato?.telefonO_EMERGENCIA || 'No tiene'}
-              />
-            </div>
+            {data?.dato?.fechA_INGRESO !== '1900-01-01T00:00:00' ? (
+              <div className='mt-4 mb-6 grid grid-cols-4 gap-1 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid'>
+                <InfoData
+                  title='Fecha de Ingreso'
+                  info={
+                    data?.dato?.fechA_INGRESO
+                      ? new Date(data.dato.fechA_INGRESO).toLocaleDateString('es-ES', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric'
+                        })
+                      : 'No tiene'
+                  }
+                />
+                <InfoData
+                  title='Fecha de Antigüedad'
+                  info={
+                    data?.dato?.fechA_ANTIGUEDAD !== '1900-01-01T00:00:00'
+                      ? new Date(data.dato.fechA_ANTIGUEDAD).toLocaleDateString('es-ES', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric'
+                        })
+                      : 'No tiene'
+                  }
+                />
+                <InfoData title='Tipo de Pago' info={data?.dato?.nombrE_TIPO_PAGO || 'No tiene'} />
+                <InfoData
+                  title='Tipo de Salario'
+                  info={data?.dato?.nombrE_TIPO_SALARIO || 'No tiene'}
+                />
+                <InfoData
+                  title='Motivo de Baja'
+                  info={data?.dato?.nombrE_MOTIVO_BAJA || 'No tiene'}
+                />
+                <InfoData
+                  title='Fecha de Finiquito'
+                  info={
+                    data?.dato?.fechA_FINIQUITO !== '1900-01-01T00:00:00'
+                      ? new Date(data.dato.fechA_FINIQUITO).toLocaleDateString('es-ES', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric'
+                        })
+                      : 'No tiene'
+                  }
+                />
+                <InfoData title='Área' info={data?.dato?.nombrE_AREA || 'No tiene'} />
+                <InfoData title='Correo' info={data?.dato?.correo || 'No tiene'} />
+                <InfoData title='Celular' info={data?.dato?.celular || 'No tiene'} />
+                <InfoData
+                  title='Teléfono de Emergencia'
+                  info={data?.dato?.telefonO_EMERGENCIA || 'No tiene'}
+                />
+              </div>
+            ) : (
+              <div className='col-span-4 mt-4 mb-5 rounded-xl bg-slate-200 p-3 text-center'>
+                <div className='py-10 font-semibold text-slate-500'>No tiene contrato</div>
+              </div>
+            )}
           </div>
 
           {showModalPaciente && (
             //  ===================================
-            //  Modal para agregar servicos
+            //  Modal para modificar paciente
             <Modal
               title='Modificar paciente'
               showModal={showModalPaciente}
@@ -163,10 +220,13 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
             >
               <FormEmpleados
                 initialValues={{
+                  iD_EMPLEADO: data?.dato?.iD_EMPLEADO,
                   nombre: data?.dato?.nombre,
                   apellidO_PATERNO: data?.dato?.apellidO_PATERNO,
                   apellidO_MATERNO: data?.dato?.apellidO_MATERNO,
-                  fechA_NACIMIENTO: data?.dato?.fechA_NACIMIENTO,
+                  fechA_NACIMIENTO: data?.dato?.fechA_NACIMIENTO
+                    ? new Date(data.dato.fechA_NACIMIENTO).toISOString().split('T')[0]
+                    : '',
                   sexo: data?.dato?.sexo,
                   curp: data?.dato?.curp,
                   rfc: data?.dato?.rfc,
@@ -177,6 +237,8 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
                   nacionalidad: data?.dato?.nacionalidad,
                   estatus: data?.dato?.estatus
                 }}
+                closeModal={setShowModalPaciente}
+                isEditForm
                 url='empleados'
               />
             </Modal>
@@ -193,14 +255,17 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
             >
               <FormDireccionEmpleados
                 initialValues={{
+                  iD_EMPLEADO: data?.dato?.iD_EMPLEADO,
                   calle: data?.dato?.calle,
                   colonia: data?.dato?.colonia,
                   nO_EXTERIOR: data?.dato?.nO_EXTERIOR,
                   codigO_POSTAL: data?.dato?.codigO_POSTAL,
-                  iD_ENTIDAD: data?.dato?.iD_ENTIDAD,
-                  iD_CIUDAD: data?.dato?.iD_CIUDAD
+                  iD_ENTIDAD: data?.dato?.iD_ENTIDAD ? data?.dato?.iD_ENTIDAD : '',
+                  iD_CIUDAD: data?.dato?.iD_CIUDAD ? data?.dato?.iD_CIUDAD : '',
+                  estatus: data?.dato?.estatus
                 }}
-                url='empleados'
+                closeModal={setShowModalDireccion}
+                url='empleados/direccion'
               />
             </Modal>
           )}
@@ -214,7 +279,32 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
               setShowModal={setShowModalContrato}
               closeCross
             >
-              <h1>Modificando Contrato</h1>
+              <FormContratoEmpleados
+                initialValues={{
+                  iD_EMPLEADO: data?.dato?.iD_EMPLEADO,
+                  fechA_INGRESO:
+                    data?.dato?.fechA_INGRESO !== '1900-01-01T00:00:00'
+                      ? new Date(data.dato.fechA_INGRESO).toISOString().split('T')[0]
+                      : '',
+                  fechA_ANTIGUEDAD:
+                    data?.dato?.fechA_ANTIGUEDAD !== '1900-01-01T00:00:00'
+                      ? new Date(data.dato.fechA_ANTIGUEDAD).toISOString().split('T')[0]
+                      : '',
+                  iD_AREA: data?.dato?.iD_AREA ? data?.dato?.iD_AREA : '',
+                  iD_TIPO_PAGO: data?.dato?.iD_TIPO_PAGO ? data?.dato?.iD_TIPO_PAGO : '',
+                  iD_TIPO_SALARIO: data?.dato?.iD_TIPO_SALARIO ? data?.dato?.iD_TIPO_SALARIO : '',
+                  iD_MOTIVO_BAJA: data?.dato?.iD_MOTIVO_BAJA,
+                  fechA_FINIQUITO:
+                    data?.dato?.fechA_FINIQUITO !== '1900-01-01T00:00:00'
+                      ? new Date(data.dato.fechA_FINIQUITO).toISOString().split('T')[0]
+                      : '',
+                  correo: data?.dato?.correo,
+                  celular: data?.dato?.celular,
+                  telefonO_EMERGENCIA: data?.dato?.telefonO_EMERGENCIA
+                }}
+                closeModal={setShowModalContrato}
+                url='empleados/contrato'
+              />
             </Modal>
           )}
         </>

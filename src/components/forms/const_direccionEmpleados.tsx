@@ -11,17 +11,19 @@ import { useToast } from '@/hooks/toast';
 export const FormDireccionEmpleados = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  closeModal
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  closeModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('empleados/relacion');
   const [{ estado }, setDataFilter] = useState({
     estado: {
-      iD_ESTADO: initialValues?.iD_ESTADO || null
+      iD_ESTADO: initialValues?.iD_ENTIDAD || null
     }
   });
 
@@ -75,8 +77,6 @@ export const FormDireccionEmpleados = ({
 
   const onChange = (props: any) => {
     if (props?.target.name == 'iD_ENTIDAD') {
-      console.log('change pa');
-
       setDataFilter((rest) => ({
         estado: {
           ...data?.relacion?.ciudades.find(
@@ -95,18 +95,21 @@ export const FormDireccionEmpleados = ({
       validationSchema={validationSchema}
       cancelButton={true}
       submitButton={true}
-      isBack
+      isBackOnCancel={false}
+      closeModal={closeModal}
       onSubmit={(values) => {
         values = {
           ...values,
+          nO_EXTERIOR: values.nO_EXTERIOR ? values.nO_EXTERIOR : null,
           creadO_POR: 3
         };
 
         handlePost({
           url,
           values,
-          method: isEditForm ? 'PUT' : 'POST',
-          toast
+          method: 'PUT',
+          toast,
+          closeModal
         });
       }}
       isEditForm={isEditForm}

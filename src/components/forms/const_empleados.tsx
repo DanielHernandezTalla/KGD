@@ -5,25 +5,19 @@ import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import {
-  getCategoriaActivos,
-  getCategoriaArticulos,
-  getCiudades,
-  getData,
-  getEstados,
-  getSexo,
-  getUnidadMedida
-} from '@/utils/dataToSelectOptions';
+import { getEstados, getSexo } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
 export const FormEmpleados = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  closeModal
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  closeModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('empleados/relacion');
@@ -135,23 +129,24 @@ export const FormEmpleados = ({
       validationSchema={validationSchema}
       cancelButton={true}
       submitButton={true}
-      isBack
+      isBack={!isEditForm}
+      isBackOnCancel={!isEditForm}
+      closeModal={closeModal}
       onSubmit={(values) => {
         values = {
           ...values,
           creadO_POR: 3,
-          // fechA_NACIMIENTO: values?.fechA_NACIMIENTO ? new Date(values.fechA_NACIMIENTO).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) : null
-          fechA_NACIMIENTO: '2000-01-01'
+          fechA_NACIMIENTO: values?.fechA_NACIMIENTO
+            ? new Date(values.fechA_NACIMIENTO).toISOString().split('T')[0]
+            : null
         };
-
-        console.log(values);
-        
 
         handlePost({
           url,
           values,
           method: isEditForm ? 'PUT' : 'POST',
-          toast
+          toast,
+          closeModal
         });
       }}
       isEditForm={isEditForm}

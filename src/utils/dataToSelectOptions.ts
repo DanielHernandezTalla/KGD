@@ -77,3 +77,27 @@ export const getCentroCosto = (data: any) =>
     value: item.iD_CENTRO_COSTO,
     label: item.segmentO3
   }));
+
+export const getAreas = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_AREA,
+    label: item.area
+  }));
+
+export const getTiposDePago = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_TIPO_PAGO,
+    label: item.tipO_PAGO
+  }));
+
+export const getTiposDeSalario = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_TIPO_SALARIO,
+    label: item.tipO_SALARIO
+  }));
+
+export const getMotivoBaja = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_MOTIVO_BAJA,
+    label: item.motivO_BAJA
+  }));

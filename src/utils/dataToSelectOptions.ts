@@ -65,3 +65,15 @@ export const getSexo = (data: any) =>
     value: item.id,
     label: item.nombre
   }));
+
+export const getEncargados = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_EMPLEADO,
+    label: item.nombre + ' ' + item.apellidO_PATERNO + ' ' + item.apellidO_MATERNO
+  }));
+
+export const getCentroCosto = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_CENTRO_COSTO,
+    label: item.segmentO3
+  }));

@@ -24,14 +24,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='en'>
       <body suppressHydrationWarning={true}>
         <Providers>
-          {children}
-          {/* {isSingInPage ? (
+          {isSingInPage ? (
             // Pagina sin auth
             children
           ) : (
             // Paginas con auth
             <Auth>{children}</Auth>
-          )} */}
+          )}
         </Providers>
       </body>
     </html>
@@ -50,9 +49,12 @@ function Auth({ children }: { children: React.ReactNode }) {
     if (status === 'loading') return;
 
     let email = session?.user?.email;
-    if (email === null || email === undefined) email = '';
+    let token = session?.user?.token;
 
-    loginUser(email).then((isLogged) => {
+    if (email === null || email === undefined) email = '';
+    if (token === null || token === undefined) token = '';
+
+    loginUser(email, token).then((isLogged) => {
       if (!isLogged) {
         // Redirigir a la pantalla signin
         if (window.location.toString().endsWith('auth')) router.push('/signin');

@@ -3,13 +3,13 @@ import { signOut } from 'next-auth/react';
 import { IPersonal } from '@/interface/personal';
 
 interface ContextProps {
-    isLoggedIn: boolean;
-    user?: IPersonal;
-    errorMessage: string;
-  
-    loginUser: (email: string) => Promise<Boolean>;
-    logout: () => void;
-  }
+  isLoggedIn: boolean;
+  user?: IPersonal;
+  errorMessage: string;
+
+  loginUser: (email: string, token: string) => Promise<Boolean>;
+  logout: () => void;
+}
 
 // Auth Context
 export const AuthContext = createContext({} as ContextProps);
@@ -17,13 +17,13 @@ export const AuthContext = createContext({} as ContextProps);
 export interface AuthState {
   isLoggedIn: boolean;
   user?: IPersonal;
-  errorMessage: string,
+  errorMessage: string;
 }
 
 const Auth_INITIAL_STATE: AuthState = {
   isLoggedIn: false,
   user: undefined,
-  errorMessage: "",
+  errorMessage: ''
 };
 
 interface Props {
@@ -32,56 +32,62 @@ interface Props {
 
 // Auth Provider
 export const AuthProvider: FC<Props> = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE);
-  
-    const loginUser = async (email: string): Promise<Boolean> => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          body: JSON.stringify({ email: email.toLocaleLowerCase() })
-        });
-        
-        const data = await res.json();
-        if (data.status === '200') {
-          dispatch({ type: '[Auth] - Login', payload: data.user });
-          return true;
-        }
-        if (data.status === '400' || data.status === '404') {
-          dispatch({ type: '[Auth] - Login Error', errorMessage: "Usuario no registrado." });
-          return false;
-        }
-        
-        return false;
-      } catch (error) {
-        dispatch({ type: '[Auth] - Login Error', errorMessage: "Hubo un error con el servidor." });
-        return false;
-      }
-    };
-  
-    const logout = () => {
-      dispatch({ type: '[Auth] - Logout' });
-      signOut({
-        callbackUrl: '/auth/signin'
+  const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE);
+
+  const loginUser = async (email: string, token: string): Promise<Boolean> => {
+    try {
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/autenticacion/validar`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/autenticacion/token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ email: email.toLocaleLowerCase() })
       });
-    };
-  
-    return (
-      <AuthContext.Provider
-        value={{
-          ...state,
-          loginUser,
-          logout
-        }}
-      >
-        {children}
-      </AuthContext.Provider>
-    );
+
+      const data = await res.json();
+
+      // console.log(data);
+
+      dispatch({
+        type: '[Auth] - Login',
+        payload: {
+          id: data.lista.id,
+          name: data.lista.name
+        }
+      });
+      return true;
+    } catch (error) {
+      dispatch({ type: '[Auth] - Login Error', errorMessage: 'Hubo un error con el servidor.' });
+      return false;
+    }
   };
 
-type AuthActionType = { type: '[Auth] - Login'; payload: IPersonal } | { type: '[Auth] - Logout' } | { type: '[Auth] - Login Error'; errorMessage: string };
+  const logout = () => {
+    dispatch({ type: '[Auth] - Logout' });
+    signOut({
+      callbackUrl: '/auth/signin'
+    });
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        ...state,
+        loginUser,
+        logout
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+type AuthActionType =
+  | { type: '[Auth] - Login'; payload: IPersonal }
+  | { type: '[Auth] - Logout' }
+  | { type: '[Auth] - Login Error'; errorMessage: string };
 
 // Auth Reducer
 export const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
@@ -91,21 +97,21 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
         ...state,
         isLoggedIn: true,
         user: action.payload,
-        errorMessage: "",
+        errorMessage: ''
       };
     case '[Auth] - Logout':
       return {
         ...state,
         isLoggedIn: false,
         user: undefined,
-        errorMessage: "",
+        errorMessage: ''
       };
     case '[Auth] - Login Error':
       return {
         ...state,
         isLoggedIn: false,
         user: undefined,
-        errorMessage: action.errorMessage,
+        errorMessage: action.errorMessage
       };
     default:
       return state;

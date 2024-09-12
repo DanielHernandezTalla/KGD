@@ -101,3 +101,9 @@ export const getMotivoBaja = (data: any) =>
     value: item.iD_MOTIVO_BAJA,
     label: item.motivO_BAJA
   }));
+
+export const getTipoPermisos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.id,
+    label: item.name
+  }));

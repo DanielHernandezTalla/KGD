@@ -8,6 +8,10 @@ export default function RegistrarRol() {
       <FormTiposPermisos
         initialValues={{
           name: '',
+          title: '',
+          routE_NAME: '',
+          icon: '',
+          iS_LINK: false,
           estatus: true
         }}
         url='tipopermisos'

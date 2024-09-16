@@ -13,6 +13,10 @@ export default function TipoPermisoSingle({ params }: { params: { id: number } }
         initialValues={{
           id: data?.dato?.id,
           name: data?.dato?.name,
+          title: data?.dato?.title,
+          routE_NAME: data?.dato?.routE_NAME,
+          icon: data?.dato?.icon,
+          iS_LINK: data?.dato?.iS_LINK,
           estatus: data?.dato?.estatus
         }}
         url='tipopermisos'

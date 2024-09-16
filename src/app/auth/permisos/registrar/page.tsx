@@ -9,6 +9,10 @@ export default function RegistrarPermiso() {
         initialValues={{
           name: '',
           typE_PERMISSIONS_ID: '',
+          title: '',
+          routE_NAME: '',
+          icon: '',
+          iS_LINK: false,
           estatus: true
         }}
         url='permisos'

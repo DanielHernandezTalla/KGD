@@ -7,8 +7,6 @@ import { IDataResponse } from '@/interface/request';
 export default function PermisoSingle({ params }: { params: { id: number } }) {
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`permisos/${params.id}`);
 
-  console.log(data);
-
   return (
     <FormLayout title='Modificar permiso' isLoading={isLoading} isError={isError}>
       <FormPermisos
@@ -16,6 +14,10 @@ export default function PermisoSingle({ params }: { params: { id: number } }) {
           id: data?.dato?.id,
           name: data?.dato?.name,
           typE_PERMISSIONS_ID: data?.dato?.typE_PERMISSIONS_ID,
+          title: data?.dato?.title,
+          routE_NAME: data?.dato?.routE_NAME,
+          icon: data?.dato?.icon,
+          iS_LINK: data?.dato?.iS_LINK,
           estatus: data?.dato?.estatus
         }}
         url='permisos'

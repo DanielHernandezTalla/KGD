@@ -18,7 +18,6 @@ export const FormPermisos = ({
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('permisos/relacion');
-  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {
@@ -34,6 +33,32 @@ export const FormPermisos = ({
       type: 'select',
       options: getTipoPermisos(data?.relacion?.tipoPermisos),
       fullWidth: true
+    },
+    {
+      name: 'title',
+      label: 'Nombre boton',
+      type: 'text',
+      placeholder: 'Escribe el nombre del botón...',
+      fullWidth: true
+    },
+    {
+      name: 'routE_NAME',
+      label: 'Nombre ruta',
+      type: 'text',
+      placeholder: 'Escribe el nombre de la ruta...',
+      fullWidth: true
+    },
+    {
+      name: 'icon',
+      label: 'Icono fontawesome',
+      type: 'text',
+      placeholder: 'Escribe icono de fontawesome...',
+      fullWidth: true
+    },
+    {
+      name: 'iS_LINK',
+      label: 'Es link',
+      type: 'checkbox'
     },
     {
       name: 'estatus',

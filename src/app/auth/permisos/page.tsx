@@ -29,6 +29,22 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
       label: 'Tipo de permiso'
     },
     {
+      name: 'title',
+      label: 'Nombre botón'
+    },
+    {
+      name: 'routE_NAME',
+      label: 'Ruta'
+    },
+    {
+      name: 'icon',
+      label: 'Icono'
+    },
+    {
+      name: 'iS_LINK',
+      label: 'Es link'
+    },
+    {
       name: 'estatus',
       label: 'Activo',
       component: (activo: boolean) => (

@@ -47,9 +47,7 @@ const User = ({ user }: any) => {
                     <div className="absolute bottom-12 left-1/2 -translate-x-2/4 rounded-xl border-2 border-slate-100 bg-white p-1">
                         <Button
                             onClick={async () => {
-                                await signOut({
-                                    callbackUrl: "/auth/signin",
-                                });
+                                await signOut();
                             }}
                             variant="secondary"
                             size="small"

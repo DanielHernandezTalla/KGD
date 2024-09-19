@@ -7,14 +7,18 @@ import { Pager, Search } from '@/components/molecules';
 import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
+import { useSession } from 'next-auth/react';
 
 export default function Estados({ searchParams }: { searchParams: { page: number } }) {
   const [valueSearch, setValueSearch] = useState({});
+  const { data: session, status } = useSession();
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('estados', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  // console.log(session);
 
   const tableHeaders: TABLECOLUMN[] = [
     {

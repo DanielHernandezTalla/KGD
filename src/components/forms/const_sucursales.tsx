@@ -18,7 +18,7 @@ export const FormSucursales = ({
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('sucursal/relacion');
-  console.log(data);
+  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {

@@ -38,20 +38,20 @@ export default function Empleados({ searchParams }: { searchParams: { page: numb
     },
     {
       name: 'sexo',
-      label: 'Fecha nacimiento'
+      label: 'Sexo'
     },
     {
       name: 'rfc',
       label: 'RFC'
     },
-    {
-      name: 'celular',
-      label: 'Celular'
-    },
-    {
-      name: 'correo',
-      label: 'Correo'
-    },
+    // {
+    //   name: 'celular',
+    //   label: 'Celular'
+    // },
+    // {
+    //   name: 'correo',
+    //   label: 'Correo'
+    // },
     {
       name: 'estatus',
       label: 'Activo',
@@ -84,7 +84,20 @@ export default function Empleados({ searchParams }: { searchParams: { page: numb
             createHref='personal/empleados'
             singleHref='personal/empleados'
             cols={tableHeaders}
-            data={data?.listado}
+            data={data?.listado?.map((item: any) => {
+              return {
+                ...item,
+                fechA_NACIMIENTO:
+                  item?.fechA_NACIMIENTO == '1996-01-01T00:00:00'
+                    ? '-'
+                    : new Date(item.fechA_NACIMIENTO).toLocaleDateString('es-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                      }),
+                sexo: item?.sexo == 'M' ? 'Mujer' : item?.sexo == 'H' ? 'Hombre' : '-'
+              };
+            })}
           />
         </>
       </Pager>

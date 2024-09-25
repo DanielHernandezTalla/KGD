@@ -17,26 +17,6 @@ const Datos = () => {
           <ButtonData icon='faCity' text='Ciudades' href='/datos/tiposDeEstudio' />
           <ButtonData icon='hotel' text='Empresas' href='/datos/tiposDeEstudio' />
           <ButtonData icon='faHouseFlag' text='Sucursales' href='/datos/tiposDeEstudio' />
-          {/* <ButtonData icon='grupos' text='Estudios' href='/datos/estudios' />
-          <ButtonData
-            icon='dollarSing'
-            text='Implementación Est'
-            href='/datos/implementacionesDeEstudio'
-          />
-          <ButtonData icon='descuentos' text='Descuentos' href='/datos/descuentos' />
-          <ButtonData icon='personal' text='Tipo Cliente' href='datos/tiposDeClientes' />
-          <ButtonData icon='search' text='Clientes' href='/datos/clientes' />
-          <ButtonData icon='aseguradora' text='Sucursales' href='/datos/sucursales' />
-          <ButtonData icon='aseguradora' text='Empleados' href='/datos/empleados' /> */}
-          {/* <ButtonData icon='hospital' text='Afiliaciones Emp' href='/datos/afiliacionesEmpleados' /> */}
-          {/* <ButtonData icon='doctor' text='Medicos' href='/datos/medicos' /> */}
-          {/* <ButtonData icon='personal' text='Médico Especialidad' href='datos/medicoEspecialidad' /> */}
-          {/* <ButtonData icon='servicios' text='Especialidades' href='/datos/especialidades' />
-          <ButtonData icon='paciente' text='Estatus Médico' href='/datos/estatusMedico' />
-          <ButtonData icon='hospital' text='Ubicaciones Med' href='/datos/ubicacionesMedicos' />
-          <ButtonData icon='grupos' text='Referencias Paciente' href='/datos/referenciasPaciente' />
-          <ButtonData icon='billete' text='Modo de Pagos' href='/datos/modosDePagos' />
-          <ButtonData icon='hospital' text='Ubicaciones' href='/datos/ubicaciones' /> */}
         </div>
       </div>
     </Layout>

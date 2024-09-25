@@ -14,6 +14,7 @@ const Auth = () => {
         <TitlePage title='Autenticación' />
         <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
           <ButtonData icon='userGroup' text='Usuarios' href='/auth/usuarios' />
+          <ButtonData icon='faUserShield' text='Roles y permisos' href='/auth/rolesYPermisos' />
           <ButtonData icon='settings' text='Roles' href='/auth/roles' />
           <ButtonData icon='faFileShield' text='Permisos' href='/auth/permisos' />
           <ButtonData icon='tableList' text='Tipo permisos' href='/auth/tipoPermisos' />

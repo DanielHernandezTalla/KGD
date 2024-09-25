@@ -107,3 +107,15 @@ export const getTipoPermisos = (data: any) =>
     value: item.id,
     label: item.name
   }));
+
+export const getRoles = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.id,
+    label: item.name
+  }));
+
+export const getPermisos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.id,
+    label: item.name
+  }));

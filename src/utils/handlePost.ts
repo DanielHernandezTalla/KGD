@@ -11,7 +11,8 @@ type HandlePost = {
   messageError?: string;
   callback?: () => void;
   closeModal?: (param: boolean) => void;
-  toast: (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) => void;
+  onSuccess?: (data: any) => void;
+  toast?: (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) => void;
 };
 export const handlePost = async ({
   method = 'POST',
@@ -21,6 +22,7 @@ export const handlePost = async ({
   messageError = 'Error al realizar la operación',
   callback,
   closeModal,
+  onSuccess,
   toast
 }: HandlePost) => {
   const dataToPost = Object.fromEntries(
@@ -48,6 +50,7 @@ export const handlePost = async ({
     if (values.isBack) values.isBack();
     if (callback) callback();
     if (closeModal) closeModal(false);
+    if (onSuccess) onSuccess(data?.data);
   }
 
   if (!data.ok) {

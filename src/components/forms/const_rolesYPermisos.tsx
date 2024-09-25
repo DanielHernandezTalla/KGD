@@ -3,11 +3,11 @@ import { FORMINPUT } from '@/interface/types';
 import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useToast } from '@/hooks/toast';
+import { getPermisos, getRoles } from '@/utils/dataToSelectOptions';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { getRoles } from '@/utils/dataToSelectOptions';
 
-export const FormUsuarios = ({
+export const FormRolesYPermisos = ({
   initialValues,
   url,
   isEditForm
@@ -17,51 +17,28 @@ export const FormUsuarios = ({
   isEditForm?: boolean;
 }) => {
   const { toast } = useToast();
-  const { data }: IDataResponse<any> = useRequest('usuarios/relacion');
+  const { data }: IDataResponse<any> = useRequest('rolespermiso/relacion');
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'name',
-      label: 'Nombre de usuario',
-      type: 'text',
-      placeholder: 'Escribe el nombre de usuario...',
-      fullWidth: true
-    },
-    {
-      name: 'email',
-      label: 'Correo',
-      type: 'email',
-      placeholder: 'Escribe el correo del usuario...',
-      fullWidth: true
-    },
-    {
-      name: 'id_rol',
-      label: 'Rol',
+      name: 'iD_ROLES',
+      label: 'Role',
       type: 'select',
       options: getRoles(data?.relacion?.roles),
       fullWidth: true
     },
     {
-      name: 'password',
-      label: 'Contraseña',
-      type: 'password',
-      placeholder: '**************',
+      name: 'iD_PERMISO',
+      label: 'Permiso',
+      type: 'select',
+      options: getPermisos(data?.relacion?.permisos),
       fullWidth: true
-    },
-    {
-      name: 'estatus',
-      label: 'Activo',
-      type: 'checkbox'
     }
   ];
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(3, 'El nombre de usuario debe tener minimo 3 caracteres')
-      .required('Este campo es requerido'),
-    id_rol: Yup.number().required('Este campo es requerido'),
-    email: Yup.string().required('Este campo es requerido'),
-    password: Yup.string().required('Este campo es requerido')
+    iD_ROLES: Yup.number().required('Este campo es requerido'),
+    iD_PERMISO: Yup.number().required('Este campo es requerido')
   });
 
   return (
@@ -81,7 +58,7 @@ export const FormUsuarios = ({
         handlePost({
           url,
           values,
-          method: isEditForm ? 'PUT' : 'POST',
+          method: isEditForm ? 'DELETE' : 'POST',
           toast
         });
       }}

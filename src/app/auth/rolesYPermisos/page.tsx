@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 
-export default function Usuarios({ searchParams }: { searchParams: { page: number } }) {
+export default function RolesYPermisos({ searchParams }: { searchParams: { page: number } }) {
   const [valueSearch, setValueSearch] = useState({});
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('usuarios', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('rolespermiso', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
@@ -21,33 +21,12 @@ export default function Usuarios({ searchParams }: { searchParams: { page: numbe
       name: 'id'
     },
     {
-      name: 'name',
-      label: 'Nombre de usuario'
-    },
-    {
-      name: 'name_rol',
+      name: 'nombrE_ROL',
       label: 'Rol'
     },
     {
-      name: 'email',
-      label: 'Correo'
-    },
-    {
-      name: 'fecha_baja',
-      label: 'Fecha de baja'
-    },
-    {
-      name: 'estatus',
-      label: 'Activo',
-      component: (activo: boolean) => (
-        <div className='w-28'>
-          <StatusBullet
-            size='medium'
-            status={activo ? 'success' : 'disabled'}
-            text={activo ? 'Si' : 'No'}
-          />
-        </div>
-      )
+      name: 'nombrE_PERMISO',
+      label: 'Permiso'
     }
   ];
 
@@ -63,20 +42,12 @@ export default function Usuarios({ searchParams }: { searchParams: { page: numbe
           <DataViewer
             isLoading={isLoading}
             isError={isError}
-            title='Usuarios'
+            title='Roles y permisos'
             idColumn='id'
-            createHref='auth/usuarios'
-            singleHref='auth/usuarios'
+            createHref='auth/rolesYPermisos'
+            singleHref='auth/rolesYPermisos'
             cols={tableHeaders}
-            data={data?.listado?.map((item: any) => {
-              return {
-                ...item,
-                fecha_baja:
-                  item?.fecha_baja == '0001-01-01T00:00:00'
-                    ? 'No aplica'
-                    : new Date(item.fecha_baja).toISOString().split('T')[0]
-              };
-            })}
+            data={data?.listado}
           />
         </>
       </Pager>

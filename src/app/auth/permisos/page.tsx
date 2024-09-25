@@ -28,22 +28,22 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
       name: 'namE_TYPE_PERMISSIONS',
       label: 'Tipo de permiso'
     },
-    {
-      name: 'title',
-      label: 'Nombre botón'
-    },
+    // {
+    //   name: 'title',
+    //   label: 'Nombre botón'
+    // },
     {
       name: 'routE_NAME',
       label: 'Ruta'
     },
-    {
-      name: 'icon',
-      label: 'Icono'
-    },
-    {
-      name: 'iS_LINK',
-      label: 'Es link'
-    },
+    // {
+    //   name: 'icon',
+    //   label: 'Icono'
+    // },
+    // {
+    //   name: 'iS_LINK',
+    //   label: 'Es link'
+    // },
     {
       name: 'estatus',
       label: 'Activo',

@@ -9,6 +9,7 @@ export default function RegistrarUsuario() {
         initialValues={{
           name: '',
           email: '',
+          id_rol: '',
           password: '',
           estatus: true
         }}

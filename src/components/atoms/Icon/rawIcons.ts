@@ -65,7 +65,8 @@ import {
   faShuffle,
   faWarehouse,
   faUserShield,
-  faFileShield
+  faFileShield,
+  faBan
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -135,5 +136,6 @@ export const ICONS = {
   faShuffle,
   faWarehouse,
   faUserShield,
-  faFileShield
+  faFileShield,
+  ban: faBan
 };

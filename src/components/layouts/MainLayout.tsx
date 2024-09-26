@@ -25,14 +25,17 @@ const MainLayout: React.FC<LayoutProps> = ({ children, onClick, full }) => {
     routename: ruta
   });
 
+  // console.log(authContext.user?.id);
+  // console.log(ruta);
+  // console.log(reponse);
+
   useEffect(() => {
     if (ruta === rutaInicio || ruta === '/auth') {
       setPermiso(true);
     } else {
-      if (reponse?.dato?.estatus !== undefined) {
-        console.log('=======================');
-        console.log(reponse);
+      // console.log('else');
 
+      if (reponse?.dato?.estatus !== undefined) {
         setPermiso(reponse?.dato?.estatus);
       }
       // setPermiso(true);

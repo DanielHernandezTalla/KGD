@@ -13,6 +13,7 @@ type HandlePost = {
   closeModal?: (param: boolean) => void;
   onSuccess?: (data: any) => void;
   toast?: (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) => void;
+  isCifrado?: boolean;
 };
 export const handlePost = async ({
   method = 'POST',
@@ -23,7 +24,8 @@ export const handlePost = async ({
   callback,
   closeModal,
   onSuccess,
-  toast
+  toast,
+  isCifrado = true
 }: HandlePost) => {
   const dataToPost = Object.fromEntries(
     Object.entries(values).filter(([v]) => v !== '' && v !== null)
@@ -33,7 +35,7 @@ export const handlePost = async ({
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(dataToPost)
+    body: JSON.stringify(isCifrado ? dataToPost : values)
   });
 
   const data = await res.json();
@@ -50,7 +52,7 @@ export const handlePost = async ({
     if (values.isBack) values.isBack();
     if (callback) callback();
     if (closeModal) closeModal(false);
-    if (onSuccess) onSuccess(data?.data);
+    if (onSuccess) onSuccess(data?.listado);
   }
 
   if (!data.ok) {

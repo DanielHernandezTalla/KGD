@@ -21,26 +21,25 @@ const Datos = () => {
   }, []);
 
   // Consultar permisos
-  useEffect(() => {
-    if (authContext.user?.id) {
-      const request = {
-        url: 'permisosDePantalla/checkPermisos',
-        values: { usuario_id: authContext.user.id, rutas: rutasToCheck },
-        onSuccess: (data: any) => {
-          if (data?.checked) setChecked(data.checked);
-        }
-      };
+  // useEffect(() => {
+  //   if (authContext.user?.id) {
+  //     const request = {
+  //       url: 'permisosDePantalla/checkPermisos',
+  //       values: { usuario_id: authContext.user.id, rutas: rutasToCheck },
+  //       onSuccess: (data: any) => {
+  //         if (data?.checked) setChecked(data.checked);
+  //       }
+  //     };
 
-      handlePost(request);
-    }
-  }, [authContext]);
+  //     handlePost(request);
+  //   }
+  // }, [authContext]);
 
   return (
     <Layout>
       <div className='flex flex-col gap-5 md:gap-10'>
         <TitlePage title='Empresa' />
         <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-
           {checked['/empresa/estados']?.permiso && (
             <ButtonData icon='faMapLocationDot' text='Estados' href='/empresa/estados' />
           )}
@@ -57,6 +56,10 @@ const Datos = () => {
             <ButtonData icon='faHouseFlag' text='Sucursales' href='/empresa/sucursales' />
           )}
 
+          <ButtonData icon='faMapLocationDot' text='Estados' href='/empresa/estados' />
+          <ButtonData icon='faCity' text='Ciudades' href='/empresa/ciudades' />
+          <ButtonData icon='hotel' text='Empresas' href='/empresa/empresas' />
+          <ButtonData icon='faHouseFlag' text='Sucursales' href='/empresa/sucursales' />
         </div>
       </div>
     </Layout>

@@ -29,27 +29,27 @@ const Personal = () => {
   }, []);
 
   // Consultar permisos
-  useEffect(() => {
-    if (authContext.user?.id) {
-      const request = {
-        url: 'usuariopermisourl/lista',
-        values: rutasToCheck.map((item) => {
-          return { iD_USER: authContext?.user?.id, roulE_NAME: item };
-        }),
-        onSuccess: (data: any) => {
-          let checkeds: any[] = [];
-          data.forEach((element: any) => {
-            checkeds[element.roulE_NAME] = element.estatus;
-          });
+  // useEffect(() => {
+  //   if (authContext.user?.id) {
+  //     const request = {
+  //       url: 'usuariopermisourl/lista',
+  //       values: rutasToCheck.map((item) => {
+  //         return { iD_USER: authContext?.user?.id, roulE_NAME: item };
+  //       }),
+  //       onSuccess: (data: any) => {
+  //         let checkeds: any[] = [];
+  //         data.forEach((element: any) => {
+  //           checkeds[element.roulE_NAME] = element.estatus;
+  //         });
 
-          if (data) setChecked(checkeds);
-        },
-        isCifrado: false
-      };
+  //         if (data) setChecked(checkeds);
+  //       },
+  //       isCifrado: false
+  //     };
 
-      handlePost(request);
-    }
-  }, [authContext]);
+  //     handlePost(request);
+  //   }
+  // }, [authContext]);
 
   return (
     <Layout>
@@ -75,12 +75,12 @@ const Personal = () => {
             <ButtonData icon='faCity' text='Areas' href='/personal/areas' />
           )}
 
-          {/* <ButtonData icon='personal' text='Empleados' href='/personal/empleados' />
+          <ButtonData icon='personal' text='Empleados' href='/personal/empleados' />
           <ButtonData icon='userGroup' text='Tipo personal' href='/personal/tipoPersonal' />
           <ButtonData icon='dollarSing' text='Tipo pago' href='/personal/tipoPago' />
           <ButtonData icon='faCircleDown' text='Motivo baja' href='/personal/motivoBaja' />
           <ButtonData icon='coins' text='Tipo salario' href='/personal/tipoSalario' />
-          <ButtonData icon='faCity' text='Areas' href='/personal/areas' /> */}
+          <ButtonData icon='faCity' text='Areas' href='/personal/areas' />
 
           {/* <ButtonData icon='faImage' text='Fotos empleado' href='/personal/sucursales' /> */}
           {/* <ButtonData icon='billete' text='Nomina' href='/personal/sucursales' /> */}

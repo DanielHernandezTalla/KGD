@@ -35,10 +35,10 @@ const MainLayout: React.FC<LayoutProps> = ({ children, onClick, full }) => {
     } else {
       // console.log('else');
 
-      if (reponse?.dato?.estatus !== undefined) {
-        setPermiso(reponse?.dato?.estatus);
-      }
-      // setPermiso(true);
+      // if (reponse?.dato?.estatus !== undefined) {
+      //   setPermiso(reponse?.dato?.estatus);
+      // }
+      setPermiso(true);
     }
   }, [reponse]);
 

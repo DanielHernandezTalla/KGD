@@ -19,6 +19,9 @@ export const FormUsuarios = ({
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('usuarios/relacion');
 
+console.log(data);
+
+
   const formInputs: FORMINPUT[] = [
     {
       name: 'name',

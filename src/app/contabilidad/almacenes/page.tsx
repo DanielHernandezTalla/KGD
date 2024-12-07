@@ -7,14 +7,18 @@ import { Pager, Search } from '@/components/molecules';
 import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
+import { useSession } from 'next-auth/react';
 
 export default function Almacenes({ searchParams }: { searchParams: { page: number } }) {
+  const { data: user } = useSession();
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('almacen', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  // console.log(user?.user?.id);
 
   const tableHeaders: TABLECOLUMN[] = [
     {

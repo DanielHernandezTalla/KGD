@@ -3,9 +3,13 @@ import { FormAlmacenes } from '@/components/forms/const_almacen';
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { useSession } from 'next-auth/react';
 
 export default function AlmacenSingle({ params }: { params: { id: number } }) {
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest(`almacen/${params.id}`);
+  const { data: user } = useSession();
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest(`almacen/${params.id}`, {
+    idusr: user?.user?.id
+  });
 
   return (
     <FormLayout title='Modificar almacen' isLoading={isLoading} isError={isError}>
@@ -20,7 +24,7 @@ export default function AlmacenSingle({ params }: { params: { id: number } }) {
           iD_ENCARGADO: data?.dato?.iD_ENCARGADO,
           estatus: data?.dato?.estatus
         }}
-        url='almacen'
+        url={`almacen/?idusr=${user?.user?.id}`}
         isEditForm={true}
       />
     </FormLayout>

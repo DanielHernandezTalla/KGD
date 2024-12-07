@@ -104,14 +104,20 @@ export const getMotivoBaja = (data: any) =>
 
 export const getTipoPermisos = (data: any) =>
   data?.map((item: any) => ({
+    value: item.iD_TIPOPERMISO,
+    label: item.tipopermiso
+  }));
+
+export const getTipoPermisoDetalle = (data: any) =>
+  data?.map((item: any) => ({
     value: item.id,
-    label: item.name
+    label: item.nombre
   }));
 
 export const getRoles = (data: any) =>
   data?.map((item: any) => ({
-    value: item.id,
-    label: item.name
+    value: item.iD_ROLE,
+    label: item.rolE_NAME
   }));
 
 export const getPermisos = (data: any) =>

@@ -5,9 +5,9 @@ import { handlePost } from '@/utils/handlePost';
 import { useToast } from '@/hooks/toast';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { getTipoPermisos } from '@/utils/dataToSelectOptions';
+import { getTipoPermisoDetalle, getTipoPermisos } from '@/utils/dataToSelectOptions';
 
-export const FormPermisos = ({
+export const FormEventos = ({
   initialValues,
   url,
   isEditForm,
@@ -19,62 +19,44 @@ export const FormPermisos = ({
   closeModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { toast } = useToast();
-  const { data }: IDataResponse<any> = useRequest('permisos/relacion');
+  const { data }: IDataResponse<any> = useRequest('permisosdetail/relacion');
+  console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'permiso',
-      label: 'Nombre del permiso',
+      name: 'nombre',
+      label: 'Nombre del evento',
       type: 'text',
-      placeholder: 'Escribe el nombre del permiso...',
+      placeholder: 'Escribe el nombre del evento...',
       fullWidth: true
     },
     {
       name: 'routE_NAME',
-      label: 'Nombre ruta',
+      label: 'Ruta',
       type: 'text',
-      placeholder: 'Escribe el nombre de la ruta...',
+      placeholder: 'Escribe la ruta del evento...',
       fullWidth: true
     },
     {
-      name: 'typepermissionS_ID',
-      label: 'Tipo de permiso',
+      name: 'iD_TIPOPERMISODETAIL',
+      label: 'Tipo de evento',
       type: 'select',
-      options: getTipoPermisos(data?.relacion?.tipoPermisos),
+      options: getTipoPermisoDetalle(data?.relacion?.tipoPermisosDet), //Cambiar esto por tipo de evento
       fullWidth: true
     }
     // {
-    //   name: 'title',
-    //   label: 'Nombre boton',
-    //   type: 'text',
-    //   placeholder: 'Escribe el nombre del botón...',
+    //   name: 'iD_',
+    //   label: 'Permiso',
+    //   type: 'select',
+    //   options: getTipoPermisos(data?.relacion?.tipoPermisos),
     //   fullWidth: true
-    // },
-
-    // {
-    //   name: 'icon',
-    //   label: 'Icono fontawesome',
-    //   type: 'text',
-    //   placeholder: 'Escribe icono de fontawesome...',
-    //   fullWidth: true
-    // },
-    // {
-    //   name: 'iS_LINK',
-    //   label: 'Es link',
-    //   type: 'checkbox'
-    // },
-    // {
-    //   name: 'estatus',
-    //   label: 'Activo',
-    //   type: 'checkbox'
     // }
   ];
 
   const validationSchema = Yup.object().shape({
-    permiso: Yup.string()
-      .min(3, 'El nombre del permiso debe tener minimo 3 caracteres')
-      .required('Este campo es requerido'),
-    typepermissionS_ID: Yup.number().required('Este campo es requerido')
+    nombre: Yup.string()
+      .min(3, 'El nombre del evento debe tener minimo 3 caracteres')
+      .required('Este campo es requerido')
   });
 
   return (
@@ -89,9 +71,10 @@ export const FormPermisos = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          permiso_name: values.permiso,
           creadO_POR: 3
         };
+
+        console.log(values);
 
         handlePost({
           url,
@@ -105,3 +88,10 @@ export const FormPermisos = ({
     />
   );
 };
+
+// creadO_POR: 3
+// iD_PERMISO: 8
+// iD_ROL: "1"
+// iD_TIPOPERMISO: 1
+// iD_TIPOPERMISODETAIL: 4
+// nombre: "Nuevo"

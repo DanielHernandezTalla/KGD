@@ -18,10 +18,10 @@ export default function TipoPermisos({ searchParams }: { searchParams: { page: n
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'id'
+      name: 'iD_TIPOPERMISO'
     },
     {
-      name: 'name',
+      name: 'tipopermiso',
       label: 'Tipo permiso'
     },
     {
@@ -68,7 +68,7 @@ export default function TipoPermisos({ searchParams }: { searchParams: { page: n
             isLoading={isLoading}
             isError={isError}
             title='Tipos de permisos'
-            idColumn='id'
+            idColumn='iD_TIPOPERMISO'
             createHref='auth/tipoPermisos'
             singleHref='auth/tipoPermisos'
             cols={tableHeaders}

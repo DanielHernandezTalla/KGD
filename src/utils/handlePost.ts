@@ -1,4 +1,3 @@
-import { error, log } from "console";
 import { toMoney } from "./toMoney";
 import { ToastIcon, ToastProps } from "@/components/atoms/Toast/Toast";
 
@@ -12,6 +11,7 @@ type HandlePost = {
   callback?: () => void;
   closeModal?: (param: boolean) => void;
   onSuccess?: (data: any) => void;
+  onError?: (data: any) => void;
   toast?: (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) => void;
   isCifrado?: boolean;
 };
@@ -24,6 +24,7 @@ export const handlePost = async ({
   callback,
   closeModal,
   onSuccess,
+  onError,
   toast,
   isCifrado = true
 }: HandlePost) => {
@@ -40,6 +41,10 @@ export const handlePost = async ({
 
   const data = await res.json();
 
+  // console.log('+++++++++++++++++++++++++++++');
+  // console.log(data);
+
+
   const tryToast = function (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) {
     if (toast) toast(param1, param2, param3, param4);
   }
@@ -52,10 +57,11 @@ export const handlePost = async ({
     if (values.isBack) values.isBack();
     if (callback) callback();
     if (closeModal) closeModal(false);
-    if (onSuccess) onSuccess(data?.listado);
+    if (onSuccess) onSuccess(data);
   }
 
   if (!data.ok) {
+    if (onError) onError(data);
     if (data.msg) tryToast(data.msg, "Error", "error");
     else if (messageError && data.errors) {
       // const msg = `${messageError}. \nErrores: ${Object.entries(data.errors).map((v: any) => {

@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 
-export default function Permisos({ searchParams }: { searchParams: { page: number } }) {
+export default function TipoPermisos({ searchParams }: { searchParams: { page: number } }) {
   const [valueSearch, setValueSearch] = useState({});
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('permisos', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('tipopermisodet', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
@@ -18,45 +18,25 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_PERMISO'
+      name: 'id'
     },
     {
-      name: 'permiso',
-      label: 'Nombre de rol'
-    },
-    {
-      name: 'typE_PERMISSIONS',
-      label: 'Tipo de permiso'
-    },
-    // {
-    //   name: 'title',
-    //   label: 'Nombre botón'
-    // },
-    {
-      name: 'routE_NAME',
-      label: 'Ruta'
-    },
-    // {
-    //   name: 'icon',
-    //   label: 'Icono'
-    // },
-    // {
-    //   name: 'iS_LINK',
-    //   label: 'Es link'
-    // },
-    {
-      name: 'estatus',
-      label: 'Activo',
-      component: (activo: boolean) => (
-        <div className='w-28'>
-          <StatusBullet
-            size='medium'
-            status={activo ? 'success' : 'disabled'}
-            text={activo ? 'Si' : 'No'}
-          />
-        </div>
-      )
+      name: 'nombre',
+      label: 'Tipo evento'
     }
+    // {
+    //   name: 'estatus',
+    //   label: 'Activo',
+    //   component: (activo: boolean) => (
+    //     <div className='w-28'>
+    //       <StatusBullet
+    //         size='medium'
+    //         status={activo ? 'success' : 'disabled'}
+    //         text={activo ? 'Si' : 'No'}
+    //       />
+    //     </div>
+    //   )
+    // }
   ];
 
   return (
@@ -71,10 +51,10 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
           <DataViewer
             isLoading={isLoading}
             isError={isError}
-            title='Permisos'
-            idColumn='iD_PERMISO'
-            createHref='auth/permisos'
-            singleHref='auth/permisos'
+            title='Tipos de Eventos'
+            idColumn='id'
+            createHref='auth/tipoEventos'
+            singleHref='auth/tipoEventos'
             cols={tableHeaders}
             data={data?.listado}
           />

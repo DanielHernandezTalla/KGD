@@ -16,8 +16,10 @@ const Auth = () => {
           <ButtonData icon='userGroup' text='Usuarios' href='/auth/usuarios' />
           <ButtonData icon='faUserShield' text='Roles y permisos' href='/auth/rolesYPermisos' />
           <ButtonData icon='settings' text='Roles' href='/auth/roles' />
+          {/* <ButtonData icon='tableList' text='Categoría permisos' href='/auth/tipoPermisos' />
           <ButtonData icon='faFileShield' text='Permisos' href='/auth/permisos' />
-          <ButtonData icon='tableList' text='Tipo permisos' href='/auth/tipoPermisos' />
+          <ButtonData icon='faArrowsToDot' text='Eventos' href='/auth/permisos' /> */}
+          <ButtonData icon='faClipboardList' text='Tipo eventos' href='/auth/tipoEventos' />
         </div>
       </div>
     </Layout>

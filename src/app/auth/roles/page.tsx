@@ -21,7 +21,7 @@ export default function Roles({ searchParams }: { searchParams: { page: number }
       name: 'id'
     },
     {
-      name: 'name',
+      name: 'rolE_NAME',
       label: 'Nombre de rol'
     },
     {

@@ -66,7 +66,7 @@ const CustomForm = ({
         if (onSubmit) {
           if (isBack) values = { ...values, isBack: backPage };
           onSubmit(values);
-          if (closeModal && !isBackOnCancel) {
+          if (closeModal && isBackOnCancel) {
             closeModal(false);
           }
         }

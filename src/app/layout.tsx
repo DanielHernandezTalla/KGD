@@ -51,6 +51,8 @@ function Auth({ children }: { children: React.ReactNode }) {
     let email = session?.user?.email;
     let token = session?.user?.token;
 
+    localStorage.setItem('token', token);
+
     if (email === null || email === undefined) email = '';
     if (token === null || token === undefined) token = '';
 

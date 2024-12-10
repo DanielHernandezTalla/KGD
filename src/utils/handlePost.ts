@@ -28,13 +28,15 @@ export const handlePost = async ({
   toast,
   isCifrado = true
 }: HandlePost) => {
+  const token = localStorage.getItem('token');
   const dataToPost = Object.fromEntries(
     Object.entries(values).filter(([v]) => v !== '' && v !== null)
   );
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
     method: method,
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(isCifrado ? dataToPost : values)
   });

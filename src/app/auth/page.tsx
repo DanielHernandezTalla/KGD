@@ -19,7 +19,7 @@ const Auth = () => {
           {/* <ButtonData icon='tableList' text='Categoría permisos' href='/auth/tipoPermisos' />
           <ButtonData icon='faFileShield' text='Permisos' href='/auth/permisos' />
           <ButtonData icon='faArrowsToDot' text='Eventos' href='/auth/permisos' /> */}
-          <ButtonData icon='faClipboardList' text='Tipo eventos' href='/auth/tipoEventos' />
+          {/* <ButtonData icon='faClipboardList' text='Tipo eventos' href='/auth/tipoEventos' /> */}
         </div>
       </div>
     </Layout>

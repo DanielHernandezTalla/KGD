@@ -3,12 +3,28 @@ import { FormSucursales } from '@/components/forms/const_sucursales';
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import { useEffect, useState } from 'react';
 
 export default function SucursalesSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'empresa.sucursales.update';
+  const rutasToCheck: string[] = [rutaToCheck];
+  const [checked, setChecked] = useState([] as any);
+
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`sucursal/${params.id}`);
 
+  // Consultar permisos
+  useEffect(() => {
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
+
   return (
-    <FormLayout title='Modificar Sucursales' isLoading={isLoading} isError={isError}>
+    <FormLayout
+      title='Modificar Sucursales'
+      rutaToCheck='empresa.sucursales.show'
+      isLoading={isLoading}
+      isError={isError}
+    >
       <FormSucursales
         initialValues={{
           iD_SUCURSAL: data?.dato?.iD_SUCURSAL,
@@ -20,6 +36,7 @@ export default function SucursalesSingle({ params }: { params: { id: number } })
         }}
         url='sucursal'
         isEditForm={true}
+        permisoToEdit={checked[rutaToCheck]}
       />
     </FormLayout>
   );

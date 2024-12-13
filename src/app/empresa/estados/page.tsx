@@ -4,21 +4,32 @@ import { TABLECOLUMN } from '@/interface/types';
 import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
-import { useSession } from 'next-auth/react';
+import { handrePermisos } from '@/utils/handlePermisos';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Estados({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = [
+    'empresa.estados.index',
+    'empresa.estados.store',
+    'empresa.estados.show'
+  ];
+
+  const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
-  const { data: session, status } = useSession();
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('estados', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
 
-  // console.log(session);
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Empresa KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -53,25 +64,28 @@ export default function Estados({ searchParams }: { searchParams: { page: number
 
   return (
     <MainLayout>
-      <Pager
-        pageSize={10}
-        currentPage={Number(searchParams?.page) || 1}
-        totalCount={10 * data?.maximoPaginas}
-      >
-        <>
-          <Search getValue={setValueSearch} showBtnSearch showIcon />
-          <DataViewer
-            isLoading={isLoading}
-            isError={isError}
-            title='Estados'
-            idColumn='iD_ESTADO'
-            createHref='empresa/estados'
-            singleHref='empresa/estados'
-            cols={tableHeaders}
-            data={data?.listado}
-          />
-        </>
-      </Pager>
+      <LayoutPermiso checked={checked} name='empresa.estados.index'>
+        <Pager
+          pageSize={10}
+          currentPage={Number(searchParams?.page) || 1}
+          totalCount={10 * data?.maximoPaginas}
+        >
+          <>
+            <Search getValue={setValueSearch} showBtnSearch showIcon />
+            <DataViewer
+              isLoading={isLoading}
+              isError={isError}
+              title='Estados'
+              idColumn='iD_ESTADO'
+              nuevo={checked['empresa.estados.store']}
+              createHref='empresa/estados'
+              singleHref={checked['empresa.estados.show'] && 'empresa/estados'}
+              cols={tableHeaders}
+              data={data?.listado}
+            />
+          </>
+        </Pager>
+      </LayoutPermiso>
     </MainLayout>
   );
 }

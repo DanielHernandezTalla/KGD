@@ -1,6 +1,6 @@
 import { handlePost } from "./handlePost";
 
-export const handrePermisos = (rutasToCheck: string[], setChecked: any) => {
+export const handrePermisos = (rutasToCheck: (string)[], setChecked: any) => {
     let values = rutasToCheck.map((item) => ({ ROULE_NAME: item }));
 
     const request = {

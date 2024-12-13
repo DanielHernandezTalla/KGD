@@ -9,6 +9,7 @@ interface CrudTableProps {
   data: any[];
   createHref?: string;
   singleHref?: string;
+  nuevo?: boolean;
 }
 
 const CrudTable: React.FC<CrudTableProps> = ({
@@ -17,7 +18,8 @@ const CrudTable: React.FC<CrudTableProps> = ({
   cols,
   data,
   createHref,
-  singleHref
+  singleHref,
+  nuevo = true
 }) => {
   // const { user } = useContext(AuthContext);
 
@@ -26,16 +28,18 @@ const CrudTable: React.FC<CrudTableProps> = ({
       <div className='mb-4 flex justify-between'>
         <Text variant='heading' text={title} weight='semibold' />
         {/* {(user?.tipo === TipoPersonal.administrador || user?.tipo === TipoPersonal.secretaria) && ( */}
-        <Button
-          variant='primary'
-          icon='plus'
-          rounded
-          size='small'
-          text='Nuevo'
-          isNextLink={true}
-          href={`/${createHref}/registrar`}
-          iconPosition='right'
-        />
+        {nuevo && (
+          <Button
+            variant='primary'
+            icon='plus'
+            rounded
+            size='small'
+            text='Nuevo'
+            isNextLink={true}
+            href={`/${createHref}/registrar`}
+            iconPosition='right'
+          />
+        )}
         {/* )} */}
       </div>
       {data?.length > 0 ? (

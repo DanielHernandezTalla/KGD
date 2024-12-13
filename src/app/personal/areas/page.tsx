@@ -27,7 +27,7 @@ export default function Areas({ searchParams }: { searchParams: { page: number }
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Ciudades KGD';
+    document.title = 'Areas KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

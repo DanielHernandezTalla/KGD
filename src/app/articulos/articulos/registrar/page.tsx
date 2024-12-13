@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarArticulo() {
   return (
-    <FormLayout title='Registrar Artículo'>
+    <FormLayout title='Registrar Artículo' rutaToCheck='articulos.articulos.store'>
       <FormArticulos
         initialValues={{
           item: '',

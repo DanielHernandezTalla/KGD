@@ -8,9 +8,6 @@ import { IDataResponse } from '@/interface/request';
 import {
   getCategoriaActivos,
   getCategoriaArticulos,
-  getCiudades,
-  getData,
-  getEstados,
   getUnidadMedida
 } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
@@ -18,11 +15,13 @@ import { useToast } from '@/hooks/toast';
 export const FormArticulos = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('articulos/relacion');
@@ -198,6 +197,7 @@ export const FormArticulos = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarMotivoBaja() {
   return (
-    <FormLayout title='Registrar motivo baja'>
+    <FormLayout title='Registrar motivo baja' rutaToCheck='personal.motivobaja.store'>
       <FormMotivoBaja
         initialValues={{
           tipO_PAGO: '',

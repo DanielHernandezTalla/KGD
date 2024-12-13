@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarTipoSalario() {
   return (
-    <FormLayout title='Registrar Tipo Salario'>
+    <FormLayout title='Registrar Tipo Salario' rutaToCheck='personal.tiposalario.store'>
       <FormTipoSalario
         initialValues={{
           tipO_SALARIO: '',

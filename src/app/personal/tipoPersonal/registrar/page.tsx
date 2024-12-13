@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarTipoPersonal() {
   return (
-    <FormLayout title='Registrar Tipo Personal'>
+    <FormLayout title='Registrar Tipo Personal' rutaToCheck='personal.tipopersonal.store'>
       <FormTipoPersonal
         initialValues={{
           tipO_PERSONAL: '',

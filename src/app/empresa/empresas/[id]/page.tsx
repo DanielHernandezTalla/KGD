@@ -3,12 +3,28 @@ import { FormEmpresas } from '@/components/forms/const_empresas';
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import { useEffect, useState } from 'react';
 
 export default function EstadosSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'empresa.empresas.update';
+  const rutasToCheck: string[] = [rutaToCheck];
+  const [checked, setChecked] = useState([] as any);
+
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`empresas/${params.id}`);
 
+  // Consultar permisos
+  useEffect(() => {
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
+
   return (
-    <FormLayout title='Modificar Empresa' isLoading={isLoading} isError={isError}>
+    <FormLayout
+      title='Modificar Empresa'
+      rutaToCheck='empresa.empresas.show'
+      isLoading={isLoading}
+      isError={isError}
+    >
       <FormEmpresas
         initialValues={{
           iD_EMPRESA: data?.dato?.iD_EMPRESA,
@@ -24,6 +40,7 @@ export default function EstadosSingle({ params }: { params: { id: number } }) {
         }}
         url='empresas'
         isEditForm={true}
+        permisoToEdit={checked[rutaToCheck]}
       />
     </FormLayout>
   );

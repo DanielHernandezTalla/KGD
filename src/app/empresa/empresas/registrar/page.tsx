@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarEstados() {
   return (
-    <FormLayout title='Registrar Empresa'>
+    <FormLayout title='Registrar Empresa' rutaToCheck='empresa.empresas.store'>
       <FormEmpresas
         initialValues={{
           razoN_SOCIAL: '',

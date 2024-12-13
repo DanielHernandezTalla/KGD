@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarArea() {
   return (
-    <FormLayout title='Registrar Area'>
+    <FormLayout title='Registrar Area' rutaToCheck='personal.areas.store'>
       <FormArea
         initialValues={{
           area: '',

@@ -4,17 +4,32 @@ import { TABLECOLUMN } from '@/interface/types';
 import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Conversiones({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = [
+    'articulos.conversiones.index',
+    'articulos.conversiones.store',
+    'articulos.conversiones.show'
+  ];
+
+  const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('conversiones', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Conversiones de artículos KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -65,25 +80,28 @@ export default function Conversiones({ searchParams }: { searchParams: { page: n
 
   return (
     <MainLayout>
-      <Pager
-        pageSize={10}
-        currentPage={Number(searchParams?.page) || 1}
-        totalCount={10 * data?.maximoPaginas}
-      >
-        <>
-          <Search getValue={setValueSearch} showBtnSearch showIcon />
-          <DataViewer
-            isLoading={isLoading}
-            isError={isError}
-            title='Conversiones de articulos'
-            idColumn='iD_CONVERSION'
-            createHref='articulos/conversiones'
-            singleHref='articulos/conversiones'
-            cols={tableHeaders}
-            data={data?.listado}
-          />
-        </>
-      </Pager>
+      <LayoutPermiso checked={checked} name='articulos.conversiones.index'>
+        <Pager
+          pageSize={10}
+          currentPage={Number(searchParams?.page) || 1}
+          totalCount={10 * data?.maximoPaginas}
+        >
+          <>
+            <Search getValue={setValueSearch} showBtnSearch showIcon />
+            <DataViewer
+              isLoading={isLoading}
+              isError={isError}
+              title='Conversiones de articulos'
+              idColumn='iD_CONVERSION'
+              nuevo={checked['articulos.conversiones.store']}
+              createHref='articulos/conversiones'
+              singleHref={checked['articulos.conversiones.show'] && 'articulos/conversiones'}
+              cols={tableHeaders}
+              data={data?.listado}
+            />
+          </>
+        </Pager>
+      </LayoutPermiso>
     </MainLayout>
   );
 }

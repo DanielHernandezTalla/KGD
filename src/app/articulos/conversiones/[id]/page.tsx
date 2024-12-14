@@ -3,14 +3,28 @@ import { FormConversionesArticulos } from '@/components/forms/const_conversiones
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import { useEffect, useState } from 'react';
 
 export default function ArticulosSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'articulos.conversiones.update';
+  const rutasToCheck: string[] = [rutaToCheck];
+  const [checked, setChecked] = useState([] as any);
+
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`conversiones/${params.id}`);
 
-  console.log(data);
+  // Consultar permisos
+  useEffect(() => {
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   return (
-    <FormLayout title='Modificar conversión de artículos' isLoading={isLoading} isError={isError}>
+    <FormLayout
+      title='Modificar conversión de artículos'
+      rutaToCheck='articulos.conversiones.show'
+      isLoading={isLoading}
+      isError={isError}
+    >
       <FormConversionesArticulos
         initialValues={{
           iD_CONVERSION: data?.dato?.iD_CONVERSION,
@@ -24,6 +38,7 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
         }}
         url='conversiones'
         isEditForm={true}
+        permisoToEdit={checked[rutaToCheck]}
       />
     </FormLayout>
   );

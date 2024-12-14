@@ -27,7 +27,7 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Artículos KGD';
+    document.title = 'Categorias KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

@@ -16,11 +16,13 @@ import { useToast } from '@/hooks/toast';
 export const FormAlmacenes = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('almacen/relacion');
@@ -123,6 +125,7 @@ export const FormAlmacenes = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

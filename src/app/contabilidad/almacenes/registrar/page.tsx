@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 export default function RegistrarAlmacen() {
   const { data: user } = useSession();
   return (
-    <FormLayout title='Registrar Almacen'>
+    <FormLayout title='Registrar Almacen' rutaToCheck='contabilidad.almacenes.store'>
       <FormAlmacenes
         initialValues={{
           almacen: '',

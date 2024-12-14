@@ -32,7 +32,7 @@ const Articulos = () => {
             )}
 
             {checked['contabilidad.almacenes.index'] && (
-              <ButtonData icon='faWarehouse' text='Almacenes' href='/contabilidad/almacenes' />
+              <ButtonData icon='faWarehouse' text='Almacenes' href='/contabilidad/almacenes' tag='Pendiente autorización'/>
             )}
           </div>
         </div>

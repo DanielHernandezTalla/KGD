@@ -17,6 +17,7 @@ export function useRequest<T>(
     ...params
   });
 
+  const token = localStorage.getItem('token');
   let arrParams = params ? Object.entries(params) : [];
   let stringParams = '';
   arrParams.forEach((item: any, index: number) => {
@@ -30,7 +31,8 @@ export function useRequest<T>(
           method: 'GET',
           headers: {
             route: route,
-            params: searchParams.toString()
+            params: searchParams.toString(),
+            Authorization: `Bearer ${token}`
           }
         });
         const data = await res.json();

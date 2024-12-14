@@ -3,16 +3,29 @@ import { FormAlmacenes } from '@/components/forms/const_almacen';
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 export default function AlmacenSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'contabilidad.almacenes.update';
+  const rutasToCheck: string[] = [rutaToCheck];
+  const [checked, setChecked] = useState([] as any);
+
   const { data: user } = useSession();
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest(`almacen/${params.id}`, {
-    idusr: user?.user?.id
-  });
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest(`almacen/${params.id}`);
+  // Consultar permisos
+  useEffect(() => {
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   return (
-    <FormLayout title='Modificar almacen' isLoading={isLoading} isError={isError}>
+    <FormLayout
+      title='Modificar almacen'
+      rutaToCheck='contabilidad.almacenes.show'
+      isLoading={isLoading}
+      isError={isError}
+    >
       <FormAlmacenes
         initialValues={{
           iD_ALMACEN: data?.dato?.iD_ALMACEN,
@@ -24,8 +37,9 @@ export default function AlmacenSingle({ params }: { params: { id: number } }) {
           iD_ENCARGADO: data?.dato?.iD_ENCARGADO,
           estatus: data?.dato?.estatus
         }}
-        url={`almacen/?idusr=${user?.user?.id}`}
+        url={`almacen`}
         isEditForm={true}
+        permisoToEdit={checked[rutaToCheck]}
       />
     </FormLayout>
   );

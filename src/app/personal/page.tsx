@@ -32,7 +32,7 @@ const Personal = () => {
           <TitlePage title='Personal' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
             {checked['personal.empleados.index'] && (
-              <ButtonData icon='personal' text='Empleados' href='/personal/empleados' />
+              <ButtonData icon='personal' text='Empleados' href='/personal/empleados' tag='Pendiente permisos' />
             )}
             {checked['personal.tipopersonal.index'] && (
               <ButtonData icon='userGroup' text='Tipo personal' href='/personal/tipoPersonal' />

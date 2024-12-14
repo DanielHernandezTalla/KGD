@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarTipoTransaccion() {
   return (
-    <FormLayout title='Registrar tipo transaccion'>
+    <FormLayout title='Registrar tipo transaccion' rutaToCheck='articulos.transacciones.store'>
       <FormTipoTransaccion
         initialValues={{
           tipO_TRANSACCION: '',

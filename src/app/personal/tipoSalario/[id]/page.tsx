@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function TipoSalarioSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'empresa.ciudades.update';
+  const rutaToCheck: string = 'personal.tiposalario.update';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 

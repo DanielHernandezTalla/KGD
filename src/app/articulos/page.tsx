@@ -11,7 +11,7 @@ const Articulos = () => {
     'articulos.articulo.index',
     'articulos.articulos.index',
     'articulos.conversiones.index',
-    'articulos.Categorias.index',
+    'articulos.categorias.index',
     'articulos.activos.index',
     'articulos.um.index',
     'articulos.transacciones.index'
@@ -38,7 +38,7 @@ const Articulos = () => {
               <ButtonData icon='faShuffle' text='Conversiones' href='/articulos/conversiones' />
             )}
 
-            {checked['articulos.Categorias.index'] && (
+            {checked['articulos.categorias.index'] && (
               <ButtonData icon='tableList' text='Categorias' href='/articulos/categorias' />
             )}
 

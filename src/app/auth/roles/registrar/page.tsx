@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarRol() {
   return (
-    <FormLayout title='Registrar rol'>
+    <FormLayout title='Registrar rol' rutaToCheck='auth.roles.store'>
       <FormRoles
         initialValues={{
           name: '',

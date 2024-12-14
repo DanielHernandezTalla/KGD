@@ -7,11 +7,13 @@ import { useToast } from '@/hooks/toast';
 export const FormRoles = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
 
@@ -59,6 +61,7 @@ export const FormRoles = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

@@ -4,11 +4,16 @@ import { TABLECOLUMN } from '@/interface/types';
 import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Roles({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = ['auth.roles.index', 'auth.roles.store', 'auth.roles.show'];
+
+  const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('roles', {
     pagina: searchParams?.page || 1,
@@ -16,9 +21,15 @@ export default function Roles({ searchParams }: { searchParams: { page: number }
     ...valueSearch
   });
 
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Roles KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
+
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'id'
+      name: 'iD_ROLE'
     },
     {
       name: 'rolE_NAME',
@@ -41,25 +52,28 @@ export default function Roles({ searchParams }: { searchParams: { page: number }
 
   return (
     <MainLayout>
-      <Pager
-        pageSize={10}
-        currentPage={Number(searchParams?.page) || 1}
-        totalCount={10 * data?.maximoPaginas}
-      >
-        <>
-          <Search getValue={setValueSearch} showBtnSearch showIcon />
-          <DataViewer
-            isLoading={isLoading}
-            isError={isError}
-            title='Roles'
-            idColumn='id'
-            createHref='auth/roles'
-            singleHref='auth/roles'
-            cols={tableHeaders}
-            data={data?.listado}
-          />
-        </>
-      </Pager>
+      <LayoutPermiso checked={checked} name='auth.roles.index'>
+        <Pager
+          pageSize={10}
+          currentPage={Number(searchParams?.page) || 1}
+          totalCount={10 * data?.maximoPaginas}
+        >
+          <>
+            <Search getValue={setValueSearch} showBtnSearch showIcon />
+            <DataViewer
+              isLoading={isLoading}
+              isError={isError}
+              title='Roles'
+              idColumn='iD_ROLE'
+              nuevo={checked['auth.roles.store']}
+              createHref='auth/roles'
+              singleHref={checked['auth.roles.show'] && 'auth/roles'}
+              cols={tableHeaders}
+              data={data?.listado}
+            />
+          </>
+        </Pager>
+      </LayoutPermiso>
     </MainLayout>
   );
 }

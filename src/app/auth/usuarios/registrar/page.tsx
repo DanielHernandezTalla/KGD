@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarUsuario() {
   return (
-    <FormLayout title='Registrar usuario'>
+    <FormLayout title='Registrar usuario' rutaToCheck='auth.usuarios.store'>
       <FormUsuarios
         initialValues={{
           name: '',

@@ -10,17 +10,18 @@ import { getRoles } from '@/utils/dataToSelectOptions';
 export const FormUsuarios = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('usuarios/relacion');
 
-console.log(data);
-
+  console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {
@@ -89,6 +90,7 @@ console.log(data);
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

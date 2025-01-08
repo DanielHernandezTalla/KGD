@@ -470,7 +470,7 @@ export default function RolesYPermisos() {
                   initialValues={{
                     iD_ROL: filtros?.rol,
                     permiso: '',
-                    typepermissionS_ID: categoria,
+                    TIPOPERMISO_ID: categoria,
                     permissionsdetails_ID: 0,
                     title: '',
                     route_NAME: '',

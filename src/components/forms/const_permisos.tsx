@@ -37,7 +37,7 @@ export const FormPermisos = ({
       fullWidth: true
     },
     {
-      name: 'typepermissionS_ID',
+      name: 'TIPOPERMISO_ID',
       label: 'Tipo de permiso',
       type: 'select',
       options: getTipoPermisos(data?.relacion?.tipoPermisos),
@@ -74,7 +74,7 @@ export const FormPermisos = ({
     permiso: Yup.string()
       .min(3, 'El nombre del permiso debe tener minimo 3 caracteres')
       .required('Este campo es requerido'),
-    typepermissionS_ID: Yup.number().required('Este campo es requerido')
+    TIPOPERMISO_ID: Yup.number().required('Este campo es requerido')
   });
 
   return (

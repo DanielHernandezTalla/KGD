@@ -69,6 +69,9 @@ import {
   faBan,
   faClipboardList,
   faArrowsToDot,
+  faCartArrowDown,
+  faCartFlatbedSuitcase,
+  faListCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -142,4 +145,7 @@ export const ICONS = {
   ban: faBan,
   faClipboardList,
   faArrowsToDot,
+  faCartArrowDown,
+  faCartFlatbedSuitcase,
+  faListCheck
 };

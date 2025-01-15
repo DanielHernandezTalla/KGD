@@ -1,38 +1,35 @@
+// 1. Importaciones de dependencias externas
+// 2. Importaciones de módulos internos
+// 3. Importaciones de interfaces y tipos
+// 4. Importaciones de componentes
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { FORMINPUT } from '@/interface/types';
-import { Form } from '../atoms';
+import { useSession } from 'next-auth/react';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
-import { IDataResponse } from '@/interface/request';
+import { useToast } from '@/hooks/toast';
 import {
   getCentroCosto,
   getCiudades,
   getEncargados,
-  getEstados
+  getEstados,
+  getSucursal
 } from '@/utils/dataToSelectOptions';
-import { useToast } from '@/hooks/toast';
+import { IDataResponse } from '@/interface/request';
+import { FORMINPUT, IForm } from '@/interface/types';
+import { ISession } from '@/interface/user';
+import { Form } from '../atoms';
 
-export const FormAlmacenes = ({
-  initialValues,
-  url,
-  isEditForm,
-  permisoToEdit = true
-}: {
-  initialValues: any;
-  url: string;
-  isEditForm?: boolean;
-  permisoToEdit?: boolean;
-}) => {
+export const FormAlmacenes = ({ initialValues, url, isEditForm, permisoToEdit = true }: IForm) => {
   const { toast } = useToast();
+  const { data: session } = useSession() as { data: ISession };
+
   const { data }: IDataResponse<any> = useRequest('almacen/relacion');
   const [{ estado }, setDataFilter] = useState({
     estado: {
       iD_ESTADO: initialValues?.iD_ESTADO || null
     }
   });
-
-  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {
@@ -52,6 +49,13 @@ export const FormAlmacenes = ({
       label: 'Centro de costo',
       type: 'select',
       options: getCentroCosto(data?.relacion?.centroCosto),
+      fullWidth: true
+    },
+    {
+      name: 'iD_SUCURSAL',
+      label: 'Sucursal',
+      type: 'select',
+      options: getSucursal(data?.relacion?.sucursal),
       fullWidth: true
     },
     {
@@ -114,7 +118,7 @@ export const FormAlmacenes = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          creadO_POR: 3
+          creadO_POR: session?.user?.id
         };
 
         handlePost({

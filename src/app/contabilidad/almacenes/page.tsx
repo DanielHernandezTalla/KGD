@@ -1,25 +1,19 @@
 'use client';
-import MainLayout from '@/components/layouts/MainLayout';
-import { TABLECOLUMN } from '@/interface/types';
-import { DataViewer } from '@/components/organisms';
-import { useRequest } from '@/hooks/useRequest';
-import { Pager, Search } from '@/components/molecules';
 import { useEffect, useState } from 'react';
-import { StatusBullet } from '@/components/atoms';
-import { IDataResponse } from '@/interface/request';
-import { useSession } from 'next-auth/react';
+import { useRequest } from '@/hooks/useRequest';
 import { handrePermisos } from '@/utils/handlePermisos';
+import MainLayout from '@/components/layouts/MainLayout';
+import { DataViewer } from '@/components/organisms';
+import { Pager, Search } from '@/components/molecules';
+import { StatusBullet } from '@/components/atoms';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
+import { TABLECOLUMN } from '@/interface/types';
+import { IDataResponse } from '@/interface/request';
 
 export default function Almacenes({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = [
-    'contabilidad.almacenes.index',
-    'contabilidad.almacenes.store',
-    'contabilidad.almacenes.show'
-  ];
-
+  const rutasToCheck: string[] = ['almacen.lista', 'almacen.save', 'almacen.listaid'];
   const [checked, setChecked] = useState([] as any);
-  const { data: user } = useSession();
+
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('almacen', {
     pagina: searchParams?.page || 1,
@@ -50,6 +44,10 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
       label: 'Centro de costo'
     },
     {
+      name: 'sucursal',
+      label: 'Sucursal'
+    },
+    {
       name: 'nombrE_CIUDAD',
       label: 'Ciudad'
     },
@@ -78,7 +76,7 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='contabilidad.almacenes.index'>
+      <LayoutPermiso checked={checked} name='almacen.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -91,15 +89,12 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
               isError={isError}
               title='Almacenes'
               idColumn='iD_ALMACEN'
-              nuevo={checked['contabilidad.almacenes.store']}
+              nuevo={checked['almacen.save']}
               createHref='contabilidad/almacenes'
-              singleHref={checked['contabilidad.almacenes.show'] && 'contabilidad/almacenes'}
+              singleHref={checked['almacen.listaid'] && 'contabilidad/almacenes'}
               cols={tableHeaders}
               data={data?.listado?.map((articulo: any, index: any) => ({
                 ...articulo
-                // transF_INVENTARIOS: articulo.transF_INVENTARIOS ? 'Si' : 'No',
-                // controL_MAX_MIX: articulo.controL_MAX_MIX ? 'Si' : 'No',
-                // activO_FIJO: articulo.activO_FIJO ? 'Si' : 'No'
               }))}
             />
           </>

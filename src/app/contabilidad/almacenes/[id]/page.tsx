@@ -1,20 +1,22 @@
+// 1. Importaciones de dependencias externas
+// 2. Importaciones de módulos internos
+// 3. Importaciones de componentes
+// 4. Importaciones de interfaces y tipos
 'use client';
+import { useEffect, useState } from 'react';
+import { useRequest } from '@/hooks/useRequest';
+import { handrePermisos } from '@/utils/handlePermisos';
 import { FormAlmacenes } from '@/components/forms/const_almacen';
 import { FormLayout } from '@/components/molecules/FormLayout';
-import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { handrePermisos } from '@/utils/handlePermisos';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 
 export default function AlmacenSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'contabilidad.almacenes.update';
+  const rutaToCheck: string = 'almacen.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
-  const { data: user } = useSession();
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`almacen/${params.id}`);
-  // Consultar permisos
+
   useEffect(() => {
     handrePermisos(rutasToCheck, setChecked);
   }, []);
@@ -22,7 +24,7 @@ export default function AlmacenSingle({ params }: { params: { id: number } }) {
   return (
     <FormLayout
       title='Modificar almacen'
-      rutaToCheck='contabilidad.almacenes.show'
+      rutaToCheck='almacen.listaid'
       isLoading={isLoading}
       isError={isError}
     >
@@ -32,6 +34,7 @@ export default function AlmacenSingle({ params }: { params: { id: number } }) {
           almacen: data?.dato?.almacen,
           descripcion: data?.dato?.descripcion,
           iD_CENTRO_COSTO: data?.dato?.iD_CENTRO_COSTO,
+          iD_SUCURSAL: data?.dato?.iD_SUCURSAL,
           iD_ESTADO: data?.dato?.iD_ESTADO,
           iD_CIUDAD: data?.dato?.iD_CIUDAD,
           iD_ENCARGADO: data?.dato?.iD_ENCARGADO,

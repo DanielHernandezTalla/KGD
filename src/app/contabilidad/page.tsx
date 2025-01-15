@@ -10,7 +10,7 @@ const Articulos = () => {
   const rutasToCheck: string[] = [
     'contabilidad.contabilidad.index',
     'contabilidad.cc.index',
-    'contabilidad.almacenes.index'
+    'almacen.lista'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -31,8 +31,8 @@ const Articulos = () => {
               <ButtonData icon='faShop' text='Centro de costo' href='/contabilidad/centroDeCosto' />
             )}
 
-            {checked['contabilidad.almacenes.index'] && (
-              <ButtonData icon='faWarehouse' text='Almacenes' href='/contabilidad/almacenes' tag='Pendiente autorización'/>
+            {checked['almacen.lista'] && (
+              <ButtonData icon='faWarehouse' text='Almacenes' href='/contabilidad/almacenes' />
             )}
           </div>
         </div>

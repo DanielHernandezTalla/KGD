@@ -137,3 +137,9 @@ export const getSucursal = (data: any) =>
     value: item.iD_SUCURSAL,
     label: item.nombrE_SUCURSAL
   }));
+
+export const getAlmacen = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_ALMACEN,
+    label: item.almacen
+  }));

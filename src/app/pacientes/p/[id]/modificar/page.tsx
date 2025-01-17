@@ -9,7 +9,7 @@ export default function PacienteSingle({ params }: { params: { id: number } }) {
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`pacientes/${params.id}`);
 
   return (
-    <FormLayout title='Modificar Paciente' isLoading={isLoading} isError={isError}>
+    <FormLayout title='Modificar Empleado' isLoading={isLoading} isError={isError}>
       <FormPacientes
         initialValues={{
           id: data?.data?.id,

@@ -52,7 +52,7 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
                 size='small'
                 rounded
                 variant='primary'
-                text='Modificar Paciente'
+                text='Modificar Empleado'
                 icon='pen'
                 onClick={() => setShowModalPaciente(true)}
               />
@@ -213,7 +213,7 @@ export default function EmpleadoSingle({ params }: { params: { id: number } }) {
             //  ===================================
             //  Modal para modificar paciente
             <Modal
-              title='Modificar paciente'
+              title='Modificar Empleado'
               showModal={showModalPaciente}
               setShowModal={setShowModalPaciente}
               closeCross

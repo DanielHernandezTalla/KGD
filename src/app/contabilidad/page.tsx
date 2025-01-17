@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
-const Articulos = () => {
+const Contabilidad = () => {
   const rutasToCheck: string[] = [
     'contabilidad.contabilidad.index',
     'contabilidad.cc.index',
@@ -41,4 +41,4 @@ const Articulos = () => {
   );
 };
 
-export default Articulos;
+export default Contabilidad;

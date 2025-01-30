@@ -28,7 +28,9 @@ export const FormSalidaDetalle = ({
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('RecepcionDetalle/relacion');
 
-  console.log(data);
+  // console.log(data);
+  console.log(initialValues);
+  console.log(initialValues.iD_TIPO_TRANSACCION);
 
   const formInputs: FORMINPUT[] = [
     // {
@@ -73,13 +75,6 @@ export const FormSalidaDetalle = ({
     //   // fullWidth: true
     // },
     {
-      name: 'iD_ALMACEN',
-      label: 'Almacen destino',
-      type: 'select',
-      options: getAlmacen(data?.relacion?.almacen),
-      fullWidth: true
-    },
-    {
       name: 'iD_UOM',
       label: 'Unidades de medida',
       type: 'select',
@@ -90,22 +85,48 @@ export const FormSalidaDetalle = ({
       name: 'iD_TIPO_TRANSACCION',
       label: 'Tipo transacción',
       type: 'select',
-      options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
+      options: getTipoTransaccion(data?.relacion?.tipoTransaccion),
+      disabled: true
       // fullWidth: true
-    },
-    {
-      name: 'fechA_SALIDA',
-      label: 'Fecha salida',
-      type: 'date',
-      placeholder: 'Selecciona la fecha...',
-      fullWidth: true
     }
+    // {
+    //   name: 'iD_ALMACEN',
+    //   label: 'Almacen destino',
+    //   type: 'select',
+    //   options: getAlmacen(data?.relacion?.almacen),
+    //   fullWidth: true
+    // },
+    // {
+    //   name: 'fechA_SALIDA',
+    //   label: 'Fecha salida',
+    //   type: 'date',
+    //   placeholder: 'Selecciona la fecha...',
+    //   fullWidth: true
+    // }
     // {
     //   name: 'estatus',
     //   label: 'Activo',
     //   type: 'checkbox'
     // }
   ];
+
+  if (initialValues.iD_TIPO_TRANSACCION == 2) {
+    formInputs.push({
+      name: 'iD_ALMACENDESTINO',
+      label: 'Almacen destino',
+      type: 'select',
+      options: getAlmacen(data?.relacion?.almacen),
+      fullWidth: true
+    });
+  }
+
+  formInputs.push({
+    name: 'fechA_SALIDA',
+    label: 'Fecha salida',
+    type: 'date',
+    placeholder: 'Selecciona la fecha...',
+    fullWidth: true
+  });
 
   const validationSchema = Yup.object().shape({
     // referencia: Yup.string()
@@ -136,6 +157,7 @@ export const FormSalidaDetalle = ({
             values = {
               ...values,
               descripcion,
+              iD_ALMACENDESTINO: !values.iD_ALMACENDESTINO ? null : values.iD_ALMACENDESTINO,
               item,
               creadO_POR: 3
             };

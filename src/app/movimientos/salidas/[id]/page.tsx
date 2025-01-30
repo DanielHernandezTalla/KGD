@@ -73,6 +73,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     },
     {
       name: 'nombrE_ALMACEN',
+      label: 'Almacen'
+    },
+    {
+      name: 'nombrE_ALMACENDESTINO',
       label: 'Almacen destino'
     },
     {
@@ -251,10 +255,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   descripcion: '',
                   iD_ITEM: '',
                   cantidad: '',
-                  iD_ALMACENORIGEN: null, //Ocupamos obtener el almacen actual
-                  iD_ALMACEN: '',
+                  iD_ALMACEN: data?.dato?.iD_ALMACEN,
+                  iD_ALMACENDESTINO: '',
                   iD_UOM: '',
-                  iD_TIPO_TRANSACCION: '',
+                  iD_TIPO_TRANSACCION: data?.dato?.iD_TIPO_TRANSACCION,
                   costo: '',
 
                   segmento01: '',

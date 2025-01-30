@@ -58,7 +58,7 @@ export const FormCerrarSalida = ({
     >
       <div className='col-span-4 rounded-md bg-green-100 p-3'>
         <p className='text-lg text-slate-600'>
-          La salida se cerrara y afectara los datos correspondientes
+          La <b>salida</b> se cerrara y afectara los datos correspondientes
           {/* , y las <b className='ml-1'>notas</b> que tiene asignadas. */}
         </p>
       </div>

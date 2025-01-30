@@ -113,7 +113,7 @@ export default function RolesYPermisos() {
 
     const request = {
       url: 'rolespermiso/rolespermiso',
-      values: { iD_ROLES: 1, iD_TIPOPERMISO: categoria, iD_PERMISO: idPermiso },
+      values: { iD_ROLES: filtros?.rol, iD_TIPOPERMISO: categoria, iD_PERMISO: idPermiso },
       onSuccess: (data: any) => {
         // console.log('SELECT PERMISO===========================');
         // console.log(data);
@@ -154,7 +154,7 @@ export default function RolesYPermisos() {
 
     handlePost({
       url: 'tipopermisos',
-      values: { iD_ROLES: 1, iD_TIPOPERMISO: categoria },
+      values: { iD_ROLES: filtros?.rol, iD_TIPOPERMISO: categoria },
       method: 'DELETE',
       toast,
       onSuccess: () => {
@@ -168,7 +168,7 @@ export default function RolesYPermisos() {
 
     handlePost({
       url: 'permisos',
-      values: { iD_ROLES: 1, iD_TIPOPERMISO: categoria, iD_PERMISO: idPermiso },
+      values: { iD_ROLES: filtros?.rol, iD_TIPOPERMISO: categoria, iD_PERMISO: idPermiso },
       method: 'DELETE',
       toast,
       onSuccess: () => {
@@ -200,7 +200,7 @@ export default function RolesYPermisos() {
         //   iD_PERMISODET: idEvento
         // },
         {
-          iD_ROL: 1,
+          iD_ROL: filtros?.rol,
           iD_PERMISO: permiso,
           iD_TIPOPERMISO: categoria,
           id: idEvento
@@ -224,6 +224,7 @@ export default function RolesYPermisos() {
 
     let resultado = Object.keys(estatusEventos).map((key: string) => ({
       id: key, // Asignamos un id incremental (tipo number)
+      iD_ROL: filtros?.rol,
       activo: estatusEventos[parseInt(key)] // Asignamos el valor booleano correspondiente
     }));
 

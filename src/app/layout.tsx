@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation';
 import { LoadingSpinner } from '@/components/atoms';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/hooks/toast';
+import { PermisosProvider } from '@/hooks/PermisosContext';
 /*
 export const metadata: Metadata = {
     title: "CIMA",
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             children
           ) : (
             // Paginas con auth
-            <Auth>{children}</Auth>
+            <PermisosProvider>
+              <Auth>{children}</Auth>
+            </PermisosProvider>
           )}
         </Providers>
       </body>

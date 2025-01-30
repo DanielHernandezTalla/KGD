@@ -13,7 +13,7 @@ export default function RegistrarEstatusSalida() {
           iD_ALMACEN: '',
           fechA_RECEPCION: '',
           iD_PROVEEDOR: null,
-          iD_TIPO_TRANSACCION: '',
+          iD_TIPO_TRANSACCION: 1,
           iD_RECEPCION_ESTATUS: 1
         }}
         url='RecepcionCabecera'

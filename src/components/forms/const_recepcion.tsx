@@ -48,17 +48,17 @@ export const FormRecepcion = ({
     {
       name: 'iD_PROVEEDOR',
       label: 'Proveedor',
-      type: 'select'
-      // options: getProveedores(data?.relacion?.estados),
-      // fullWidth: true
-    },
-    {
-      name: 'iD_TIPO_TRANSACCION',
-      label: 'Tipo transacción',
       type: 'select',
-      options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
-      // fullWidth: true
+      // options: getProveedores(data?.relacion?.estados),
+      fullWidth: true
     },
+    // {
+    //   name: 'iD_TIPO_TRANSACCION',
+    //   label: 'Tipo transacción',
+    //   type: 'select',
+    //   options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
+    //   // fullWidth: true
+    // },
     {
       name: 'fechA_RECEPCION',
       label: 'Fecha recepción',

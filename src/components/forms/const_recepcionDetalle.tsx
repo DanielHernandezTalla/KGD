@@ -72,27 +72,27 @@ export const FormRecepcionDetalle = ({
     //   options: getAlmacen(data?.relacion?.almacenOrigen)
     //   // fullWidth: true
     // },
-    {
-      name: 'iD_ALMACEN',
-      label: 'Almacen destino',
-      type: 'select',
-      options: getAlmacen(data?.relacion?.almacen),
-      fullWidth: true
-    },
+    // {
+    //   name: 'iD_ALMACEN',
+    //   label: 'Almacen destino',
+    //   type: 'select',
+    //   options: getAlmacen(data?.relacion?.almacen),
+    //   fullWidth: true
+    // },
     {
       name: 'iD_UOM',
       label: 'Unidades de medida',
       type: 'select',
-      options: getUnidadMedida(data?.relacion?.unidad)
-      // fullWidth: true
+      options: getUnidadMedida(data?.relacion?.unidad),
+      fullWidth: true
     },
-    {
-      name: 'iD_TIPO_TRANSACCION',
-      label: 'Tipo transacción',
-      type: 'select',
-      options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
-      // fullWidth: true
-    },
+    // {
+    //   name: 'iD_TIPO_TRANSACCION',
+    //   label: 'Tipo transacción',
+    //   type: 'select',
+    //   options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
+    //   // fullWidth: true
+    // },
     {
       name: 'fechA_RECEPCION',
       label: 'Fecha recepción',

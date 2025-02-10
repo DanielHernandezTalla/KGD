@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function CategoriaActivos({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articulos.activos.index',
-    'articulos.activos.store',
-    'articulos.activos.show'
+    'articuloscategoriaact.lista',
+    'articuloscategoriaact.save',
+    'articuloscategoriaact.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -64,7 +64,7 @@ export default function CategoriaActivos({ searchParams }: { searchParams: { pag
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.activos.index'>
+      <LayoutPermiso checked={checked} name='articuloscategoriaact.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -77,11 +77,11 @@ export default function CategoriaActivos({ searchParams }: { searchParams: { pag
               isError={isError}
               title='Categoría de activos'
               idColumn='iD_ACTIVOS'
-              nuevo={checked['articulos.activos.store']}
+              nuevo={checked['articuloscategoriaact.save']}
               createHref='articulos/categoriaActivos'
-              singleHref={checked['articulos.activos.show'] && 'articulos/categoriaActivos'}
+              singleHref={checked['articuloscategoriaact.listaid'] && 'articulos/categoriaActivos'}
               cols={tableHeaders}
-              data={data?.listado.map((activos: any, index: any) => ({
+              data={data?.listado?.map((activos: any, index: any) => ({
                 ...activos,
                 tiempO_DEPRECIACION_YEAR: activos.tiempO_DEPRECIACION_YEAR + ' años'
               }))}

@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function CategoriaActivoSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articulos.activos.update';
+  const rutaToCheck: string = 'articuloscategoriaact.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -23,7 +23,7 @@ export default function CategoriaActivoSingle({ params }: { params: { id: number
   return (
     <FormLayout
       title='Modificar categoría activo'
-      rutaToCheck='articulos.activos.show'
+      rutaToCheck='articuloscategoriaact.listaid'
       isLoading={isLoading}
       isError={isError}
     >

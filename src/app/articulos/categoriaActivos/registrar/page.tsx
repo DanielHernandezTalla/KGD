@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarCategoriaActivo() {
   return (
-    <FormLayout title='Registrar categoría activo' rutaToCheck='articulos.activos.store'>
+    <FormLayout title='Registrar categoría activo' rutaToCheck='articuloscategoriaact.save'>
       <FormCategoriaActivos
         initialValues={{
           activo: '',

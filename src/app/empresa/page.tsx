@@ -9,10 +9,10 @@ import { handrePermisos } from '@/utils/handlePermisos';
 const Datos = () => {
   const rutasToCheck: string[] = [
     'empresa.empresa.index',
-    'empresa.estados.index',
-    'empresa.ciudades.index',
-    'empresa.empresas.index',
-    'empresa.sucursales.index'
+    'estados.lista',
+    'ciudad.lista',
+    'empresas.lista',
+    'sucursal.lista'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -29,19 +29,19 @@ const Datos = () => {
         <div className='flex flex-col gap-5 md:gap-10'>
           <TitlePage title='Empresa' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-            {checked['empresa.estados.index'] && (
+            {checked['estados.lista'] && (
               <ButtonData icon='faMapLocationDot' text='Estados' href='/empresa/estados' />
             )}
 
-            {checked['empresa.ciudades.index'] && (
+            {checked['ciudad.lista'] && (
               <ButtonData icon='faCity' text='Ciudades' href='/empresa/ciudades' />
             )}
 
-            {checked['empresa.empresas.index'] && (
+            {checked['empresas.lista'] && (
               <ButtonData icon='hotel' text='Empresas' href='/empresa/empresas' />
             )}
 
-            {checked['empresa.sucursales.index'] && (
+            {checked['sucursal.lista'] && (
               <ButtonData icon='faHouseFlag' text='Sucursales' href='/empresa/sucursales' />
             )}
 

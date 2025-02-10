@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarEmpleado() {
   return (
-    <FormLayout title='Registrar Empleado' rutaToCheck='personal.empleados.store'>
+    <FormLayout title='Registrar Empleado' rutaToCheck='empleados.save'>
       <FormEmpleados
         initialValues={{
           nombre: '',

@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Empleados({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'personal.empleados.index',
-    'personal.empleados.store',
-    'personal.empleados.show'
+    'empleados.lista',
+    'empleados.save',
+    'empleados.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -84,7 +84,7 @@ export default function Empleados({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.empleados.index'>
+      <LayoutPermiso checked={checked} name='empleados.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -97,9 +97,9 @@ export default function Empleados({ searchParams }: { searchParams: { page: numb
               isError={isError}
               title='Empleados'
               idColumn='iD_EMPLEADO'
-              nuevo={checked['personal.empleados.store']}
+              nuevo={checked['empleados.save']}
               createHref='personal/empleados'
-              singleHref={checked['personal.empleados.show'] && 'personal/empleados'}
+              singleHref={checked['empleados.listaid'] && 'personal/empleados'}
               cols={tableHeaders}
               data={data?.listado?.map((item: any) => {
                 return {

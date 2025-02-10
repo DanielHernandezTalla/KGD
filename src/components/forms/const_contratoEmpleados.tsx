@@ -29,8 +29,6 @@ export const FormContratoEmpleados = ({
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('empleados/relacion');
 
-  // console.log(initialValues);
-
   const formInputs: FORMINPUT[] = [
     {
       name: 'fechA_INGRESO',

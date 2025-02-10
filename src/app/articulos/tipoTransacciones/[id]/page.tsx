@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function CategoriasSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articulos.transacciones.update';
+  const rutaToCheck: string = 'tipotransaccion.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -23,7 +23,7 @@ export default function CategoriasSingle({ params }: { params: { id: number } })
   return (
     <FormLayout
       title='Modificar tipo de transacción'
-      rutaToCheck='articulos.transacciones.show'
+      rutaToCheck='tipotransaccion.listaid'
       isLoading={isLoading}
       isError={isError}
     >

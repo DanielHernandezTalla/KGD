@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function TipoTransacciones({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articulos.transacciones.index',
-    'articulos.transacciones.store',
-    'articulos.transacciones.show'
+    'tipotransaccion.lista',
+    'tipotransaccion.save',
+    'tipotransaccion.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function TipoTransacciones({ searchParams }: { searchParams: { pa
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.transacciones.index'>
+      <LayoutPermiso checked={checked} name='tipotransaccion.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function TipoTransacciones({ searchParams }: { searchParams: { pa
               isError={isError}
               title='Tipo de transacciones'
               idColumn='iD_TIPO_TRANSACCION'
-              nuevo={checked['articulos.transacciones.store']}
+              nuevo={checked['tipotransaccion.save']}
               createHref='articulos/tipoTransacciones'
-              singleHref={checked['articulos.transacciones.show'] && 'articulos/tipoTransacciones'}
+              singleHref={checked['tipotransaccion.listaid'] && 'articulos/tipoTransacciones'}
               cols={tableHeaders}
               data={data?.listado}
             />

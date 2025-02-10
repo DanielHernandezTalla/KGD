@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Articulos({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articulos.articulos.index',
-    'articulos.articulos.store',
-    'articulos.articulos.show'
+    'articulos.lista',
+    'articulos.save',
+    'articulos.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -96,7 +96,7 @@ export default function Articulos({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.articulos.index'>
+      <LayoutPermiso checked={checked} name='articulos.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -109,9 +109,9 @@ export default function Articulos({ searchParams }: { searchParams: { page: numb
               isError={isError}
               title='Artículos'
               idColumn='iD_ITEM'
-              nuevo={checked['articulos.articulos.store']}
+              nuevo={checked['articulos.save']}
               createHref='articulos/articulos'
-              singleHref={checked['articulos.articulos.show'] && 'articulos/articulos'}
+              singleHref={checked['articulos.listaid'] && 'articulos/articulos'}
               cols={tableHeaders}
               data={data?.listado?.map((articulo: any, index: any) => ({
                 ...articulo,

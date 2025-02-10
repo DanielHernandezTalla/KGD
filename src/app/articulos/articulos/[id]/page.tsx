@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function ArticulosSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articulos.articulos.update';
+  const rutaToCheck: string = 'articulos.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
   return (
     <FormLayout
       title='Modificar artículo'
-      rutaToCheck='articulos.articulos.show'
+      rutaToCheck='articulos.listaid'
       isLoading={isLoading}
       isError={isError}
     >

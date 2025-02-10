@@ -11,7 +11,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function UnidadesDeMedida({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = ['articulos.um.index', 'articulos.um.store', 'articulos.um.show'];
+  const rutasToCheck: string[] = ['unidadmedida.lista', 'unidadmedida.save', 'unidadmedida.listaid'];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
@@ -60,7 +60,7 @@ export default function UnidadesDeMedida({ searchParams }: { searchParams: { pag
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.um.index'>
+      <LayoutPermiso checked={checked} name='unidadmedida.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function UnidadesDeMedida({ searchParams }: { searchParams: { pag
               isError={isError}
               title='Unidades de medida'
               idColumn='iD_UOM'
-              nuevo={checked['articulos.um.store']}
+              nuevo={checked['unidadmedida.save']}
               createHref='articulos/unidadesDeMedida'
-              singleHref={checked['articulos.um.show'] && 'articulos/unidadesDeMedida'}
+              singleHref={checked['unidadmedida.listaid'] && 'articulos/unidadesDeMedida'}
               cols={tableHeaders}
               data={data?.listado}
             />

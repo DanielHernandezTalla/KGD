@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function CategoriasSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articulos.um.update';
+  const rutaToCheck: string = 'unidadmedida.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`unidadmedida/${params.id}`);
@@ -20,7 +20,7 @@ export default function CategoriasSingle({ params }: { params: { id: number } })
   return (
     <FormLayout
       title='Modificar unidad de medida'
-      rutaToCheck='articulos.um.show'
+      rutaToCheck='unidadmedida.listaid'
       isLoading={isLoading}
       isError={isError}
     >

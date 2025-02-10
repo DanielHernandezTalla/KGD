@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Estados({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'empresa.ciudades.index',
-    'empresa.ciudades.store',
-    'empresa.ciudades.show'
+    'ciudad.lista',
+    'ciudad.save',
+    'ciudad.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -64,7 +64,7 @@ export default function Estados({ searchParams }: { searchParams: { page: number
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='empresa.ciudades.index'>
+      <LayoutPermiso checked={checked} name='ciudad.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -77,9 +77,9 @@ export default function Estados({ searchParams }: { searchParams: { page: number
               isError={isError}
               title='Ciudades'
               idColumn='iD_CIUDAD'
-              nuevo={checked['empresa.ciudades.store']}
+              nuevo={checked['ciudad.save']}
               createHref='empresa/ciudades'
-              singleHref={checked['empresa.ciudades.show'] && 'empresa/ciudades'}
+              singleHref={checked['ciudad.listaid'] && 'empresa/ciudades'}
               cols={tableHeaders}
               data={data?.listado}
             />

@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Categorias({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articulos.categorias.index',
-    'articulos.categorias.store',
-    'articulos.categorias.show'
+    'articuloscategorias.lista',
+    'articuloscategorias.save',
+    'articuloscategorias.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.categorias.index'>
+      <LayoutPermiso checked={checked} name='articuloscategorias.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
               isError={isError}
               title='Categorías de artículos'
               idColumn='iD_CATEGORIA_ARTICULOS'
-              nuevo={checked['articulos.categorias.store']}
+              nuevo={checked['articuloscategorias.save']}
               createHref='articulos/categorias'
-              singleHref={checked['articulos.categorias.show'] && 'articulos/categorias'}
+              singleHref={checked['articuloscategorias.listaid'] && 'articulos/categorias'}
               cols={tableHeaders}
               data={data?.listado}
             />

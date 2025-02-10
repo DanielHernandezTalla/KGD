@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarSucursales() {
   return (
-    <FormLayout title='Registrar Sucursales' rutaToCheck='empresa.sucursales.store'>
+    <FormLayout title='Registrar Sucursales' rutaToCheck='sucursal.save'>
       <FormSucursales
         initialValues={{
           nombrE_SUCURSAL: '',

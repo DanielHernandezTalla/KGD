@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Sucursales({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'empresa.sucursales.index',
-    'empresa.sucursales.store',
-    'empresa.sucursales.show'
+    'sucursal.lista',
+    'sucursal.save',
+    'sucursal.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -68,7 +68,7 @@ export default function Sucursales({ searchParams }: { searchParams: { page: num
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='empresa.sucursales.index'>
+      <LayoutPermiso checked={checked} name='sucursal.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -81,9 +81,9 @@ export default function Sucursales({ searchParams }: { searchParams: { page: num
               isError={isError}
               title='Sucursales'
               idColumn='iD_SUCURSAL'
-              nuevo={checked['empresa.sucursales.store']}
+              nuevo={checked['sucursal.save']}
               createHref='empresa/sucursales'
-              singleHref={checked['empresa.sucursales.show'] && 'empresa/sucursales'}
+              singleHref={checked['sucursal.listaid'] && 'empresa/sucursales'}
               cols={tableHeaders}
               data={data?.listado}
             />

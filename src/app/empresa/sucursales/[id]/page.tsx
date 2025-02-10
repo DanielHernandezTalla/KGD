@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function SucursalesSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'empresa.sucursales.update';
+  const rutaToCheck: string = 'sucursal.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function SucursalesSingle({ params }: { params: { id: number } })
   return (
     <FormLayout
       title='Modificar Sucursales'
-      rutaToCheck='empresa.sucursales.show'
+      rutaToCheck='sucursal.listaid'
       isLoading={isLoading}
       isError={isError}
     >

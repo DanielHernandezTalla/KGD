@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function EstadosSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'empresa.estados.update';
+  const rutaToCheck: string = 'estados.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function EstadosSingle({ params }: { params: { id: number } }) {
   return (
     <FormLayout
       title='Modificar Estado'
-      rutaToCheck='empresa.estados.show'
+      rutaToCheck='estados.listaid'
       isLoading={isLoading}
       isError={isError}
     >

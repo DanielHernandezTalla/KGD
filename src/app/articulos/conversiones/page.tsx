@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Conversiones({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articulos.conversiones.index',
-    'articulos.conversiones.store',
-    'articulos.conversiones.show'
+    'conversiones.lista',
+    'conversiones.save',
+    'conversiones.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -80,7 +80,7 @@ export default function Conversiones({ searchParams }: { searchParams: { page: n
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articulos.conversiones.index'>
+      <LayoutPermiso checked={checked} name='conversiones.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -93,9 +93,9 @@ export default function Conversiones({ searchParams }: { searchParams: { page: n
               isError={isError}
               title='Conversiones de articulos'
               idColumn='iD_CONVERSION'
-              nuevo={checked['articulos.conversiones.store']}
+              nuevo={checked['conversiones.save']}
               createHref='articulos/conversiones'
-              singleHref={checked['articulos.conversiones.show'] && 'articulos/conversiones'}
+              singleHref={checked['conversiones.listaid'] && 'articulos/conversiones'}
               cols={tableHeaders}
               data={data?.listado}
             />

@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function ArticulosSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articulos.conversiones.update';
+  const rutaToCheck: string = 'conversiones.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
   return (
     <FormLayout
       title='Modificar conversión de artículos'
-      rutaToCheck='articulos.conversiones.show'
+      rutaToCheck='conversiones.listaid'
       isLoading={isLoading}
       isError={isError}
     >

@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarConversion() {
   return (
-    <FormLayout title='Registrar conversion de artículo' rutaToCheck='articulos.conversiones.store'>
+    <FormLayout title='Registrar conversion de artículo' rutaToCheck='conversiones.save'>
       <FormConversionesArticulos
         initialValues={{
           iD_ITEM: '',

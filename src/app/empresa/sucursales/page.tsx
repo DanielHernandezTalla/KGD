@@ -27,7 +27,7 @@ export default function Sucursales({ searchParams }: { searchParams: { page: num
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Ciudades KGD';
+    document.title = 'Sucursales KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

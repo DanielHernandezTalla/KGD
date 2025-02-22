@@ -27,7 +27,7 @@ export default function Estados({ searchParams }: { searchParams: { page: number
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Empresa KGD';
+    document.title = 'Estados KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

@@ -27,7 +27,7 @@ export default function Usuarios({ searchParams }: { searchParams: { page: numbe
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Artículos KGD';
+    document.title = 'Usuarios KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

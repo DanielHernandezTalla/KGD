@@ -27,7 +27,7 @@ export default function TipoTransacciones({ searchParams }: { searchParams: { pa
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Artículos KGD';
+    document.title = 'Tipo transacciones KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

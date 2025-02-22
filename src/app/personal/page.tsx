@@ -9,7 +9,7 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 const Personal = () => {
   const rutasToCheck = [
     'personal.personal.index',
-    'personal.empleados.index',
+    'empleados.lista',
     'personal.tipopersonal.index',
     'personal.tipopago.index',
     'personal.motivobaja.index',
@@ -21,7 +21,7 @@ const Personal = () => {
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Empresa KGD';
+    document.title = 'Personal KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
@@ -31,7 +31,7 @@ const Personal = () => {
         <div className='flex flex-col gap-5 md:gap-10'>
           <TitlePage title='Personal' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-            {checked['personal.empleados.index'] && (
+            {checked['empleados.lista'] && (
               <ButtonData icon='personal' text='Empleados' href='/personal/empleados' tag='Pendiente permisos' />
             )}
             {checked['personal.tipopersonal.index'] && (

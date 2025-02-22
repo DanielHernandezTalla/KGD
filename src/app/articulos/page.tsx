@@ -9,19 +9,19 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 const Articulos = () => {
   const rutasToCheck: string[] = [
     'articulos.articulo.index',
-    'articulos.articulos.index',
-    'articulos.conversiones.index',
-    'articulos.categorias.index',
-    'articulos.activos.index',
-    'articulos.um.index',
-    'articulos.transacciones.index'
+    'articulos.lista',
+    'conversiones.lista',
+    'articuloscategorias.lista',
+    'articuloscategoriaact.lista',
+    'unidadmedida.lista',
+    'tipotransaccion.lista'
   ];
 
   const [checked, setChecked] = useState([] as any);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Empresa KGD';
+    document.title = 'Artículos KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
   return (
@@ -30,19 +30,19 @@ const Articulos = () => {
         <div className='flex flex-col gap-5 md:gap-10'>
           <TitlePage title='Artículos' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-            {checked['articulos.articulos.index'] && (
+            {checked['articulos.lista'] && (
               <ButtonData icon='faScrewdriverWrench' text='Artículos' href='/articulos/articulos' />
             )}
 
-            {checked['articulos.conversiones.index'] && (
+            {checked['conversiones.lista'] && (
               <ButtonData icon='faShuffle' text='Conversiones' href='/articulos/conversiones' />
             )}
 
-            {checked['articulos.categorias.index'] && (
+            {checked['articuloscategorias.lista'] && (
               <ButtonData icon='tableList' text='Categorias' href='/articulos/categorias' />
             )}
 
-            {checked['articulos.activos.index'] && (
+            {checked['articuloscategoriaact.lista'] && (
               <ButtonData
                 icon='coins'
                 text='Categoría activos'
@@ -50,7 +50,7 @@ const Articulos = () => {
               />
             )}
 
-            {checked['articulos.um.index'] && (
+            {checked['unidadmedida.lista'] && (
               <ButtonData
                 icon='faPenRuler'
                 text='Unidades de medida'
@@ -58,7 +58,7 @@ const Articulos = () => {
               />
             )}
 
-            {checked['articulos.transacciones.index'] && (
+            {checked['tipotransaccion.lista'] && (
               <ButtonData
                 icon='faRightLeft'
                 text='Tipo transacciones'

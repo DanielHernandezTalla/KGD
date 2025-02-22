@@ -91,7 +91,7 @@ export default function Conversiones({ searchParams }: { searchParams: { page: n
             <DataViewer
               isLoading={isLoading}
               isError={isError}
-              title='Conversiones de articulos'
+              title='Conversiones de artículos'
               idColumn='iD_CONVERSION'
               nuevo={checked['conversiones.save']}
               createHref='articulos/conversiones'

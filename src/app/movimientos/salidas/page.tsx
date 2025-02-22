@@ -25,12 +25,9 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
     ...valueSearch
   });
 
-  console.log(data);
-  
-
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Recepción KGD';
+    document.title = 'Salidas KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

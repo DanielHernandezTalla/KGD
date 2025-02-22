@@ -27,7 +27,7 @@ export default function CentroDeCosto({ searchParams }: { searchParams: { page: 
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Artículos KGD';
+    document.title = 'Centro de costo KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

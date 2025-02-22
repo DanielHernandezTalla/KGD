@@ -41,7 +41,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
     handrePermisos(rutasToCheck, setChecked);
-    document.title = 'Recepción KGD';
+    document.title = 'Salida KGD';
   }, []);
 
   useEffect(() => {

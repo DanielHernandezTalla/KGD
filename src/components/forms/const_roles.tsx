@@ -19,7 +19,7 @@ export const FormRoles = ({
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'name',
+      name: 'role',
       label: 'Nombre de rol',
       type: 'text',
       placeholder: 'Escribe el nombre del rol...',
@@ -33,7 +33,7 @@ export const FormRoles = ({
   ];
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    role: Yup.string()
       .min(3, 'El nombre del rol debe tener minimo 3 caracteres')
       .required('Este campo es requerido')
   });
@@ -49,7 +49,7 @@ export const FormRoles = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          guarD_NAME: values.name,
+          rolE_NAME: values.role,
           creadO_POR: 3
         };
 

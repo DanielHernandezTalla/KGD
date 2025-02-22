@@ -7,7 +7,7 @@ export default function RegistrarRol() {
     <FormLayout title='Registrar rol' rutaToCheck='auth.roles.store'>
       <FormRoles
         initialValues={{
-          name: '',
+          role: '',
           estatus: true
         }}
         url='roles'

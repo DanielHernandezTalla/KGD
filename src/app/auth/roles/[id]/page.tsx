@@ -27,8 +27,8 @@ export default function RolSingle({ params }: { params: { id: number } }) {
     >
       <FormRoles
         initialValues={{
-          id: data?.dato?.iD_ROLE,
-          name: data?.dato?.role,
+          iD_ROLE: data?.dato?.iD_ROLE,
+          role: data?.dato?.role,
           estatus: data?.dato?.estatus
         }}
         url='roles'

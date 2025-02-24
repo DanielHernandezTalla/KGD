@@ -3,8 +3,9 @@ interface IUser {
   email?: string | null;
   image?: string | null;
   id?: string | null;
+  almacen?: string | null;
 }
 
 export interface ISession {
-  user?: IUser;
+  user: IUser;
 }

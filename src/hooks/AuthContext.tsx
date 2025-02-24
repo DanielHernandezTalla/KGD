@@ -48,13 +48,13 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
       const data = await res.json();
 
-      // console.log(data);
 
       dispatch({
         type: '[Auth] - Login',
         payload: {
           id: data.lista.id,
-          name: data.lista.name
+          nombre: data.lista.name,
+          iD_ALMACEN: data.lista.iD_ALMACEN
         }
       });
       return true;

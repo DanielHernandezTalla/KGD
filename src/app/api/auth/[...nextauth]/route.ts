@@ -34,7 +34,8 @@ const authOptions = {
                         id: data.lista.id?.toString() || '7',
                         name: data.lista.name,
                         email: data.lista.email || 'danielhernandez@gmail.com',
-                        token: data.lista.remember_token
+                        token: data.lista.remember_token,
+                        almacen: data.lista.iD_ALMACEN
                     };
                 } catch (error) {
                     let mensajeError = 'Error desconocido durante la autenticación';
@@ -62,6 +63,7 @@ const authOptions = {
                 token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
+                token.almacen = user.almacen; // Agregar el token al JWT
                 token.token = user.token; // Agregar el token al JWT
             }
             return token;
@@ -72,6 +74,7 @@ const authOptions = {
                 id: token.id as string,
                 name: token.name as string,
                 email: token.email as string,
+                almacen: token.almacen as string,
                 token: token.token as string // Incluye el token en la sesión
             };
             return session;

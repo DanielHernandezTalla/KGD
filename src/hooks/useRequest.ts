@@ -37,7 +37,7 @@ export function useRequest<T>(
         });
         const data = await res.json();
 
-        if (!data.ok) {
+        if (!data.ok && data.status != 403) {
           let error = data?.errors?.id?.msg || 'Error al realizar la operación';
           toast(error, 'Error', 'error');
         }

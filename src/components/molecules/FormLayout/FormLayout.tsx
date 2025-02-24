@@ -23,7 +23,7 @@ export const FormLayout: React.FC<FormLayoutProps> = ({
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = title;
+    document.title = title + ' KGD';
 
     if (rutaToCheck) {
       const rutasToCheck: string[] = [rutaToCheck];

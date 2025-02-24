@@ -57,6 +57,7 @@ export const handlePost = async ({
       if (messageOk) tryToast(messageOk, "Solicitud realizada", "success");
     }
     if (values.isBack) values.isBack();
+    if (values[0]?.isBack) values[0]?.isBack();
     if (callback) callback();
     if (closeModal) closeModal(false);
     if (onSuccess) onSuccess(data);

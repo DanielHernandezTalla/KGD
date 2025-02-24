@@ -5,11 +5,11 @@ import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
 import { useEffect, useState } from 'react';
-import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 import Tag from '@/components/atoms/Tag';
+import { useSession } from 'next-auth/react';
 
 export default function Recepcion({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
@@ -18,20 +18,24 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
     'movimientos.recepcion.show'
   ];
 
+  const { data: session } = useSession();
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
+  const almacen = session?.user.almacen;
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('RecepcionCabecera', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
 
-  console.log(data);
-  
+  // console.log(data);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
     document.title = 'Recepción KGD';
+    console.log('entra');
+    console.log(rutasToCheck);
+
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 

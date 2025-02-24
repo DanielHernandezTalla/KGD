@@ -111,28 +111,32 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
           </div>
 
           <div className='mt-4 flex justify-end space-x-3'>
-            <Button
-              size='small'
-              rounded
-              variant='primary'
-              text='Cerrar salida'
-              icon='pen'
-              disabled={
-                data?.dato?.lineas?.length == 0 ||
-                data?.dato?.iD_SALIDA_ESTATUS == 2 ||
-                data?.dato?.iD_SALIDA_ESTATUS == 4
-              }
-              onClick={() => setShowModalCerrarSalida(true)}
-            />
-            <Button
-              size='small'
-              rounded
-              variant='primary'
-              text='Cancelar salida'
-              icon='trash'
-              disabled={data?.dato?.iD_SALIDA_ESTATUS == 2 || data?.dato?.iD_SALIDA_ESTATUS == 4}
-              onClick={() => setShowModalCancelarSalida(true)}
-            />
+            {data?.dato?.iD_SALIDA_ESTATUS != 2 && (
+              <Button
+                size='small'
+                rounded
+                variant='primary'
+                text='Cerrar salida'
+                icon='pen'
+                disabled={
+                  data?.dato?.lineas?.length == 0 ||
+                  data?.dato?.iD_SALIDA_ESTATUS == 2 ||
+                  data?.dato?.iD_SALIDA_ESTATUS == 4
+                }
+                onClick={() => setShowModalCerrarSalida(true)}
+              />
+            )}
+            {data?.dato?.iD_SALIDA_ESTATUS != 2 && (
+              <Button
+                size='small'
+                rounded
+                variant='primary'
+                text='Cancelar salida'
+                icon='trash'
+                disabled={data?.dato?.iD_SALIDA_ESTATUS == 2 || data?.dato?.iD_SALIDA_ESTATUS == 4}
+                onClick={() => setShowModalCancelarSalida(true)}
+              />
+            )}
             <Button
               size='small'
               rounded
@@ -142,6 +146,25 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               disabled={data?.dato?.iD_SALIDA_ESTATUS != 1}
               onClick={() => setShowModalModificarSalida(true)}
             />
+            {data?.dato?.iD_SALIDA_ESTATUS == 2 && (
+              // <Button
+              //   size='small'
+              //   rounded
+              //   variant='primary'
+              //   text='Imprimir PDF'
+              //   icon='reports'
+              //   onClick={() => setShowModalModificarSalida(true)}
+              // />
+              <Button
+                size='small'
+                rounded
+                variant='primary'
+                text='Descargar PDF'
+                icon='descarga'
+                href={'/movimientos/salidas/pdfView/' + params.id}
+                target='_blank'
+              />
+            )}
           </div>
 
           <div className='mt-4 grid grid-cols-1 gap-2 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid-cols-2 lg:grid-cols-4'>

@@ -33,7 +33,7 @@ const Table: React.FC<TableProps> = ({
         'shadow-m w-full overflow-x-auto rounded-3xl border-2 border-gray-200 bg-white p-4 md:p-6'
       )}
     >
-      <table className='w-full max-w-5xl table-auto overflow-y-scroll'>
+      <table className='w-full table-auto overflow-y-scroll'>
         <thead className=''>
           <tr className=' bg-gray-100 p-4'>
             {cols.map(

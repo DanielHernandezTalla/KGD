@@ -20,7 +20,6 @@ export const FormEventos = ({
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('permisosdetail/relacion');
-  console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {

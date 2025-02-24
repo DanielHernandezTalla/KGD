@@ -40,6 +40,10 @@ export default function Usuarios({ searchParams }: { searchParams: { page: numbe
       label: 'Nombre de usuario'
     },
     {
+      name: 'empleado',
+      label: 'Empleado'
+    },
+    {
       name: 'name_rol',
       label: 'Rol'
     },

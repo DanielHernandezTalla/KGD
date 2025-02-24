@@ -5,20 +5,22 @@ import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
 import { useEffect, useState } from 'react';
-import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
-import Tag from '@/components/atoms/Tag';
+import { useSession } from 'next-auth/react';
 
 export default function MovimientosDiarios({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = ['movimientos.recepcion.index'];
 
+  const { data: session } = useSession();
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
+  const almacen = session?.user.almacen;
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('OnHandDiario', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
+    almacen: almacen, // Aqui ponemos fijo el almacen al que pertenecemos
     ...valueSearch
   });
 
@@ -27,7 +29,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
-  console.log(data);
+  // console.log(valueSearch);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -87,11 +89,11 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
               isLoading={isLoading}
               isError={isError}
               title='Movimientos diarios'
-              // idColumn='iD_RECEPCION'
+              idColumn='item'
               // nuevo={checked['movimientos.recepcion.store']}
               nuevo={false}
               // createHref='movimientos/recepcion'
-              // singleHref={checked['movimientos.recepcion.show'] && 'movimientos/recepcion'}
+              singleHref={checked['movimientos.recepcion.index'] && 'movimientos/diario'}
               cols={tableHeaders}
               data={data?.listado.map((item: any) => ({
                 ...item,

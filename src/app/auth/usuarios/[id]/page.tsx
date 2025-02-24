@@ -30,6 +30,7 @@ export default function UsuarioSingle({ params }: { params: { id: number } }) {
           id: data?.dato?.id,
           name: data?.dato?.name,
           id_rol: data?.dato?.id_rol,
+          iD_EMPLEADO: data?.dato?.iD_EMPLEADO,
           email: data?.dato?.email,
           password: data?.dato?.password || '',
           estatus: data?.dato?.estatus

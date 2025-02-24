@@ -1,3 +1,4 @@
+'use client';
 // context/PermisosContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { handrePermisos } from '@/utils/handlePermisos';

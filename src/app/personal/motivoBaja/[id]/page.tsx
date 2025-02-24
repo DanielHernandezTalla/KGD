@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function MotivoBajaSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'empresa.ciudades.update';
+  const rutaToCheck: string = 'ciudad.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 

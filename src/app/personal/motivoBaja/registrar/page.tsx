@@ -7,7 +7,7 @@ export default function RegistrarMotivoBaja() {
     <FormLayout title='Registrar motivo baja' rutaToCheck='personal.motivobaja.store'>
       <FormMotivoBaja
         initialValues={{
-          tipO_PAGO: '',
+          motivO_BAJA: '',
           descripcion: '',
           estatus: true
         }}

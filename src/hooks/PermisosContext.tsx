@@ -21,6 +21,7 @@ export const PermisosProvider = ({ children }: { children: React.ReactNode }) =>
       'personal.personal.index',
       'articulos.articulo.index',
       'contabilidad.contabilidad.index',
+      'reportes.reportes.index',
       'auth.auth.index'
     ];
     handrePermisos(rutasToCheck, setChecked);

@@ -26,7 +26,9 @@ const Nav = () => {
       {checked['contabilidad.contabilidad.index'] && (
         <NextLink href='/contabilidad' text='Contabilidad' icon='billete' />
       )}
-      <NextLink href='/reportes' text='Reportes' icon='reports' />
+      {checked['reportes.reportes.index'] && (
+        <NextLink href='/reportes' text='Reportes' icon='reports' />
+      )}
       {checked['auth.auth.index'] && (
         <NextLink href='/auth' text='Auth' icon='faUserShield' />
       )}

@@ -10,6 +10,7 @@ import { IDataResponse } from '@/interface/request';
 import { Pager } from '@/components/molecules';
 import { DairyFilter } from '@/components/forms/filter/dairyFilter';
 import { generateExel } from '@/app/api/reportExel/generateExel';
+import { toMoney } from '@/utils/toMoney';
 
 export default function Recepcion({ params }: { params: { id: number; page: number } }) {
   const pageSize = 10;
@@ -20,17 +21,46 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
     ...date
   });
 
+  console.log(date);
+  
+
+  // Traemos los datos para la relacion
+  const { data: relacion }: IDataResponse<any> = useRequest('reportes/relacion');
+
+  // console.log(relacion);
+
+  // console.log(relacion?.relacion?.usuarios);
+  // console.log(relacion?.relacion?.almacen);
+  // console.log(relacion?.relacion?.estatusRecepcion);
+  // console.log(relacion?.relacion?.proveedor);
+  // console.log(relacion?.relacion?.tipoTransaccion);
+
   useEffect(() => {
     document.title = 'Recepciones KGD';
   }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_RECEPCION',
+      name: 'nO_RECEPCION'
+    },
+    {
+      name: 'nO_ARTICULO',
       label: '#'
     },
     {
-      name: 'descripcion',
+      name: 'articulo',
+      label: 'Artículo'
+    },
+    {
+      name: 'cantidad',
+      label: 'Cantidad'
+    },
+    {
+      name: 'costo',
+      label: 'Costo'
+    },
+    {
+      name: 'comentario',
       label: 'Recepción'
     },
     {
@@ -38,7 +68,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       label: 'Fecha'
     },
     {
-      name: 'nombrE_TIPOTRANSACCION',
+      name: 'tipotransaccion',
       label: 'Tipo transacción'
     },
     {
@@ -46,69 +76,16 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       label: 'Referencia'
     },
     {
-      name: 'nombrE_PROVEEDOR',
-      label: 'Proveedor'
-    },
-    {
-      name: 'nombrE_ALMACEN',
+      name: 'almacen',
       label: 'Almacen'
     },
     {
-      name: 'creadO_NOMBRE',
+      name: 'usuario',
       label: 'Empleado'
     },
     {
-      name: 'nombrE_RECEPCIONESTATUS',
+      name: 'recepcioN_ESTATUS',
       label: 'Estatus'
-    }
-  ];
-
-  const ALMACENES = [
-    {
-      id: 1,
-      nombre: 'ALMACEN'
-    },
-    {
-      id: 2,
-      nombre: 'KGD'
-    },
-    {
-      id: 3,
-      nombre: 'Constructora'
-    },
-    {
-      id: 4,
-      nombre: 'O really'
-    }
-  ];
-
-  const ESTATUSLIST = [
-    {
-      id: 1,
-      nombre: 'ABIERTA'
-    },
-    {
-      id: 2,
-      nombre: 'CERRADA'
-    },
-    {
-      id: 3,
-      nombre: 'PARCIAL'
-    },
-    {
-      id: 4,
-      nombre: 'CANCELADO'
-    }
-  ];
-
-  const USUARIOS = [
-    {
-      id: 3,
-      nombre: 'USERTEST'
-    },
-    {
-      id: 8,
-      nombre: 'DanielHernandez'
     }
   ];
 
@@ -116,17 +93,26 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
     {
       name: 'ESTATUS',
       label: 'Estatus',
-      data: ESTATUSLIST
+      data: relacion?.relacion?.estatusRecepcion?.map((item: any) => ({
+        id: item?.iD_RECEPCION_ESTATUS,
+        nombre: item?.descripcion?.toUpperCase()
+      }))
     },
     {
       name: 'ALMACEN',
       label: 'Almacen',
-      data: ALMACENES
+      data: relacion?.relacion?.almacen?.map((item: any) => ({
+        id: item?.iD_ALMACEN,
+        nombre: item?.almacen?.toUpperCase()
+      }))
     },
     {
       name: 'USUARIO',
       label: 'Usuario',
-      data: USUARIOS
+      data: relacion?.relacion?.usuarios?.map((item: any) => ({
+        id: item?.id,
+        nombre: item?.name?.toUpperCase()
+      }))
     }
   ];
 
@@ -165,20 +151,23 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
           >
             <Table
               cols={tableHeaders}
-              idColumn={'idTerapia'}
+              idColumn={'nO_RECEPCION'}
               data={data?.listado
                 ?.filter((item: any) => item.iD_RECEPCION != 0)
                 ?.map((item: any) => ({
                   ...item,
-                  descripcion: item?.descripcion?.toUpperCase(),
+                  cantidad: item?.cantidad + ' ' + item?.unidad,
+                  costo: toMoney(item?.costo),
+                  almacen: item?.almacen?.toUpperCase(),
+                  tipotransaccion:
+                    item?.tipotransaccion == 'SALIDAS' ? 'TRASPASO' : item?.tipotransaccion,
                   fechA_RECEPCION: new Date(item?.fechA_RECEPCION).toLocaleDateString('es-ES', {
                     day: '2-digit',
                     month: '2-digit',
                     year: 'numeric'
-                  }),
-                  nombrE_ALMACEN: item?.nombrE_ALMACEN?.toUpperCase()
+                  })
                 }))}
-              // href={`pacientes/p/servicio`}
+              href={`movimientos/recepcion`}
             />
           </Pager>
         )}

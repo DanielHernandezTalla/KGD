@@ -10,101 +10,111 @@ import { IDataResponse } from '@/interface/request';
 import { Pager } from '@/components/molecules';
 import { DairyFilter } from '@/components/forms/filter/dairyFilter';
 import { generateExel } from '@/app/api/reportExel/generateExel';
-import { toMoney } from '@/utils/toMoney';
 
-export default function Recepcion({ params }: { params: { id: number; page: number } }) {
+export default function Inventario({ params }: { params: { id: number; page: number } }) {
   const pageSize = 10;
   const [date, setDate]: any = useState({});
 
   // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salidas', {
+  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/CantidadEnMano', {
     ...date
   });
-
-  // Traemos los datos para la relacion
-  const { data: relacion }: IDataResponse<any> = useRequest('reportes/relacion');
 
   console.log(data);
 
   useEffect(() => {
-    document.title = 'Salidas KGD';
+    document.title = 'Inventario KGD';
   }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
-    {
-      name: 'nO_SALIDA'
-    },
     {
       name: 'nO_ARTICULO',
       label: '#'
     },
     {
       name: 'articulo',
-      label: 'Artículo'
-    },
-    {
-      name: 'cantidad',
-      label: 'Cantidad'
-    },
-    {
-      name: 'costo',
-      label: 'Costo'
-    },
-    {
-      name: 'comentarios',
-      label: 'Salida'
-    },
-    {
-      name: 'fechA_SALIDA',
-      label: 'Fecha'
-    },
-    {
-      name: 'tipO_TRANSACCION',
-      label: 'Tipo transacción'
+      label: 'Articulo'
     },
     {
       name: 'almacen',
       label: 'Almacen'
     },
     {
-      name: 'almaceN_DESTINO',
-      label: 'Destino'
+      name: 'cantidad',
+      label: 'Cantidad'
     },
     {
-      name: 'creado',
-      label: 'Empleado'
+      name: 'nombrE_UOM',
+      label: 'Unidad de medida'
+    }
+  ];
+
+  const ALMACENES = [
+    {
+      id: 1,
+      nombre: 'ALMACEN'
     },
     {
-      name: 'salidA_ESTATUS',
-      label: 'Estatus'
+      id: 2,
+      nombre: 'KGD'
+    },
+    {
+      id: 3,
+      nombre: 'Constructora'
+    },
+    {
+      id: 4,
+      nombre: 'O really'
+    }
+  ];
+
+  const ESTATUSLIST = [
+    {
+      id: 1,
+      nombre: 'ABIERTA'
+    },
+    {
+      id: 2,
+      nombre: 'CERRADA'
+    },
+    {
+      id: 3,
+      nombre: 'PARCIAL'
+    },
+    {
+      id: 4,
+      nombre: 'CANCELADO'
+    }
+  ];
+
+  const USUARIOS = [
+    {
+      id: 3,
+      nombre: 'USERTEST'
+    },
+    {
+      id: 8,
+      nombre: 'DanielHernandez'
     }
   ];
 
   const filtros = [
-    {
-      name: 'ESTATUS',
-      label: 'Estatus',
-      data: relacion?.relacion?.estatusRecepcion?.map((item: any) => ({
-        id: item?.iD_RECEPCION_ESTATUS,
-        nombre: item?.descripcion?.toUpperCase()
-      }))
-    },
+    // {
+    //   name: 'ESTATUS',
+    //   label: 'Estatus',
+    //   data: ESTATUSLIST
+    // },
     {
       name: 'ALMACEN',
       label: 'Almacen',
-      data: relacion?.relacion?.almacen?.map((item: any) => ({
-        id: item?.iD_ALMACEN,
-        nombre: item?.almacen?.toUpperCase()
-      }))
-    },
-    {
-      name: 'USUARIO',
-      label: 'Usuario',
-      data: relacion?.relacion?.usuarios?.map((item: any) => ({
-        id: item?.id,
-        nombre: item?.name?.toUpperCase()
-      }))
+      data: ALMACENES,
+      fullWidth: true
     }
+    // {
+    //   name: 'USUARIO',
+    //   label: 'Usuario',
+    //   data: USUARIOS
+    // }
   ];
 
   const handleReport = async () => {
@@ -112,16 +122,16 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       ...date
     });
 
-    await generateExel('Reportes/salidas', params, 'salidas');
+    await generateExel('Reportes/CantidadEnMano', params, 'Inventario');
   };
 
   return (
     <MainLayout>
-      <TitlePage title='Salidas' />
+      <TitlePage title='Inventario' />
 
       <div className='mt-5 md:mt-10'>
         <div>
-          <DairyFilter setValues={setDate} optionalValues={filtros} />
+          <DairyFilter setValues={setDate} optionalValues={filtros} optionDate={true} />
         </div>
         <div className='translate-y-5 rounded-t-xl border-2 border-b-0 border-gray-200 bg-white px-4 py-4 md:translate-y-7 md:px-6 md:py-5'>
           <Button
@@ -142,22 +152,15 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
           >
             <Table
               cols={tableHeaders}
-              idColumn={'nO_SALIDA'}
+              idColumn={'idTerapia'}
               data={data?.listado
-                ?.filter((item: any) => item.iD_SALIDA != 0)
+                ?.filter((item: any) => item.iD_RECEPCION != 0)
                 ?.map((item: any) => ({
                   ...item,
-                  descripcion: item?.descripcion?.toUpperCase(),
-                  cantidad: item?.cantidad + ' ' + item?.nombrE_UOM,
-                  costo: toMoney(item?.costo),
-                  nombrE_ALMACEN: item?.nombrE_ALMACEN?.toUpperCase(),
-                  fechA_SALIDA: new Date(item?.fechA_SALIDA).toLocaleDateString('es-ES', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                  })
+                  articulo: item?.articulo?.toUpperCase(),
+                  almacen: item?.almacen?.toUpperCase()
                 }))}
-              href={`movimientos/salidas`}
+              // href={`pacientes/p/servicio`}
             />
           </Pager>
         )}

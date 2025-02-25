@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarUnidadDeMedida() {
   return (
-    <FormLayout title='Registrar unidad de medida'>
+    <FormLayout title='Registrar unidad de medida' rutaToCheck='unidadmedida.save'>
       <FormUnidadDeMedida
         initialValues={{
           unidaD_MEDIDA: '',

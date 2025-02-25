@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { FORMINPUT } from '@/interface/types';
 import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import {
-  getArticulos,
-  getCategoriaActivos,
-  getCategoriaArticulos,
-  getUnidadMedida
-} from '@/utils/dataToSelectOptions';
+import { getArticulos, getUnidadMedida } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
 export const FormConversionesArticulos = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('conversiones/relacion');
@@ -103,6 +100,7 @@ export const FormConversionesArticulos = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { FORMINPUT } from '@/interface/types';
-import { Form } from '../atoms';
+// import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
 import {
   getCategoriaActivos,
   getCategoriaArticulos,
-  getCiudades,
-  getData,
-  getEstados,
   getUnidadMedida
 } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
+import FormImage from '../atoms/Forms/FormImage';
 
 export const FormArticulos = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('articulos/relacion');
@@ -174,7 +174,7 @@ export const FormArticulos = ({
   };
 
   return (
-    <Form
+    <FormImage
       initialValues={initialValues}
       onChange={onChange}
       formInputs={formInputs}
@@ -198,6 +198,7 @@ export const FormArticulos = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

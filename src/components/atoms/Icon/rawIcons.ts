@@ -66,7 +66,12 @@ import {
   faWarehouse,
   faUserShield,
   faFileShield,
-  faBan
+  faBan,
+  faClipboardList,
+  faArrowsToDot,
+  faCartArrowDown,
+  faCartFlatbedSuitcase,
+  faListCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS = {
@@ -137,5 +142,10 @@ export const ICONS = {
   faWarehouse,
   faUserShield,
   faFileShield,
-  ban: faBan
+  ban: faBan,
+  faClipboardList,
+  faArrowsToDot,
+  faCartArrowDown,
+  faCartFlatbedSuitcase,
+  faListCheck
 };

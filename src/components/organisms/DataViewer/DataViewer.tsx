@@ -11,6 +11,7 @@ interface DataListProps {
   createHref?: string;
   singleHref?: string;
   idColumn?: string;
+  nuevo?: boolean;
 }
 
 const DataViewer: React.FC<DataListProps> = ({
@@ -21,7 +22,8 @@ const DataViewer: React.FC<DataListProps> = ({
   cols,
   data,
   createHref,
-  singleHref
+  singleHref,
+  nuevo = true
 }) => {
   if (isError) return <div>Error</div>;
 
@@ -37,6 +39,7 @@ const DataViewer: React.FC<DataListProps> = ({
           data={data}
           createHref={createHref}
           singleHref={singleHref}
+          nuevo={nuevo}
         />
       )}
     </div>

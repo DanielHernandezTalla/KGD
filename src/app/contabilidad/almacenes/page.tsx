@@ -1,20 +1,31 @@
 'use client';
-import MainLayout from '@/components/layouts/MainLayout';
-import { TABLECOLUMN } from '@/interface/types';
-import { DataViewer } from '@/components/organisms';
+import { useEffect, useState } from 'react';
 import { useRequest } from '@/hooks/useRequest';
+import { handrePermisos } from '@/utils/handlePermisos';
+import MainLayout from '@/components/layouts/MainLayout';
+import { DataViewer } from '@/components/organisms';
 import { Pager, Search } from '@/components/molecules';
-import { useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
+import { TABLECOLUMN } from '@/interface/types';
 import { IDataResponse } from '@/interface/request';
 
 export default function Almacenes({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = ['almacen.lista', 'almacen.save', 'almacen.listaid'];
+  const [checked, setChecked] = useState([] as any);
+
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('almacen', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Almacenes KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -31,6 +42,10 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
     {
       name: 'nombrE_CENTRO_COSTO',
       label: 'Centro de costo'
+    },
+    {
+      name: 'sucursal',
+      label: 'Sucursal'
     },
     {
       name: 'nombrE_CIUDAD',
@@ -61,30 +76,30 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <Pager
-        pageSize={10}
-        currentPage={Number(searchParams?.page) || 1}
-        totalCount={10 * data?.maximoPaginas}
-      >
-        <>
-          <Search getValue={setValueSearch} showBtnSearch showIcon />
-          <DataViewer
-            isLoading={isLoading}
-            isError={isError}
-            title='Almacenes'
-            idColumn='iD_ALMACEN'
-            createHref='contabilidad/almacenes'
-            singleHref='contabilidad/almacenes'
-            cols={tableHeaders}
-            data={data?.listado?.map((articulo: any, index: any) => ({
-              ...articulo
-              // transF_INVENTARIOS: articulo.transF_INVENTARIOS ? 'Si' : 'No',
-              // controL_MAX_MIX: articulo.controL_MAX_MIX ? 'Si' : 'No',
-              // activO_FIJO: articulo.activO_FIJO ? 'Si' : 'No'
-            }))}
-          />
-        </>
-      </Pager>
+      <LayoutPermiso checked={checked} name='almacen.lista'>
+        <Pager
+          pageSize={10}
+          currentPage={Number(searchParams?.page) || 1}
+          totalCount={10 * data?.maximoPaginas}
+        >
+          <>
+            <Search getValue={setValueSearch} showBtnSearch showIcon />
+            <DataViewer
+              isLoading={isLoading}
+              isError={isError}
+              title='Almacenes'
+              idColumn='iD_ALMACEN'
+              nuevo={checked['almacen.save']}
+              createHref='contabilidad/almacenes'
+              singleHref={checked['almacen.listaid'] && 'contabilidad/almacenes'}
+              cols={tableHeaders}
+              data={data?.listado?.map((articulo: any, index: any) => ({
+                ...articulo
+              }))}
+            />
+          </>
+        </Pager>
+      </LayoutPermiso>
     </MainLayout>
   );
 }

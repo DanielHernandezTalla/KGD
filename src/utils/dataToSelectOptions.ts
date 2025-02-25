@@ -75,7 +75,7 @@ export const getEncargados = (data: any) =>
 export const getCentroCosto = (data: any) =>
   data?.map((item: any) => ({
     value: item.iD_CENTRO_COSTO,
-    label: item.segmentO3
+    label: item.descripcion
   }));
 
 export const getAreas = (data: any) =>
@@ -104,18 +104,42 @@ export const getMotivoBaja = (data: any) =>
 
 export const getTipoPermisos = (data: any) =>
   data?.map((item: any) => ({
+    value: item.iD_TIPOPERMISO,
+    label: item.tipopermiso
+  }));
+
+export const getTipoPermisoDetalle = (data: any) =>
+  data?.map((item: any) => ({
     value: item.id,
-    label: item.name
+    label: item.nombre
   }));
 
 export const getRoles = (data: any) =>
   data?.map((item: any) => ({
-    value: item.id,
-    label: item.name
+    value: item.iD_ROLE,
+    label: item.rolE_NAME
   }));
 
 export const getPermisos = (data: any) =>
   data?.map((item: any) => ({
     value: item.id,
     label: item.name
+  }));
+
+export const getTipoTransaccion = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_TIPO_TRANSACCION,
+    label: item.tipO_TRANSACCION
+  }));
+
+export const getSucursal = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_SUCURSAL,
+    label: item.nombrE_SUCURSAL
+  }));
+
+export const getAlmacen = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_ALMACEN,
+    label: item.almacen
   }));

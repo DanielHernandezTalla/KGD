@@ -17,6 +17,7 @@ export function useRequest<T>(
     ...params
   });
 
+  const token = localStorage.getItem('token');
   let arrParams = params ? Object.entries(params) : [];
   let stringParams = '';
   arrParams.forEach((item: any, index: number) => {
@@ -30,12 +31,13 @@ export function useRequest<T>(
           method: 'GET',
           headers: {
             route: route,
-            params: searchParams.toString()
+            params: searchParams.toString(),
+            Authorization: `Bearer ${token}`
           }
         });
         const data = await res.json();
 
-        if (!data.ok) {
+        if (!data.ok && data.status != 403) {
           let error = data?.errors?.id?.msg || 'Error al realizar la operación';
           toast(error, 'Error', 'error');
         }

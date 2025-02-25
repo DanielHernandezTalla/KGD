@@ -11,11 +11,13 @@ import { useToast } from '@/hooks/toast';
 export const FormEmpresas = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('empresas/relacion');
@@ -115,8 +117,6 @@ export const FormEmpresas = ({
       submitButton={true}
       isBack
       onSubmit={(values) => {
-        console.log('sending');
-        
         handlePost({
           url,
           values,
@@ -125,6 +125,7 @@ export const FormEmpresas = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

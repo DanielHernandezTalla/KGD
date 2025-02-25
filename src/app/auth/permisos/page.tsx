@@ -18,14 +18,14 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'id'
+      name: 'iD_PERMISO'
     },
     {
-      name: 'name',
+      name: 'permiso',
       label: 'Nombre de rol'
     },
     {
-      name: 'namE_TYPE_PERMISSIONS',
+      name: 'typE_PERMISSIONS',
       label: 'Tipo de permiso'
     },
     // {
@@ -72,7 +72,7 @@ export default function Permisos({ searchParams }: { searchParams: { page: numbe
             isLoading={isLoading}
             isError={isError}
             title='Permisos'
-            idColumn='id'
+            idColumn='iD_PERMISO'
             createHref='auth/permisos'
             singleHref='auth/permisos'
             cols={tableHeaders}

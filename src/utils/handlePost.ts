@@ -1,4 +1,3 @@
-import { error, log } from "console";
 import { toMoney } from "./toMoney";
 import { ToastIcon, ToastProps } from "@/components/atoms/Toast/Toast";
 
@@ -12,6 +11,7 @@ type HandlePost = {
   callback?: () => void;
   closeModal?: (param: boolean) => void;
   onSuccess?: (data: any) => void;
+  onError?: (data: any) => void;
   toast?: (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) => void;
   isCifrado?: boolean;
 };
@@ -24,21 +24,28 @@ export const handlePost = async ({
   callback,
   closeModal,
   onSuccess,
+  onError,
   toast,
   isCifrado = true
 }: HandlePost) => {
+  const token = localStorage.getItem('token');
   const dataToPost = Object.fromEntries(
     Object.entries(values).filter(([v]) => v !== '' && v !== null)
   );
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
     method: method,
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(isCifrado ? dataToPost : values)
   });
 
   const data = await res.json();
+
+  // console.log('+++++++++++++++++++++++++++++');
+  // console.log(data);
+
 
   const tryToast = function (param1: string | ToastProps, param2?: string, param3?: ToastIcon, param4?: boolean) {
     if (toast) toast(param1, param2, param3, param4);
@@ -50,12 +57,14 @@ export const handlePost = async ({
       if (messageOk) tryToast(messageOk, "Solicitud realizada", "success");
     }
     if (values.isBack) values.isBack();
+    if (values[0]?.isBack) values[0]?.isBack();
     if (callback) callback();
     if (closeModal) closeModal(false);
-    if (onSuccess) onSuccess(data?.listado);
+    if (onSuccess) onSuccess(data);
   }
 
   if (!data.ok) {
+    if (onError) onError(data);
     if (data.msg) tryToast(data.msg, "Error", "error");
     else if (messageError && data.errors) {
       // const msg = `${messageError}. \nErrores: ${Object.entries(data.errors).map((v: any) => {

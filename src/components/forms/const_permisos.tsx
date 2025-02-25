@@ -10,35 +10,23 @@ import { getTipoPermisos } from '@/utils/dataToSelectOptions';
 export const FormPermisos = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  closeModal
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  closeModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('permisos/relacion');
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'name',
+      name: 'permiso',
       label: 'Nombre del permiso',
       type: 'text',
       placeholder: 'Escribe el nombre del permiso...',
-      fullWidth: true
-    },
-    {
-      name: 'typE_PERMISSIONS_ID',
-      label: 'Tipo de permiso',
-      type: 'select',
-      options: getTipoPermisos(data?.relacion?.tipoPermisos),
-      fullWidth: true
-    },
-    {
-      name: 'title',
-      label: 'Nombre boton',
-      type: 'text',
-      placeholder: 'Escribe el nombre del botón...',
       fullWidth: true
     },
     {
@@ -49,29 +37,44 @@ export const FormPermisos = ({
       fullWidth: true
     },
     {
-      name: 'icon',
-      label: 'Icono fontawesome',
-      type: 'text',
-      placeholder: 'Escribe icono de fontawesome...',
+      name: 'TIPOPERMISO_ID',
+      label: 'Tipo de permiso',
+      type: 'select',
+      options: getTipoPermisos(data?.relacion?.tipoPermisos),
       fullWidth: true
-    },
-    {
-      name: 'iS_LINK',
-      label: 'Es link',
-      type: 'checkbox'
-    },
-    {
-      name: 'estatus',
-      label: 'Activo',
-      type: 'checkbox'
     }
+    // {
+    //   name: 'title',
+    //   label: 'Nombre boton',
+    //   type: 'text',
+    //   placeholder: 'Escribe el nombre del botón...',
+    //   fullWidth: true
+    // },
+
+    // {
+    //   name: 'icon',
+    //   label: 'Icono fontawesome',
+    //   type: 'text',
+    //   placeholder: 'Escribe icono de fontawesome...',
+    //   fullWidth: true
+    // },
+    // {
+    //   name: 'iS_LINK',
+    //   label: 'Es link',
+    //   type: 'checkbox'
+    // },
+    // {
+    //   name: 'estatus',
+    //   label: 'Activo',
+    //   type: 'checkbox'
+    // }
   ];
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    permiso: Yup.string()
       .min(3, 'El nombre del permiso debe tener minimo 3 caracteres')
       .required('Este campo es requerido'),
-    typE_PERMISSIONS_ID: Yup.number().required('Este campo es requerido')
+    TIPOPERMISO_ID: Yup.number().required('Este campo es requerido')
   });
 
   return (
@@ -81,11 +84,12 @@ export const FormPermisos = ({
       validationSchema={validationSchema}
       cancelButton={true}
       submitButton={true}
-      isBack
+      closeModal={closeModal}
+      isBackOnCancel={false}
       onSubmit={(values) => {
         values = {
           ...values,
-          guarD_NAME: values.name,
+          permiso_name: values.permiso,
           creadO_POR: 3
         };
 
@@ -93,7 +97,8 @@ export const FormPermisos = ({
           url,
           values,
           method: isEditForm ? 'PUT' : 'POST',
-          toast
+          toast,
+          closeModal
         });
       }}
       isEditForm={isEditForm}

@@ -4,17 +4,19 @@ import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { getData, getEstados } from '@/utils/dataToSelectOptions';
+import { getEstados } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
 export const FormCiudades = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('ciudad/relacion');
@@ -64,6 +66,7 @@ export const FormCiudades = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

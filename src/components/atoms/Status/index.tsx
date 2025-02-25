@@ -20,14 +20,14 @@ export const Status = ({ text, status, onClick }: StatusProps) => {
 
     <div
       className={`border-emeral-300 flex items-center gap-3 rounded-xl border-2 p-2.5 ${
-        status ? 'border-emeral-300 bg-emerald-100' : 'border-slate-300 bg-slate-100'
+        status ? 'border-emeral-300 bg-emerald-100' : 'border-slate-300 bg-red-100'
       }`}
       onClick={onClick}
     >
       <div>
         <Icon
           icon={status ? 'circleCheck' : 'powerOff'}
-          className={`text-lg ${status ? 'text-emerald-500' : 'text-slate-500'}`}
+          className={`text-lg ${status ? 'text-emerald-500' : 'text-red-500'}`}
         />
       </div>
       <p className='truncate font-semibold text-slate-600' title={text}>

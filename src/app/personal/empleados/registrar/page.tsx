@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarEmpleado() {
   return (
-    <FormLayout title='Registrar Empleado'>
+    <FormLayout title='Registrar Empleado' rutaToCheck='empleados.save'>
       <FormEmpleados
         initialValues={{
           nombre: '',
@@ -17,6 +17,8 @@ export default function RegistrarEmpleado() {
           afiliacioN_IMSS: '',
           tipO_SANGRE: '',
           iD_ENTIDAD_NACIMIENTO: '',
+          iD_CIUDAD: 1,
+          iD_ESTADO: 1,
           paiS_NACIMIENTO: '',
           nacionalidad: '',
           estatus: true
@@ -26,3 +28,9 @@ export default function RegistrarEmpleado() {
     </FormLayout>
   );
 }
+
+// Instrucción INSERT en conflicto con la restricción FOREIGN KEY 'FK_EMPLEADOS_CIUDAD'. 
+// El conflicto ha aparecido en la base de datos 'CONSTRUCTORA', tabla 'dbo.CIUDAD', column 'ID_CIUDAD'. Se terminó la instrucción.
+
+// Instrucción INSERT en conflicto con la restricción FOREIGN KEY 'FK_EMPLEADOS_ESTADOS'.
+// El conflicto ha aparecido en la base de datos 'CONSTRUCTORA', tabla 'dbo.ESTADOS', column 'ID_ESTADO'. Se terminó la instrucción.

@@ -3,12 +3,28 @@ import { FormTipoPersonal } from '@/components/forms/const_tipoPersonal';
 import { FormLayout } from '@/components/molecules/FormLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import { useEffect, useState } from 'react';
 
 export default function SucursalesSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'personal.tipopersonal.update';
+  const rutasToCheck: string[] = [rutaToCheck];
+  const [checked, setChecked] = useState([] as any);
+
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(`tipopersonal/${params.id}`);
 
+  // Consultar permisos
+  useEffect(() => {
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
+
   return (
-    <FormLayout title='Modificar tipo de personal' isLoading={isLoading} isError={isError}>
+    <FormLayout
+      title='Modificar tipo de personal'
+      rutaToCheck='personal.tipopersonal.show'
+      isLoading={isLoading}
+      isError={isError}
+    >
       <FormTipoPersonal
         initialValues={{
           iD_TIPO_PERSONAL: data?.dato?.iD_TIPO_PERSONAL,
@@ -18,6 +34,7 @@ export default function SucursalesSingle({ params }: { params: { id: number } })
         }}
         url='tipopersonal'
         isEditForm={true}
+        permisoToEdit={checked[rutaToCheck]}
       />
     </FormLayout>
   );

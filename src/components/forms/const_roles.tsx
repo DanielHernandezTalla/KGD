@@ -7,17 +7,19 @@ import { useToast } from '@/hooks/toast';
 export const FormRoles = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'name',
+      name: 'role',
       label: 'Nombre de rol',
       type: 'text',
       placeholder: 'Escribe el nombre del rol...',
@@ -31,7 +33,7 @@ export const FormRoles = ({
   ];
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    role: Yup.string()
       .min(3, 'El nombre del rol debe tener minimo 3 caracteres')
       .required('Este campo es requerido')
   });
@@ -47,7 +49,7 @@ export const FormRoles = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          guarD_NAME: values.name,
+          rolE_NAME: values.role,
           creadO_POR: 3
         };
 
@@ -59,6 +61,7 @@ export const FormRoles = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

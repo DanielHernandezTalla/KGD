@@ -1,25 +1,34 @@
-import type { Metadata } from 'next';
+'use client';
 import Layout from '@/components/layouts/MainLayout';
 import { ButtonData } from '@/components/atoms';
 import { TitlePage } from '@/components/molecules';
-
-export const metadata: Metadata = {
-  title: 'Reportes CIMA'
-};
+import { useEffect, useState } from 'react';
+import { handrePermisos } from '@/utils/handlePermisos';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 const Reportes = () => {
+  const rutasToCheck: string[] = ['reportes.reportes.index'];
+
+  const [checked, setChecked] = useState([] as any);
+
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Reportes KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
+
   return (
     <Layout>
-      <div className='flex flex-col gap-5 md:gap-10'>
-        <TitlePage title='Reportes' />
-        <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
-          <ButtonData icon='folder' text='Diario' href='reportes/diario' />
-          <ButtonData icon='billete' text='Facturación' href='reportes/facturacion' />
-          {/* <ButtonData icon='servicios' text='Terapias' href='/datos/especialidades' /> */}
-          {/* <ButtonData icon='paciente' text='Estatus Médico' href='/datos/estatusMedico' /> */}
-          {/* <ButtonData icon='billete' text='Modo de Pagos' href='/datos/modosDePagos' /> */}
+      <LayoutPermiso checked={checked} name='reportes.reportes.index'>
+        <div className='flex flex-col gap-5 md:gap-10'>
+          <TitlePage title='Reportes' />
+          <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
+            <ButtonData icon='faCartArrowDown' text='Recepción' href='/reportes/recepcion' />
+            <ButtonData icon='faCartFlatbedSuitcase' text='Salidas' href='/reportes/salidas' />
+            <ButtonData icon='faCartFlatbedSuitcase' text='Inventario' href='/reportes/inventario' />
+          </div>
         </div>
-      </div>
+      </LayoutPermiso>
     </Layout>
   );
 };

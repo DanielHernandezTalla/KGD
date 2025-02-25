@@ -4,17 +4,32 @@ import { TABLECOLUMN } from '@/interface/types';
 import { DataViewer } from '@/components/organisms';
 import { useRequest } from '@/hooks/useRequest';
 import { Pager, Search } from '@/components/molecules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBullet } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
+import { handrePermisos } from '@/utils/handlePermisos';
+import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Sucursales({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = [
+    'sucursal.lista',
+    'sucursal.save',
+    'sucursal.listaid'
+  ];
+
+  const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('sucursal', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  // Consultar permisos y poner nombre a la pagina
+  useEffect(() => {
+    document.title = 'Sucursales KGD';
+    handrePermisos(rutasToCheck, setChecked);
+  }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -53,25 +68,28 @@ export default function Sucursales({ searchParams }: { searchParams: { page: num
 
   return (
     <MainLayout>
-      <Pager
-        pageSize={10}
-        currentPage={Number(searchParams?.page) || 1}
-        totalCount={10 * data?.maximoPaginas}
-      >
-        <>
-          <Search getValue={setValueSearch} showBtnSearch showIcon />
-          <DataViewer
-            isLoading={isLoading}
-            isError={isError}
-            title='Sucursales'
-            idColumn='iD_SUCURSAL'
-            createHref='empresa/sucursales'
-            singleHref='empresa/sucursales'
-            cols={tableHeaders}
-            data={data?.listado}
-          />
-        </>
-      </Pager>
+      <LayoutPermiso checked={checked} name='sucursal.lista'>
+        <Pager
+          pageSize={10}
+          currentPage={Number(searchParams?.page) || 1}
+          totalCount={10 * data?.maximoPaginas}
+        >
+          <>
+            <Search getValue={setValueSearch} showBtnSearch showIcon />
+            <DataViewer
+              isLoading={isLoading}
+              isError={isError}
+              title='Sucursales'
+              idColumn='iD_SUCURSAL'
+              nuevo={checked['sucursal.save']}
+              createHref='empresa/sucursales'
+              singleHref={checked['sucursal.listaid'] && 'empresa/sucursales'}
+              cols={tableHeaders}
+              data={data?.listado}
+            />
+          </>
+        </Pager>
+      </LayoutPermiso>
     </MainLayout>
   );
 }

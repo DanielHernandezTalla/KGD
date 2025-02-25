@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarCentroDeCosto() {
   return (
-    <FormLayout title='Registrar centro de costo'>
+    <FormLayout title='Registrar centro de costo' rutaToCheck='contabilidad.cc.store'>
       <FormCentroDeCosto
         initialValues={{
           descripcion: '',

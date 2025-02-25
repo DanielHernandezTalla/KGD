@@ -1,12 +1,7 @@
-export interface IPersonal extends ITipoPersonal {
+export interface IPersonal {
   id: number;
-  activo: boolean;
-  apellidoMaterno: string;
-  apellidoPaterno: string;
-  correo: string;
-  idPersonal: number;
-  sucursal_id: number;
   nombre: string;
+  iD_ALMACEN: string;
 }
 
 interface ITipoPersonal {

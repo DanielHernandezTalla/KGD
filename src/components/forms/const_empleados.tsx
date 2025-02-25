@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { FORMINPUT } from '@/interface/types';
 import { Form } from '../atoms';
@@ -118,6 +118,9 @@ export const FormEmpleados = ({
       .min(3, 'El apellido paterno debe tener al menos 3 caracteres')
       .required('Este campo es requerido'),
     fechA_NACIMIENTO: Yup.string().required('Este campo es requerido'),
+    afiliacioN_IMSS: Yup.string()
+      .matches(/^[0-9]*$/, 'Solo se permiten números')
+      .optional(),
     sexo: Yup.string().required('Este campo es requerido'),
     iD_ENTIDAD_NACIMIENTO: Yup.string().required('Este campo es requerido')
   });

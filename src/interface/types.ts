@@ -6,17 +6,17 @@ export type FORMINPUT = {
   name: string;
   label: string;
   type:
-  | 'text'
-  | 'email'
-  | 'password'
-  | 'number'
-  | 'select'
-  | 'selectmultiple'
-  | 'checkbox'
-  | 'radio'
-  | 'textarea'
-  | 'date'
-  | 'datetime-local';
+    | 'text'
+    | 'email'
+    | 'password'
+    | 'number'
+    | 'select'
+    | 'selectmultiple'
+    | 'checkbox'
+    | 'radio'
+    | 'textarea'
+    | 'date'
+    | 'datetime-local';
   placeholder?: string;
   value?: string | number | undefined | never[];
   setValue?: any;
@@ -41,3 +41,10 @@ export type TABLECOLUMN = {
 };
 
 export type TABLECOLUMNTOTAL = { name: string; label: string; toMoney?: boolean };
+
+export interface IForm {
+  initialValues: any;
+  url: string;
+  isEditForm?: boolean;
+  permisoToEdit?: boolean;
+}

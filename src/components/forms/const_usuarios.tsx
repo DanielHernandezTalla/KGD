@@ -5,19 +5,22 @@ import { handlePost } from '@/utils/handlePost';
 import { useToast } from '@/hooks/toast';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { getRoles } from '@/utils/dataToSelectOptions';
+import { getEncargados, getRoles } from '@/utils/dataToSelectOptions';
 
 export const FormUsuarios = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('usuarios/relacion');
+
 
   const formInputs: FORMINPUT[] = [
     {
@@ -32,6 +35,13 @@ export const FormUsuarios = ({
       label: 'Correo',
       type: 'email',
       placeholder: 'Escribe el correo del usuario...',
+      fullWidth: true
+    },
+    {
+      name: 'iD_EMPLEADO',
+      label: 'Empleado',
+      type: 'select',
+      options: getEncargados(data?.relacion?.empleados),
       fullWidth: true
     },
     {
@@ -86,6 +96,7 @@ export const FormUsuarios = ({
         });
       }}
       isEditForm={isEditForm}
+      permisoToEdit={permisoToEdit}
     />
   );
 };

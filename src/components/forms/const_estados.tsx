@@ -2,19 +2,18 @@ import * as Yup from 'yup';
 import { FORMINPUT } from '@/interface/types';
 import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
-import { useRequest } from '@/hooks/useRequest';
-import { IDataResponse } from '@/interface/request';
-import { getData } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
 export const FormEstados = ({
   initialValues,
   url,
-  isEditForm
+  isEditForm,
+  permisoToEdit = true
 }: {
   initialValues: any;
   url: string;
   isEditForm?: boolean;
+  permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
 
@@ -54,22 +53,28 @@ export const FormEstados = ({
   });
 
   return (
-    <Form
-      initialValues={initialValues}
-      formInputs={formInputs}
-      validationSchema={validationSchema}
-      cancelButton={true}
-      submitButton={true}
-      isBack
-      onSubmit={(values) => {
-        handlePost({
-          url,
-          values,
-          method: isEditForm ? 'PUT' : 'POST',
-          toast
-        });
-      }}
-      isEditForm={isEditForm}
-    />
+    <>
+      {permisoToEdit ? (
+        <Form
+          initialValues={initialValues}
+          formInputs={formInputs}
+          validationSchema={validationSchema}
+          cancelButton={true}
+          submitButton={true}
+          isBack
+          onSubmit={(values) => {
+            handlePost({
+              url,
+              values,
+              method: isEditForm ? 'PUT' : 'POST',
+              toast
+            });
+          }}
+          isEditForm={isEditForm}
+        />
+      ) : (
+        <Form initialValues={initialValues} formInputs={formInputs} cancelButton={true} isBack />
+      )}
+    </>
   );
 };

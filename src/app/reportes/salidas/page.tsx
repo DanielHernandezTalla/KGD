@@ -16,17 +16,20 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
   const [date, setDate]: any = useState({});
 
   // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/recepciones', {
+  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
     ...date
   });
 
+  console.log(data);
+  
+
   useEffect(() => {
-    document.title = 'Recepciones KGD';
+    document.title = 'Salidas KGD';
   }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_RECEPCION',
+      name: 'iD_SALIDA',
       label: '#'
     },
     {
@@ -34,17 +37,17 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       label: 'Recepción'
     },
     {
-      name: 'fechA_RECEPCION',
+      name: 'fechA_SALIDA',
       label: 'Fecha'
     },
     {
-      name: 'nombrE_TIPOTRANSACCION',
+      name: 'nombrE_TIPO_TRANSACCION',
       label: 'Tipo transacción'
     },
-    {
-      name: 'referencia',
-      label: 'Referencia'
-    },
+    // {
+    //   name: 'referencia',
+    //   label: 'Referencia'
+    // },
     {
       name: 'nombrE_PROVEEDOR',
       label: 'Proveedor'
@@ -58,7 +61,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       label: 'Empleado'
     },
     {
-      name: 'nombrE_RECEPCIONESTATUS',
+      name: 'nombrE_SALIDA_ESTATUS',
       label: 'Estatus'
     }
   ];
@@ -135,12 +138,12 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       ...date
     });
 
-    await generateExel('Reportes/recepciones', params, 'recepciones');
+    await generateExel('Reportes/salida', params, 'salidas');
   };
 
   return (
     <MainLayout>
-      <TitlePage title='Recepciones' />
+      <TitlePage title='Salidas' />
 
       <div className='mt-5 md:mt-10'>
         <div>
@@ -165,13 +168,13 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
           >
             <Table
               cols={tableHeaders}
-              idColumn={'idTerapia'}
+              idColumn={'iD_SALIDA'}
               data={data?.listado
-                ?.filter((item: any) => item.iD_RECEPCION != 0)
+                ?.filter((item: any) => item.iD_SALIDA != 0)
                 ?.map((item: any) => ({
                   ...item,
                   descripcion: item?.descripcion?.toUpperCase(),
-                  fechA_RECEPCION: new Date(item?.fechA_RECEPCION).toLocaleDateString('es-ES', {
+                  fechA_SALIDA: new Date(item?.fechA_SALIDA).toLocaleDateString('es-ES', {
                     day: '2-digit',
                     month: '2-digit',
                     year: 'numeric'

@@ -13,7 +13,7 @@ const Reportes = () => {
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Autenticación KGD';
+    document.title = 'Reportes KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
@@ -24,6 +24,7 @@ const Reportes = () => {
           <TitlePage title='Reportes' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
             <ButtonData icon='faCartArrowDown' text='Recepción' href='/reportes/recepcion' />
+            <ButtonData icon='faCartFlatbedSuitcase' text='Salidas' href='/reportes/salidas' />
           </div>
         </div>
       </LayoutPermiso>

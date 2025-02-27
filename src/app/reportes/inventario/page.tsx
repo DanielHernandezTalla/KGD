@@ -10,13 +10,18 @@ import { IDataResponse } from '@/interface/request';
 import { Pager } from '@/components/molecules';
 import { DairyFilter } from '@/components/forms/filter/dairyFilter';
 import { generateExel } from '@/app/api/reportExel/generateExel';
+import { useSearchParams } from 'next/navigation';
 
-export default function Inventario({ params }: { params: { id: number; page: number } }) {
+export default function Inventario() {
+  const searchParams = useSearchParams();
   const pageSize = 10;
   const [date, setDate]: any = useState({});
 
   // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/CantidadEnMano', {
+  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/ListaOnhand', {
+    pagina: searchParams.get('page') || 1,
+    cantidadRegistrosPorPagina: 10,
+    item: 5,
     ...date
   });
 
@@ -65,36 +70,6 @@ export default function Inventario({ params }: { params: { id: number; page: num
     {
       id: 4,
       nombre: 'O really'
-    }
-  ];
-
-  const ESTATUSLIST = [
-    {
-      id: 1,
-      nombre: 'ABIERTA'
-    },
-    {
-      id: 2,
-      nombre: 'CERRADA'
-    },
-    {
-      id: 3,
-      nombre: 'PARCIAL'
-    },
-    {
-      id: 4,
-      nombre: 'CANCELADO'
-    }
-  ];
-
-  const USUARIOS = [
-    {
-      id: 3,
-      nombre: 'USERTEST'
-    },
-    {
-      id: 8,
-      nombre: 'DanielHernandez'
     }
   ];
 
@@ -147,7 +122,7 @@ export default function Inventario({ params }: { params: { id: number; page: num
         ) : (
           <Pager
             pageSize={pageSize}
-            currentPage={Number(params.page) || 1}
+            currentPage={Number(searchParams.get('page')) || 1}
             totalCount={pageSize * data?.maximoPaginas}
           >
             <Table

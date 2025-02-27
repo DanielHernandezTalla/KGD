@@ -11,20 +11,22 @@ import { Pager } from '@/components/molecules';
 import { DairyFilter } from '@/components/forms/filter/dairyFilter';
 import { generateExel } from '@/app/api/reportExel/generateExel';
 import { toMoney } from '@/utils/toMoney';
+import { useSearchParams } from 'next/navigation';
 
-export default function Recepcion({ params }: { params: { id: number; page: number } }) {
+export default function Recepcion() {
+  const searchParams = useSearchParams();
   const pageSize = 10;
-  const [date, setDate]: any = useState({});
+  const [search, setSearch]: any = useState({});
 
   // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salidas', {
-    ...date
+  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/listasalida', {
+    numeroDePagina: searchParams.get('page') || 1,
+    cantidadRegistrosPorPagina: 10,
+    ...search
   });
 
   // Traemos los datos para la relacion
   const { data: relacion }: IDataResponse<any> = useRequest('reportes/relacion');
-
-  console.log(data);
 
   useEffect(() => {
     document.title = 'Salidas KGD';
@@ -98,6 +100,14 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
       }))
     },
     {
+      name: 'TIPOTRANSACCION',
+      label: 'Tipo transacción',
+      data: relacion?.relacion?.tipoTransaccion?.map((item: any) => ({
+        id: item?.iD_TIPO_TRANSACCION,
+        nombre: item?.tipO_TRANSACCION?.toUpperCase()
+      }))
+    },
+    {
       name: 'USUARIO',
       label: 'Usuario',
       data: relacion?.relacion?.usuarios?.map((item: any) => ({
@@ -109,7 +119,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
 
   const handleReport = async () => {
     const params = new URLSearchParams({
-      ...date
+      ...search
     });
 
     await generateExel('Reportes/salidas', params, 'salidas');
@@ -121,7 +131,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
 
       <div className='mt-5 md:mt-10'>
         <div>
-          <DairyFilter setValues={setDate} optionalValues={filtros} />
+          <DairyFilter setValues={setSearch} optionalValues={filtros} />
         </div>
         <div className='translate-y-5 rounded-t-xl border-2 border-b-0 border-gray-200 bg-white px-4 py-4 md:translate-y-7 md:px-6 md:py-5'>
           <Button
@@ -137,7 +147,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
         ) : (
           <Pager
             pageSize={pageSize}
-            currentPage={Number(params.page) || 1}
+            currentPage={Number(searchParams.get('page')) || 1}
             totalCount={pageSize * data?.maximoPaginas}
           >
             <Table

@@ -17,8 +17,11 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
   const [date, setDate]: any = useState({});
 
   // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/recepciones', {
-    ...date
+  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/listarecepciones', {
+    pagina: params?.page || 1,
+    cantidadRegistrosPorPagina: 10,
+    ...date,
+    // FiltroName:''
   });
 
   console.log(date);

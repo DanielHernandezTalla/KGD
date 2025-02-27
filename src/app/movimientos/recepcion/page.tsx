@@ -25,10 +25,11 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('RecepcionCabecera', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
+    Almacen: almacen,
     ...valueSearch
   });
 
-  // console.log(data);
+  console.log(almacen);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {

@@ -20,14 +20,8 @@ export default function Recepcion() {
   const [search, setSearch]: any = useState({});
 
   // <<Obtenemos los datos del reporte>>
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/Listarecepciones', {
-    numeroDePagina: searchParams.get('page') || 1,
-    cantidadRegistrosPorPagina: pageSize,
-    ...search
-  });
-
-  console.log({
-    numeroDePagina: searchParams.get('page') || 1,
+  const { data, isLoading }: IDataResponse<any> = useRequest('reportes/listarecepciones', {
+    pagina: searchParams.get('page') || 1,
     cantidadRegistrosPorPagina: pageSize,
     ...search
   });

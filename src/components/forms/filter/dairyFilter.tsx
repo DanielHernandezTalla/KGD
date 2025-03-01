@@ -52,6 +52,13 @@ export const DairyFilter = ({
       }
       return obj;
     }, {});
+
+    const newParams = new URLSearchParams({
+      page: '1'
+    });
+
+    window.history.pushState(null, '', '?' + newParams.toString());
+
     setValues(filteredValues);
   };
 

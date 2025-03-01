@@ -21,7 +21,7 @@ export default function Salidas() {
 
   // <<Obtenemos los datos del reporte>>
   const { data, isLoading }: IDataResponse<any> = useRequest('reportes/listasalida', {
-    numeroDePagina: searchParams.get('page') || 1,
+    pagina: searchParams.get('page') || 1,
     cantidadRegistrosPorPagina: pageSize,
     ...search
   });

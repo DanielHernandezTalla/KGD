@@ -4,7 +4,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { TitlePage } from '../../../components/molecules/TitlePage/index';
 import LoadingSpinner from '../../../components/atoms/LoadingSpinner/LoadingSpinner';
-import { TABLECOLUMN } from '@/interface/types';
+import { FORMINPUT, TABLECOLUMN } from '@/interface/types';
 import { Button, Table } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 import { Pager } from '@/components/molecules';
@@ -13,24 +13,27 @@ import { generateExel } from '@/app/api/reportExel/generateExel';
 import { useSearchParams } from 'next/navigation';
 
 export default function Inventario() {
+  // <<Cargamos los parámetros iniciales>>
   const searchParams = useSearchParams();
   const pageSize = 10;
-  const [date, setDate]: any = useState({});
+  const [search, setSearch]: any = useState({});
 
-  // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/ListaOnhand', {
+  // <<Obtenemos los datos del reporte>>
+  const { data, isLoading }: IDataResponse<any> = useRequest('reportes/listaonhand', {
     pagina: searchParams.get('page') || 1,
-    cantidadRegistrosPorPagina: 10,
-    item: 5,
-    ...date
+    cantidadRegistrosPorPagina: pageSize,
+    ...search
   });
 
-  console.log(data);
+  // <<Obtenemos los datos para llenar el formulario>>
+  const { data: relacion }: IDataResponse<any> = useRequest('reportes/relacion');
 
+  // <<Establecemos el título de la página>>
   useEffect(() => {
     document.title = 'Inventario KGD';
   }, []);
 
+  // <<Definimos las columnas a mostrar en la tabla>>
   const tableHeaders: TABLECOLUMN[] = [
     {
       name: 'nO_ARTICULO',
@@ -54,47 +57,31 @@ export default function Inventario() {
     }
   ];
 
-  const ALMACENES = [
+  // <<Cargamos los filtros para el reporte>>
+  const filtros: FORMINPUT[] = [
     {
-      id: 1,
-      nombre: 'ALMACEN'
+      name: 'FiltroName',
+      label: 'Artículo',
+      type: 'text',
+      placeholder: 'Escribe el nombre del artículo',
+      fullWidth: true
     },
-    {
-      id: 2,
-      nombre: 'KGD'
-    },
-    {
-      id: 3,
-      nombre: 'Constructora'
-    },
-    {
-      id: 4,
-      nombre: 'O really'
-    }
-  ];
-
-  const filtros = [
-    // {
-    //   name: 'ESTATUS',
-    //   label: 'Estatus',
-    //   data: ESTATUSLIST
-    // },
     {
       name: 'ALMACEN',
-      label: 'Almacen',
-      data: ALMACENES,
+      label: 'Almacén',
+      type: 'select',
+      options: relacion?.relacion?.almacen?.map((item: any) => ({
+        value: item?.iD_ALMACEN,
+        label: item?.almacen?.toUpperCase()
+      })),
       fullWidth: true
     }
-    // {
-    //   name: 'USUARIO',
-    //   label: 'Usuario',
-    //   data: USUARIOS
-    // }
   ];
 
+  // <<Exportamos los datos a Excel>>
   const handleReport = async () => {
     const params = new URLSearchParams({
-      ...date
+      ...search
     });
 
     await generateExel('Reportes/CantidadEnMano', params, 'Inventario');
@@ -106,7 +93,7 @@ export default function Inventario() {
 
       <div className='mt-5 md:mt-10'>
         <div>
-          <DairyFilter setValues={setDate} optionalValues={filtros} optionDate={true} />
+          <DairyFilter setValues={setSearch} optionalFilters={filtros} optionDate={true} />
         </div>
         <div className='translate-y-5 rounded-t-xl border-2 border-b-0 border-gray-200 bg-white px-4 py-4 md:translate-y-7 md:px-6 md:py-5'>
           <Button
@@ -135,7 +122,6 @@ export default function Inventario() {
                   articulo: item?.articulo?.toUpperCase(),
                   almacen: item?.almacen?.toUpperCase()
                 }))}
-              // href={`pacientes/p/servicio`}
             />
           </Pager>
         )}

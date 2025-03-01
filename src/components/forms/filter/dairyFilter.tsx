@@ -5,18 +5,13 @@ import { FORMINPUT } from '@/interface/types';
 export const DairyFilter = ({
   setValues,
   optionDate,
-  optionalValues
+  optionalFilters
 }: {
   initialValues?: any;
   isEditForm?: boolean;
   setValues?: any;
   optionDate?: boolean;
-  optionalValues?: {
-    name: string;
-    label: string;
-    data: any[];
-    fullWidth: boolean;
-  }[];
+  optionalFilters?: FORMINPUT[];
 }) => {
   const formInputs: FORMINPUT[] = [];
 
@@ -35,15 +30,17 @@ export const DairyFilter = ({
     );
   }
 
-  optionalValues?.forEach((element) => {
+  optionalFilters?.forEach((element) => {
     formInputs.push({
       name: element.name,
       label: element.label,
-      type: 'select',
+      type: element.type,
+      placeholder: element.placeholder,
+      value: '',
       fullWidth: element.fullWidth,
-      options: element.data?.map((item: any) => ({
-        value: item.id,
-        label: item.nombre
+      options: element.options?.map((item: any) => ({
+        value: item.value,
+        label: item.label
       }))
     });
   });

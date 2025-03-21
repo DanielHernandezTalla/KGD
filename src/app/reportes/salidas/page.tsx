@@ -4,32 +4,37 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { useRequest } from '@/hooks/useRequest';
 import { TitlePage } from '../../../components/molecules/TitlePage/index';
 import LoadingSpinner from '../../../components/atoms/LoadingSpinner/LoadingSpinner';
-import { TABLECOLUMN } from '@/interface/types';
+import { FORMINPUT, TABLECOLUMN } from '@/interface/types';
 import { Button, Table } from '@/components/atoms';
 import { IDataResponse } from '@/interface/request';
 import { Pager } from '@/components/molecules';
 import { DairyFilter } from '@/components/forms/filter/dairyFilter';
 import { generateExel } from '@/app/api/reportExel/generateExel';
 import { toMoney } from '@/utils/toMoney';
+import { useSearchParams } from 'next/navigation';
 
-export default function Recepcion({ params }: { params: { id: number; page: number } }) {
+export default function Salidas() {
+  // <<Cargamos los parámetros iniciales>>
+  const searchParams = useSearchParams();
   const pageSize = 10;
-  const [date, setDate]: any = useState({});
+  const [search, setSearch]: any = useState({});
 
-  // const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salida', {
-  const { data, isLoading }: IDataResponse<any> = useRequest('Reportes/salidas', {
-    ...date
+  // <<Obtenemos los datos del reporte>>
+  const { data, isLoading }: IDataResponse<any> = useRequest('reportes/listasalida', {
+    pagina: searchParams.get('page') || 1,
+    cantidadRegistrosPorPagina: pageSize,
+    ...search
   });
 
-  // Traemos los datos para la relacion
+  // <<Obtenemos los datos para llenar el formulario>>
   const { data: relacion }: IDataResponse<any> = useRequest('reportes/relacion');
 
-  console.log(data);
-
+  // <<Establecemos el título de la página>>
   useEffect(() => {
     document.title = 'Salidas KGD';
   }, []);
 
+  // <<Definimos las columnas a mostrar en la tabla>>
   const tableHeaders: TABLECOLUMN[] = [
     {
       name: 'nO_SALIDA'
@@ -60,11 +65,11 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
     },
     {
       name: 'tipO_TRANSACCION',
-      label: 'Tipo transacción'
+      label: 'Tipo de transacción'
     },
     {
       name: 'almacen',
-      label: 'Almacen'
+      label: 'Almacén'
     },
     {
       name: 'almaceN_DESTINO',
@@ -80,39 +85,53 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
     }
   ];
 
-  const filtros = [
+  // <<Cargamos los filtros para el reporte>>
+  const filtros: FORMINPUT[] = [
     {
       name: 'ESTATUS',
       label: 'Estatus',
-      data: relacion?.relacion?.estatusRecepcion?.map((item: any) => ({
-        id: item?.iD_RECEPCION_ESTATUS,
-        nombre: item?.descripcion?.toUpperCase()
+      type: 'select',
+      options: relacion?.relacion?.estatusRecepcion?.map((item: any) => ({
+        value: item?.iD_RECEPCION_ESTATUS,
+        label: item?.descripcion?.toUpperCase()
       }))
     },
     {
       name: 'ALMACEN',
-      label: 'Almacen',
-      data: relacion?.relacion?.almacen?.map((item: any) => ({
-        id: item?.iD_ALMACEN,
-        nombre: item?.almacen?.toUpperCase()
+      label: 'Almacén',
+      type: 'select',
+      options: relacion?.relacion?.almacen?.map((item: any) => ({
+        value: item?.iD_ALMACEN,
+        label: item?.almacen?.toUpperCase()
+      }))
+    },
+    {
+      name: 'TIPOTRANSACCION',
+      label: 'Tipo transacción',
+      type: 'select',
+      options: relacion?.relacion?.tipoTransaccion?.map((item: any) => ({
+        value: item?.iD_TIPO_TRANSACCION,
+        label: item?.tipO_TRANSACCION?.toUpperCase()
       }))
     },
     {
       name: 'USUARIO',
       label: 'Usuario',
-      data: relacion?.relacion?.usuarios?.map((item: any) => ({
-        id: item?.id,
-        nombre: item?.name?.toUpperCase()
+      type: 'select',
+      options: relacion?.relacion?.usuarios?.map((item: any) => ({
+        value: item?.id,
+        label: item?.name?.toUpperCase()
       }))
     }
   ];
 
+  // <<Exportamos los datos a Excel>>
   const handleReport = async () => {
     const params = new URLSearchParams({
-      ...date
+      ...search
     });
 
-    await generateExel('Reportes/salidas', params, 'salidas');
+    await generateExel('reportes/salidas', params, 'salidas');
   };
 
   return (
@@ -121,7 +140,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
 
       <div className='mt-5 md:mt-10'>
         <div>
-          <DairyFilter setValues={setDate} optionalValues={filtros} />
+          <DairyFilter setValues={setSearch} optionalFilters={filtros} />
         </div>
         <div className='translate-y-5 rounded-t-xl border-2 border-b-0 border-gray-200 bg-white px-4 py-4 md:translate-y-7 md:px-6 md:py-5'>
           <Button
@@ -137,7 +156,7 @@ export default function Recepcion({ params }: { params: { id: number; page: numb
         ) : (
           <Pager
             pageSize={pageSize}
-            currentPage={Number(params.page) || 1}
+            currentPage={Number(searchParams.get('page')) || 1}
             totalCount={pageSize * data?.maximoPaginas}
           >
             <Table

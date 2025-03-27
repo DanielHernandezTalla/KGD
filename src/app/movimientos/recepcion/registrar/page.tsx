@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarEstatusSalida() {
   return (
-    <FormLayout title='Registrar Recepción' rutaToCheck='movimientos.recepcion.store'>
+    <FormLayout title='Registrar Recepción' rutaToCheck='RecepcionCabecera.save'>
       <FormRecepcion
         initialValues={{
           // iD_RECEPCION: '',

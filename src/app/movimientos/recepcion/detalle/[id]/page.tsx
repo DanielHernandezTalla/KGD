@@ -1,8 +1,6 @@
 'use client';
-import { Button, Table } from '@/components/atoms';
+import { Button } from '@/components/atoms';
 import { InfoPaciente } from '@/components/atoms/InfoPaciente';
-import { Status } from '@/components/atoms/Status';
-import { FormCancelarRecepcion } from '@/components/forms/const_cancelarRecepcion';
 import { FormCerrarRecepcion } from '@/components/forms/const_cerrarRecepcion';
 import { FormEliminarDetalleRecepcion } from '@/components/forms/const_eliminarDetalleRecepcion';
 import { FormRecepcion } from '@/components/forms/const_recepcion';
@@ -13,14 +11,13 @@ import Modal from '@/components/molecules/Modal';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { TABLECOLUMN } from '@/interface/types';
 import { handrePermisos } from '@/utils/handlePermisos';
 import { parseDate } from '@/utils/parseDate';
 import { toMoney } from '@/utils/toMoney';
 import { useEffect, useState } from 'react';
 
 export default function RecepcionDetalleSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'movimientos.recepcion.show';
+  const rutaToCheck: string = 'RecepcionCabecera.listaid';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -60,7 +57,7 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.recepcion.show'>
+      <LayoutPermiso checked={checked} name='RecepcionCabecera.listaid'>
         <>
           <div className='flex justify-between'>
             <TitlePage title='Información Detalle Recepción' />

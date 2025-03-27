@@ -5,7 +5,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarEstatusSalida() {
   return (
-    <FormLayout title='Registrar Salida' rutaToCheck='movimientos.salida.store'>
+    <FormLayout title='Registrar Salida' rutaToCheck='SalidasCabecera.save'>
       <FormSalida
         initialValues={{
           // iD_SALIDA: '',

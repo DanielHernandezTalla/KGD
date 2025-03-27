@@ -13,9 +13,9 @@ import { useSession } from 'next-auth/react';
 
 export default function Recepcion({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'movimientos.recepcion.index',
-    'movimientos.recepcion.store',
-    'movimientos.recepcion.show'
+    'RecepcionCabecera.lista',
+    'RecepcionCabecera.save',
+    'RecepcionCabecera.listaid'
   ];
 
   const { data: session } = useSession();
@@ -91,7 +91,7 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.recepcion.index'>
+      <LayoutPermiso checked={checked} name='RecepcionCabecera.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -104,11 +104,11 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
               isError={isError}
               title='Recepción'
               idColumn='iD_RECEPCION'
-              nuevo={checked['movimientos.recepcion.store']}
+              nuevo={checked['RecepcionCabecera.save']}
               createHref='movimientos/recepcion'
-              singleHref={checked['movimientos.recepcion.show'] && 'movimientos/recepcion'}
+              singleHref={checked['RecepcionCabecera.listaid'] && 'movimientos/recepcion'}
               cols={tableHeaders}
-              data={data?.listado.map((item: any) => ({
+              data={data?.listado?.map((item: any) => ({
                 ...item,
                 nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
                 referencia: item.referencia.toUpperCase(),

@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function EstatusSalida({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'movimientos.es.index',
-    'movimientos.es.store',
-    'movimientos.es.show'
+    'SalidaEstatus.lista',
+    'SalidaEstatus.save',
+    'SalidaEstatus.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function EstatusSalida({ searchParams }: { searchParams: { page: 
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.es.index'>
+      <LayoutPermiso checked={checked} name='SalidaEstatus.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function EstatusSalida({ searchParams }: { searchParams: { page: 
               isError={isError}
               title='Estatus salida'
               idColumn='iD_SALIDA_ESTATUS'
-              nuevo={checked['movimientos.es.store']}
+              nuevo={checked['SalidaEstatus.save']}
               createHref='movimientos/estatusSalida'
-              singleHref={checked['movimientos.es.show'] && 'movimientos/estatusSalida'}
+              singleHref={checked['SalidaEstatus.listaid'] && 'movimientos/estatusSalida'}
               cols={tableHeaders}
               data={data?.listado}
             />

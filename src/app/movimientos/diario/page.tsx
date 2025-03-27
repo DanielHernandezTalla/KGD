@@ -11,7 +11,7 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 import { useSession } from 'next-auth/react';
 
 export default function MovimientosDiarios({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = ['movimientos.recepcion.index'];
+  const rutasToCheck: string[] = ['OnHandDiario.lista'];
 
   const { data: session } = useSession();
   const [checked, setChecked] = useState([] as any);
@@ -29,7 +29,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
-  // console.log(valueSearch);
+  console.log(data);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -77,7 +77,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.recepcion.index'>
+      <LayoutPermiso checked={checked} name='OnHandDiario.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -93,9 +93,9 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
               // nuevo={checked['movimientos.recepcion.store']}
               nuevo={false}
               // createHref='movimientos/recepcion'
-              singleHref={checked['movimientos.recepcion.index'] && 'movimientos/diario'}
+              singleHref={checked['OnHandDiario.lista'] && 'movimientos/diario'}
               cols={tableHeaders}
-              data={data?.listado.map((item: any) => ({
+              data={data?.listado?.map((item: any) => ({
                 ...item,
                 nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
                 referencia: item.referencia?.toUpperCase(),

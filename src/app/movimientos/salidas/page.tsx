@@ -12,9 +12,9 @@ import Tag from '@/components/atoms/Tag';
 
 export default function Recepcion({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'movimientos.salida.index',
-    'movimientos.salida.store',
-    'movimientos.salida.show'
+    'SalidasCabecera.lista',
+    'SalidasCabecera.save',
+    'SalidasCabecera.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -82,7 +82,7 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.salida.index'>
+      <LayoutPermiso checked={checked} name='SalidasCabecera.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -95,11 +95,11 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
               isError={isError}
               title='Salidas'
               idColumn='iD_SALIDA'
-              nuevo={checked['movimientos.salida.store']}
+              nuevo={checked['SalidasCabecera.save']}
               createHref='movimientos/salidas'
-              singleHref={checked['movimientos.salida.show'] && 'movimientos/salidas'}
+              singleHref={checked['SalidasCabecera.listaid'] && 'movimientos/salidas'}
               cols={tableHeaders}
-              data={data?.listado.map((item: any) => ({
+              data={data?.listado?.map((item: any) => ({
                 ...item,
                 // nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
                 // referencia: item.referencia?.toUpperCase(),

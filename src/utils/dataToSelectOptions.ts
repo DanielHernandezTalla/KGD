@@ -143,3 +143,17 @@ export const getAlmacen = (data: any) =>
     value: item.iD_ALMACEN,
     label: item.almacen
   }));
+
+export const getEmpleado = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_EMPLEADO,
+    label: item.nombre + ' ' + item.apellidO_PATERNO + ' ' + item.apellidO_MATERNO
+  }));
+
+export const getAlmacen2 = (data: any, filter: { iD_SUCURSAL: number }) =>
+  data
+    ?.filter((item: any) => item.iD_SUCURSAL === filter.iD_SUCURSAL)
+    ?.map((item: any) => ({
+      value: item.iD_ALMACEN,
+      label: item.almacen
+    }));

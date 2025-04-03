@@ -20,7 +20,7 @@ import { toMoney } from '@/utils/toMoney';
 import { useEffect, useState } from 'react';
 
 export default function RecepcionSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'movimientos.salida.show';
+  const rutaToCheck: string = 'SalidasCabecera.listaid';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -36,7 +36,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     { updateData }
   );
 
-  // console.log(data?.dato);
+  console.log(data);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.salida.show'>
+      <LayoutPermiso checked={checked} name='SalidasCabecera.listaid'>
         <>
           <div className='flex justify-between'>
             <TitlePage title='Información de Salidas' />

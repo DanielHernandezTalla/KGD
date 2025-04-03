@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function EstatusRecepcion({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'movimientos.er.index',
-    'movimientos.er.store',
-    'movimientos.er.show'
+    'RecepcionEstatus.lista',
+    'RecepcionEstatus.save',
+    'RecepcionEstatus.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function EstatusRecepcion({ searchParams }: { searchParams: { pag
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.er.index'>
+      <LayoutPermiso checked={checked} name='RecepcionEstatus.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function EstatusRecepcion({ searchParams }: { searchParams: { pag
               isError={isError}
               title='Estatus recepción'
               idColumn='iD_RECEPCION_ESTATUS'
-              nuevo={checked['movimientos.er.store']}
+              nuevo={checked['RecepcionEstatus.save']}
               createHref='movimientos/estatusRecepcion'
-              singleHref={checked['movimientos.er.show'] && 'movimientos/estatusRecepcion'}
+              singleHref={checked['RecepcionEstatus.listaid'] && 'movimientos/estatusRecepcion'}
               cols={tableHeaders}
               data={data?.listado}
             />

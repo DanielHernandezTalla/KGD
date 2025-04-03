@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function EstatusRecepcionSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'movimientos.er.update';
+  const rutaToCheck: string = 'RecepcionEstatus.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -23,7 +23,7 @@ export default function EstatusRecepcionSingle({ params }: { params: { id: numbe
   return (
     <FormLayout
       title='Modificar Estatus Recepción'
-      rutaToCheck='movimientos.er.show'
+      rutaToCheck='RecepcionEstatus.listaid'
       isLoading={isLoading}
       isError={isError}
     >

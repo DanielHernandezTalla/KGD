@@ -10,38 +10,40 @@ import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
-export default function EstatusSalida({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = [
-    'SalidaEstatus.lista',
-    'SalidaEstatus.save',
-    'SalidaEstatus.listaid'
-  ];
+export default function EmpleadosPorAlmacen({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = ['empleados.lista', 'empleados.save', 'empleados.listaid'];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('SalidaEstatus', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('empleadosalmacen', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
 
+  console.log(data);
+
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Estatus Salida KGD';
+    document.title = 'Empleados KGD';
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_SALIDA_ESTATUS'
+      name: 'iD_EMPLEADOSALMACEN'
     },
     {
-      name: 'salidA_ESTATUS',
-      label: 'Estatus'
+      name: 'empleado',
+      label: 'Empleado'
     },
     {
-      name: 'descripcion',
-      label: 'Descripción'
+      name: 'sucursal',
+      label: 'Sucursal'
+    },
+    {
+      name: 'almacen',
+      label: 'Almacen'
     },
     {
       name: 'estatus',
@@ -60,7 +62,7 @@ export default function EstatusSalida({ searchParams }: { searchParams: { page: 
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='SalidaEstatus.lista'>
+      <LayoutPermiso checked={checked} name='empleados.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -71,13 +73,18 @@ export default function EstatusSalida({ searchParams }: { searchParams: { page: 
             <DataViewer
               isLoading={isLoading}
               isError={isError}
-              title='Estatus salida'
-              idColumn='iD_SALIDA_ESTATUS'
-              nuevo={checked['SalidaEstatus.save']}
-              createHref='movimientos/estatusSalida'
-              singleHref={checked['SalidaEstatus.listaid'] && 'movimientos/estatusSalida'}
+              title='Empleados por almacen'
+              idColumn='iD_EMPLEADOSALMACEN'
+              nuevo={checked['empleadosalmacen.save']}
+              createHref='personal/empleadosPorAlmacen'
+              // singleHref={checked['empleadosalmacen.listaid'] && 'personal/empleadosPorAlmacen'}
+              singleHref={'personal/empleadosPorAlmacen'}
               cols={tableHeaders}
-              data={data?.listado}
+              data={data?.listado?.map((item: any) => {
+                return {
+                  ...item
+                };
+              })}
             />
           </>
         </Pager>

@@ -12,6 +12,7 @@ import {
 } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 import FormImage from '../atoms/Forms/FormImage';
+import { Form } from '../atoms';
 
 export const FormArticulos = ({
   initialValues,
@@ -174,7 +175,7 @@ export const FormArticulos = ({
   };
 
   return (
-    <FormImage
+    <Form
       initialValues={initialValues}
       onChange={onChange}
       formInputs={formInputs}

@@ -34,6 +34,9 @@ const Personal = () => {
             {checked['empleados.lista'] && (
               <ButtonData icon='personal' text='Empleados' href='/personal/empleados' tag='Pendiente permisos' />
             )}
+            {checked['empleados.lista'] && (
+              <ButtonData icon='personal' text='Empleados por almacen' href='/personal/empleadosPorAlmacen'/>
+            )}
             {checked['personal.tipopersonal.index'] && (
               <ButtonData icon='userGroup' text='Tipo personal' href='/personal/tipoPersonal' />
             )}

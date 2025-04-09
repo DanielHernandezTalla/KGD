@@ -18,7 +18,10 @@ export default function RegistrarEmpleado() {
           tipO_SANGRE: '',
           iD_ENTIDAD_NACIMIENTO: '',
           iD_CIUDAD: 1,
-          iD_ESTADO: 1,
+          iD_ENTIDAD: 1,
+          iD_TIPO_PAGO: 1,
+          iD_AREA: 1,
+          iD_TIPO_SALARIO: 1,
           paiS_NACIMIENTO: '',
           nacionalidad: '',
           estatus: true

@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function CentroDeCostoSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'contabilidad.cc.update';
+  const rutaToCheck: string = 'centrocosto.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function CentroDeCostoSingle({ params }: { params: { id: number }
   return (
     <FormLayout
       title='Modificar centro de costo'
-      rutaToCheck='contabilidad.cc.show'
+      rutaToCheck='centrocosto.listaid'
       isLoading={isLoading}
       isError={isError}
     >

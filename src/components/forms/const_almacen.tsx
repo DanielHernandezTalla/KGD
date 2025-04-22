@@ -70,13 +70,13 @@ export const FormAlmacenes = ({ initialValues, url, isEditForm, permisoToEdit = 
       type: 'select',
       options: getCiudades(data?.relacion?.ciudades, estado)
     },
-    {
-      name: 'iD_ENCARGADO',
-      label: 'Encargado',
-      type: 'select',
-      options: getEncargados(data?.relacion?.encargados),
-      fullWidth: true
-    },
+    // {
+    //   name: 'iD_ENCARGADO',
+    //   label: 'Encargado',
+    //   type: 'select',
+    //   options: getEncargados(data?.relacion?.encargados),
+    //   fullWidth: true
+    // },
     {
       name: 'estatus',
       label: 'Activo',
@@ -90,8 +90,8 @@ export const FormAlmacenes = ({ initialValues, url, isEditForm, permisoToEdit = 
       .required('Este campo es requerido'),
     iD_CENTRO_COSTO: Yup.number().required('Este campo es requerido'),
     iD_CIUDAD: Yup.number().required('Este campo es requerido'),
-    iD_ESTADO: Yup.number().required('Este campo es requerido'),
-    iD_ENCARGADO: Yup.number().required('Este campo es requerido')
+    iD_ESTADO: Yup.number().required('Este campo es requerido')
+    // iD_ENCARGADO: Yup.number().required('Este campo es requerido')
   });
 
   const onChange = (props: any) => {

@@ -55,10 +55,10 @@ export default function Almacenes({ searchParams }: { searchParams: { page: numb
       name: 'nombrE_ESTADO',
       label: 'Estado'
     },
-    {
-      name: 'nombrE_ENCARGADO',
-      label: 'Encargado'
-    },
+    // {
+    //   name: 'nombrE_ENCARGADO',
+    //   label: 'Encargado'
+    // },
     {
       name: 'estatus',
       label: 'Activo',

@@ -13,14 +13,13 @@ import { useSession } from 'next-auth/react';
 export default function MovimientosDiarios({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = ['OnHandDiario.lista'];
 
-  const { data: session } = useSession();
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
-  const almacen = session?.user.almacen;
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('OnHandDiario', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
-    almacen: almacen, // Aqui ponemos fijo el almacen al que pertenecemos
+    // almacen: almacen, // Aqui ponemos fijo el almacen al que pertenecemos
+    almacen: 3, // Aqui ponemos fijo el almacen al que pertenecemos
     ...valueSearch
   });
 

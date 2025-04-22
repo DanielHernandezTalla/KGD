@@ -58,7 +58,7 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
         permisoToEdit={checked[rutaToCheck]}
       />
 
-      <div id='imagen-container'></div>
+      {/* <div id='imagen-container'></div> */}
     </FormLayout>
   );
 }

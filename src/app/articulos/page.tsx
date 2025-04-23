@@ -42,28 +42,20 @@ const Articulos = () => {
               <ButtonData icon='tableList' text='Categorias' href='/articulos/categorias' />
             )}
 
+            {checked['articuloscategorias.lista'] && (
+              <ButtonData icon='tableList' text='Subcategorías' href='/articulos/subCategorias' />
+            )}
+
             {checked['articuloscategoriaact.lista'] && (
-              <ButtonData
-                icon='coins'
-                text='Categoría activos'
-                href='/articulos/categoriaActivos'
-              />
+              <ButtonData icon='coins' text='Categoría activos' href='/articulos/categoriaActivos' />
             )}
 
             {checked['unidadmedida.lista'] && (
-              <ButtonData
-                icon='faPenRuler'
-                text='Unidades de medida'
-                href='/articulos/unidadesDeMedida'
-              />
+              <ButtonData icon='faPenRuler' text='Unidades de medida' href='/articulos/unidadesDeMedida' />
             )}
 
             {checked['tipotransaccion.lista'] && (
-              <ButtonData
-                icon='faRightLeft'
-                text='Tipo transacciones'
-                href='/articulos/tipoTransacciones'
-              />
+              <ButtonData icon='faRightLeft' text='Tipo transacciones' href='/articulos/tipoTransacciones' />
             )}
           </div>
         </div>

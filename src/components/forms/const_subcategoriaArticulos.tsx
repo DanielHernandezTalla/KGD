@@ -19,7 +19,7 @@ export const FormSubcategoriaArticulos = ({
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'categoriA_ARTICULOS',
+      name: 'subcategoriA_ARTICULOS',
       label: 'Subcategoría',
       type: 'text',
       placeholder: 'Escribe la subcategoría del artículo...',
@@ -40,7 +40,7 @@ export const FormSubcategoriaArticulos = ({
   ];
 
   const validationSchema = Yup.object().shape({
-    categoriA_ARTICULOS: Yup.string()
+    subcategoriA_ARTICULOS: Yup.string()
       .min(3, 'El tipo de pago tiene que tener 3 caracteres')
       .required('Este campo es requerido')
   });
@@ -55,8 +55,7 @@ export const FormSubcategoriaArticulos = ({
       isBack
       onSubmit={(values) => {
         values = {
-          ...values,
-          creadO_POR: 3
+          ...values
         };
 
         handlePost({

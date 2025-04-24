@@ -10,20 +10,23 @@ import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
-export default function Categorias({ searchParams }: { searchParams: { page: number } }) {
+export default function Subcategorias({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'articuloscategorias.lista',
-    'articuloscategorias.save',
-    'articuloscategorias.listaid'
+    'articulossubcategoria.lista',
+    'articulossubcategoria.save',
+    'articulossubcategoria.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('articuloscategorias', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('ArticulosSubcategoria', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
     ...valueSearch
   });
+
+  console.log(data);
+  
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
@@ -33,10 +36,10 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
 
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'iD_CATEGORIA_ARTICULOS'
+      name: 'iD_SUBCATEGORIA_ARTICULOS'
     },
     {
-      name: 'categoriA_ARTICULOS',
+      name: 'subcategoriA_ARTICULOS',
       label: 'Subcategoría'
     },
     {
@@ -60,7 +63,7 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='articuloscategorias.lista'>
+      <LayoutPermiso checked={checked} name='articulossubcategoria.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -72,10 +75,10 @@ export default function Categorias({ searchParams }: { searchParams: { page: num
               isLoading={isLoading}
               isError={isError}
               title='Subcategorías de artículos'
-              idColumn='iD_CATEGORIA_ARTICULOS'
-              nuevo={checked['articuloscategorias.save']}
+              idColumn='iD_SUBCATEGORIA_ARTICULOS'
+              nuevo={checked['articulossubcategoria.save']}
               createHref='articulos/subCategorias'
-              singleHref={checked['articuloscategorias.listaid'] && 'articulos/subCategorias'}
+              singleHref={checked['articulossubcategoria.listaid'] && 'articulos/subCategorias'}
               cols={tableHeaders}
               data={data?.listado}
             />

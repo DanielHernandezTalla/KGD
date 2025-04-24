@@ -2,16 +2,16 @@
 import { FormSubcategoriaArticulos } from '@/components/forms/const_subcategoriaArticulos';
 import { FormLayout } from '@/components/molecules/FormLayout';
 
-export default function RegistrarCategoria() {
+export default function RegistrarSubcategoria() {
   return (
-    <FormLayout title='Registrar subcategoría' rutaToCheck='articuloscategorias.save'>
+    <FormLayout title='Registrar subcategoría' rutaToCheck='articulossubcategoria.save'>
       <FormSubcategoriaArticulos
         initialValues={{
-          categoriA_ARTICULOS: '',
+          subcategoriA_ARTICULOS: '',
           descripcion: '',
           estatus: true
         }}
-        url='articuloscategorias'
+        url='articulossubcategoria'
       />
     </FormLayout>
   );

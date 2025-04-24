@@ -7,13 +7,13 @@ import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
-export default function CategoriasSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'articuloscategorias.edit';
+export default function SubcategoriasSingle({ params }: { params: { id: number } }) {
+  const rutaToCheck: string = 'articulossubcategoria.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
   const { data, isError, isLoading }: IDataResponse<any> = useRequest(
-    `articuloscategorias/${params.id}`
+    `articulossubcategoria/${params.id}`
   );
 
   // Consultar permisos
@@ -24,18 +24,18 @@ export default function CategoriasSingle({ params }: { params: { id: number } })
   return (
     <FormLayout
       title='Modificar subcategoría'
-      rutaToCheck='articuloscategorias.listaid'
+      rutaToCheck='articulossubcategoria.listaid'
       isLoading={isLoading}
       isError={isError}
     >
       <FormSubcategoriaArticulos
         initialValues={{
-          iD_CATEGORIA_ARTICULOS: data?.dato?.iD_CATEGORIA_ARTICULOS,
-          categoriA_ARTICULOS: data?.dato?.categoriA_ARTICULOS,
+          iD_SUBCATEGORIA_ARTICULOS: data?.dato?.iD_SUBCATEGORIA_ARTICULOS || '',
+          subcategoriA_ARTICULOS: data?.dato?.subcategoriA_ARTICULOS || '',
           descripcion: data?.dato?.descripcion,
           estatus: data?.dato?.estatus
         }}
-        url='articuloscategorias'
+        url='articulossubcategoria'
         isEditForm={true}
         permisoToEdit={checked[rutaToCheck]}
       />

@@ -10,6 +10,12 @@ export const getCategoriaArticulos = (data: any) =>
     label: item.categoriA_ARTICULOS
   }));
 
+export const getSubcategoriaArticulos = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_SUBCATEGORIA_ARTICULOS,
+    label: item.subcategoriA_ARTICULOS
+  }));
+
 export const getCategoriaActivos = (data: any) =>
   data?.map((item: any) => ({
     value: item.iD_ACTIVOS,

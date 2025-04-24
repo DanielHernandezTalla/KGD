@@ -21,9 +21,6 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
     ID_ITEM: 1
   });
 
-  console.log('articulos pa');
-  console.log(dataImage);
-
   // Consultar permisos
   useEffect(() => {
     handrePermisos(rutasToCheck, setChecked);
@@ -43,6 +40,7 @@ export default function ArticulosSingle({ params }: { params: { id: number } }) 
           descripcion: data?.dato?.descripcion,
           iD_UOM_PRIMARIA: data?.dato?.iD_UOM_PRIMARIA,
           iD_CATEGORIA: data?.dato?.iD_CATEGORIA,
+          iD_SUBCATEGORIA: data?.dato?.iD_SUBCATEGORIA,
           transF_INVENTARIOS: data?.dato?.transF_INVENTARIOS,
           controL_MAX_MIX: data?.dato?.controL_MAX_MIX,
           inV_MINIMO: data?.dato?.inV_MINIMO === 0 ? '' : data?.dato?.inV_MINIMO,

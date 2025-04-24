@@ -46,7 +46,8 @@ export const FormCiudades = ({
   const validationSchema = Yup.object().shape({
     nombrE_CIUDAD: Yup.string()
       .min(3, 'El descuento tiene que tener 3 caracteres')
-      .required('Este campo es requerido')
+      .required('Este campo es requerido'),
+    iD_ESTADO: Yup.number().required('Este campo es requerido')
   });
 
   return (

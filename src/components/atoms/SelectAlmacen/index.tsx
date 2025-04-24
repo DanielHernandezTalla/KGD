@@ -37,7 +37,7 @@ export const SelectAlmacen = () => {
         className='block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500'
       >
         <option value='-1'>TODOS LOS ALMACENES</option>
-        {data?.listado.map((item: any) => (
+        {data?.listado?.map((item: any) => (
           <option key={item.iD_ALMACEN} value={item.iD_ALMACEN}>
             {item.almacen}
           </option>

@@ -112,7 +112,7 @@ export const FormRecepcionDetalle = ({
     //   .min(3, 'El estatus tiene que tener 3 caracteres')
     //   .required('Este campo es requerido')
     // fechA_RECEPCION: Yup.date().required('Este campo es requerido'),
-    // iD_ALMACEN: Yup.date().required('Este campo es requerido'),
+    iD_ITEM: Yup.date().required('Este campo es requerido')
     // iD_PROVEEDOR: Yup.date().required('Este campo es requerido'),
     // iD_TIPO_TRANSACCION: Yup.date().required('Este campo es requerido')
   });
@@ -139,6 +139,9 @@ export const FormRecepcionDetalle = ({
               item,
               creadO_POR: 3
             };
+
+            console.log('===================================');
+            console.log(values);
 
             handlePost({
               url,

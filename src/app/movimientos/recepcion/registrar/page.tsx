@@ -8,12 +8,13 @@ export default function RegistrarEstatusSalida() {
       <FormRecepcion
         initialValues={{
           // iD_RECEPCION: '',
+          chofer: '',
           referencia: '',
           descripcion: '',
           iD_ALMACEN: '',
           fechA_RECEPCION: '',
           iD_PROVEEDOR: null,
-          iD_TIPO_TRANSACCION: 1,
+          iD_TIPO_TRANSACCION: 4,
           iD_RECEPCION_ESTATUS: 1
         }}
         url='RecepcionCabecera'

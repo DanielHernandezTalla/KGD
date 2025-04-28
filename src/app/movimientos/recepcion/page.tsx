@@ -38,13 +38,17 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
     {
       name: 'iD_RECEPCION'
     },
-    // {
-    //   name: 'referencia',
-    //   label: 'Referencia'
-    // },
     {
       name: 'descripcion',
       label: 'Descripción'
+    },
+    {
+      name: 'referencia',
+      label: 'Factura'
+    },
+    {
+      name: 'chofer',
+      label: 'Chofer'
     },
     {
       name: 'nombrE_PROVEEDOR',
@@ -105,7 +109,8 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
               data={data?.listado?.map((item: any) => ({
                 ...item,
                 nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
-                referencia: item.referencia.toUpperCase(),
+                chofer: item.chofer ? item.chofer : '-',
+                referencia: item.referencia ? item.referencia.toUpperCase() : '-',
                 descripcion: item.descripcion.toUpperCase(),
                 fechA_CREACION: new Date(item.fechA_CREACION)
                   .toLocaleDateString('es-ES', {

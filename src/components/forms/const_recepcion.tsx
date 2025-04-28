@@ -21,16 +21,23 @@ export const FormRecepcion = ({
   closeModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { toast } = useToast();
-  const { data }: IDataResponse<any> = useRequest('RecepcionCabecera/relacion');
+  // const { data }: IDataResponse<any> = useRequest('RecepcionCabecera/relacion');
+  const { data }: IDataResponse<any> = useRequest('EmpleadosAlmacen/Asignados'); // Obtenemos los almacenes desde los almacenes que tengo asignados
+  const almacenes = data?.listado;
 
   const formInputs: FORMINPUT[] = [
-    // {
-    //   name: 'referencia',
-    //   label: 'Referencia',
-    //   type: 'text',
-    //   placeholder: 'Escribe una referencia de recepción...',
-    //   fullWidth: true
-    // },
+    {
+      name: 'referencia',
+      label: 'Factura',
+      type: 'text',
+      placeholder: 'Escribe una factura de recepción...'
+    },
+    {
+      name: 'chofer',
+      label: 'Chofer',
+      type: 'text',
+      placeholder: 'Escribe el chofer de recepción...'
+    },
     {
       name: 'descripcion',
       label: 'Descripción de recepción',
@@ -42,7 +49,7 @@ export const FormRecepcion = ({
       name: 'iD_ALMACEN',
       label: 'Almacen',
       type: 'select',
-      options: getAlmacen(data?.relacion?.almacen),
+      options: getAlmacen(almacenes),
       fullWidth: true
     },
     {
@@ -96,11 +103,8 @@ export const FormRecepcion = ({
           isBackOnCancel={!isEditForm}
           closeModal={closeModal}
           onSubmit={(values) => {
-            values = {
-              ...values,
-              creadO_POR: 3
-            };
-
+            console.log(values);
+            
             handlePost({
               url,
               values,
@@ -117,3 +121,24 @@ export const FormRecepcion = ({
     </>
   );
 };
+
+// chofer: "Daniel Hernandez"
+// descripcion: "RECEPCION DIARIA"
+// fechA_RECEPCION: "2025-04-28"
+// iD_ALMACEN: 4
+// iD_PROVEEDOR: 0
+// iD_RECEPCION: "32"
+// iD_RECEPCION_ESTATUS: 1
+// iD_TIPO_TRANSACCION: 1
+// referencia: "FD126"
+
+
+// chofer: "Daniel Hernandezfs"
+// descripcion: "RECEPCION DIARIAfs"
+// fechA_RECEPCION: "2025-04-27"
+// iD_ALMACEN: 4
+// iD_PROVEEDOR: 0
+// iD_RECEPCION: "32"
+// iD_RECEPCION_ESTATUS: 1
+// iD_TIPO_TRANSACCION: 1
+// referencia: "FD126fs"

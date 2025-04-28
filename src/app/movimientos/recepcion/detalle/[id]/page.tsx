@@ -21,11 +21,7 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
-  const [showModalModificarRecepcion, setShowModalModificarRecepcion] = useState(false);
-  const [showModalCancelarRecepcion, setShowModalCancelarRecepcion] = useState(false);
-  const [showModalCerrarRecepcion, setShowModalCerrarRecepcion] = useState(false);
-  const [showModalAddArticles, setShowModalAddArticles] = useState(false);
-
+  const [showModalModificar, setShowModalModificar] = useState(false);
   const [showModalEliminar, setShowModalEliminar] = useState(false);
 
   const [updateData, setUpdateData] = useState(false);
@@ -35,6 +31,8 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
     { updateData }
   );
 
+  // console.log(data);
+
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
     handrePermisos(rutasToCheck, setChecked);
@@ -42,16 +40,9 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
   }, []);
 
   useEffect(() => {
-    if (!showModalModificarRecepcion) setUpdateData(!updateData);
-    if (!showModalCancelarRecepcion) setUpdateData(!updateData);
-    if (!showModalCerrarRecepcion) setUpdateData(!updateData);
-    if (!showModalAddArticles) setUpdateData(!updateData);
-  }, [
-    showModalModificarRecepcion,
-    showModalCancelarRecepcion,
-    showModalCerrarRecepcion,
-    showModalAddArticles
-  ]);
+    if (!showModalModificar) setUpdateData(!updateData);
+    if (!showModalEliminar) setUpdateData(!updateData);
+  }, [showModalModificar, showModalEliminar]);
 
   // console.log(data);
 
@@ -82,22 +73,24 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
               disabled={false}
               onClick={() => setShowModalCancelarRecepcion(true)}
             /> */}
-            {/* <Button
+            <Button
               size='small'
               rounded
               variant='primary'
               text='Modificar'
               icon='pen'
-              disabled={false}
-              onClick={() => setShowModalModificarRecepcion(true)}
-            /> */}
+              disabled={data?.dato?.iD_RECEPCION_ESTATUS != 1}
+              onClick={() => setShowModalModificar(true)}
+            />
             <Button
               size='small'
               rounded
               variant='danger'
               text='Eliminar'
               icon='trash'
-              disabled={data?.dato?.iD_RECEPCION_ESTATUS != 1}
+              disabled={
+                data?.dato?.iD_RECEPCION_ESTATUS != 1 || data?.dato?.iD_TIPO_TRANSACCION != 4
+              }
               onClick={() => setShowModalEliminar(true)}
             />
           </div>
@@ -112,22 +105,11 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
               title='Almacen origen'
               info={data?.dato?.nombrE_ALMACENORIGEN || 'No tiene'}
             /> */}
-            <InfoPaciente title='Almacen destino' info={data?.dato?.nombrE_ALMACEN || 'No tiene'} />
+            {/* <InfoPaciente title='Almacen destino' info={data?.dato?.nombrE_ALMACEN || 'No tiene'} /> */}
             <InfoPaciente
               title='Tipo de transacción'
               info={data?.dato?.nombrE_TIPOTRANSACCION || 'No tiene'}
             />
-            <InfoPaciente
-              title='Cantidad enviada'
-              info={data?.dato?.cantidaD_ENVIADA + ' ' + data?.dato?.nombrE_UOM}
-            />
-            <InfoPaciente
-              title='Cantidad recepción'
-              info={data?.dato?.cantidad + ' ' + data?.dato?.nombrE_UOM}
-            />
-            <InfoPaciente title='Costo' info={toMoney(data?.dato?.costo) || 'No tiene'} />
-            {/* <InfoPaciente title='Unidad de medida' info={data?.dato?.nombrE_UOM || 'No tiene'} /> */}
-
             <InfoPaciente
               title='Fecha'
               info={
@@ -140,6 +122,18 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
                   .toUpperCase() || 'No tiene'
               }
             />
+            <InfoPaciente
+              title='Cantidad enviada'
+              info={data?.dato?.cantidaD_ENVIADA + ' ' + data?.dato?.nombrE_UOM}
+            />
+            <InfoPaciente
+              title='Cantidad recepción'
+              info={data?.dato?.cantidad + ' ' + data?.dato?.nombrE_UOM}
+            />
+            <InfoPaciente title='Costo' info={toMoney(data?.dato?.costo) || 'No tiene'} />
+
+            <InfoPaciente title='Unidad de medida' info={data?.dato?.tipO_MONEDA || 'No tiene'} />
+
             {/* <InfoPaciente title='Proveedor' info={data?.dato?.nombrE_PROVEEDOR || 'No tiene'} />
 
             <InfoPaciente title='Creado por' info={data?.dato?.creadO_NOMBRE || 'No tiene'} /> */}
@@ -153,97 +147,50 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
             </div> */}
           </div>
 
-          {showModalModificarRecepcion && (
+          {showModalModificar && (
             //  ===================================
-            //  Modal para agregar servicos
+            //  Modal editar item (detalle de recepcion)
             <Modal
               title='Modificar recepción'
-              showModal={showModalModificarRecepcion}
-              setShowModal={setShowModalModificarRecepcion}
-              closeCross
-            >
-              <FormRecepcion
-                initialValues={{
-                  iD_RECEPCION: params.id,
-                  referencia: data?.dato?.referencia,
-                  descripcion: data?.dato?.descripcion.toUpperCase(),
-                  iD_ALMACEN: data?.dato?.iD_ALMACEN,
-                  fechA_RECEPCION: parseDate(data?.dato?.fechA_RECEPCION, '', 0).split('T')[0],
-                  iD_PROVEEDOR: data?.dato?.iD_PROVEEDOR,
-                  iD_TIPO_TRANSACCION: data?.dato?.iD_TIPO_TRANSACCION,
-                  iD_RECEPCION_ESTATUS: 1
-                }}
-                url='RecepcionCabecera'
-                isEditForm
-                closeModal={setShowModalModificarRecepcion}
-              />
-            </Modal>
-          )}
-
-          {showModalAddArticles && (
-            //  ===================================
-            //  Modal para agregar servicos
-            <Modal
-              title='Agregar artículo'
-              showModal={showModalAddArticles}
-              setShowModal={setShowModalAddArticles}
+              showModal={showModalModificar}
+              setShowModal={setShowModalModificar}
               closeCross
             >
               <FormRecepcionDetalle
+                initialValues={{
+                  iD_DETAIL_RECEPCION: data?.dato?.iD_DETAIL_RECEPCION,
+                  iD_RECEPCION: data?.dato?.iD_RECEPCION,
+                  fechA_RECEPCION: data?.dato?.fechA_RECEPCION,
+                  linea: data?.dato?.linea,
+                  referencia: data?.dato?.referencia,
+                  descripcion: data?.dato?.descripcion,
+                  iD_ITEM: data?.dato?.iD_ITEM,
+                  iD_TIPO_MONEDA: data?.dato?.iD_TIPO_MONEDA,
+                  cantidad: data?.dato?.cantidad,
+                  // iD_ALMACENORIGEN: data?.dato?.iD_ALMACENORIGEN,
+                  iD_ALMACEN: data?.dato?.iD_ALMACEN,
+                  iD_UOM: data?.dato?.iD_UOM,
+                  iD_TIPO_TRANSACCION: data?.dato?.iD_TIPO_TRANSACCION,
+                  costo: data?.dato?.costo,
+                  segmento01: data?.dato?.segmento01,
+                  segmento02: data?.dato?.segmento02,
+                  segmento03: data?.dato?.segmento03,
+                  segmento04: data?.dato?.segmento04,
+                  item: data?.dato?.item,
+                  creadO_POR: data?.dato?.creadO_POR
+                }}
                 url='RecepcionDetalle'
-                closeModal={setShowModalAddArticles}
-                initialValues={{
-                  // iD_DETAIL_RECEPCION: '',
-                  iD_RECEPCION: params.id,
-                  fechA_RECEPCION: new Date().toISOString().split('T')[0],
-                  linea: 1,
-
-                  referencia: '',
-                  descripcion: '',
-                  iD_ITEM: '',
-                  cantidad: '',
-                  iD_ALMACENORIGEN: '', //Ocupamos obtener el almacen actual
-                  iD_ALMACEN: '',
-                  iD_UOM: '',
-                  iD_TIPO_TRANSACCION: '',
-                  costo: '',
-
-                  segmento01: '',
-                  segmento02: '',
-                  segmento03: '',
-                  segmento04: '',
-
-                  item: '',
-                  creadO_POR: 3
-                }}
+                isEditForm
+                closeModal={setShowModalModificar}
               />
             </Modal>
           )}
-
-          {showModalCerrarRecepcion && (
-            //  ===================================
-            //  Modal para cerrar una recepcion
-            <Modal
-              title='Cerrar recepción'
-              showModal={showModalCerrarRecepcion}
-              setShowModal={setShowModalCerrarRecepcion}
-              closeCross
-            >
-              <FormCerrarRecepcion
-                initialValues={{
-                  iD_RECEPCION: params.id,
-                  iD_RECEPCION_ESTATUS: 2,
-                  cerrar: false
-                }}
-                url='RecepcionCabecera'
-                closeModal={setShowModalCerrarRecepcion}
-              />
-            </Modal>
-          )}
+          {/* Instrucción UPDATE en conflicto con la restricción FOREIGN KEY 'FK_RECEPCION_DETALLE_ALMACENES */}
 
           {showModalEliminar && (
             //  ===================================
-            //  Modal para cancelar recepcion
+            //  Modal para eliminar detalle de recepcion
+            //  Modal para eliminar item
             <Modal
               title='Eliminar artículo'
               showModal={showModalEliminar}

@@ -35,7 +35,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     { updateData }
   );
 
-  // console.log(data?.dato);
+  // console.log(data);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     showModalAddArticles
   ]);
 
-  console.log(data?.dato);
+  // console.log(data?.dato);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -70,10 +70,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       name: 'descripcion',
       label: 'Descripción'
     },
-    {
-      name: 'nombrE_ALMACEN',
-      label: 'Almacen destino'
-    },
+    // {
+    //   name: 'nombrE_ALMACEN',
+    //   label: 'Almacen destino'
+    // },
     {
       name: 'nombrE_TIPOTRANSACCION',
       label: 'Tipo transacción'
@@ -94,6 +94,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       name: 'costo',
       label: 'Costo',
       isRight: true
+    },
+    {
+      name: 'tipO_MONEDA',
+      label: 'Moneda'
     }
   ];
 
@@ -143,12 +147,19 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
 
           <div className='mt-4 grid grid-cols-1 gap-2 rounded-2xl border-2 border-slate-200 bg-white p-5 text-sm md:grid-cols-2 lg:grid-cols-4'>
             <InfoPaciente
-              title='Referencia'
+              title='Factura'
               info={data?.dato?.referencia.toUpperCase() || 'No tiene'}
             />
             <InfoPaciente
               title='Descripción'
               info={data?.dato?.descripcion.toUpperCase() || 'No tiene'}
+            />
+            <InfoPaciente title='Almacen' info={data?.dato?.nombrE_ALMACEN || 'No tiene'} />
+            <InfoPaciente title='Chofer' info={data?.dato?.chofer || 'No tiene'} />
+            <InfoPaciente title='Proveedor' info={data?.dato?.nombrE_PROVEEDOR || 'No tiene'} />
+            <InfoPaciente
+              title='Tipo de transacción'
+              info={data?.dato?.nombrE_TIPOTRANSACCION || 'No tiene'}
             />
             <InfoPaciente
               title='Fecha'
@@ -161,12 +172,6 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   })
                   .toUpperCase() || 'No tiene'
               }
-            />
-            <InfoPaciente title='Almacen' info={data?.dato?.nombrE_ALMACEN || 'No tiene'} />
-            <InfoPaciente title='Proveedor' info={data?.dato?.nombrE_PROVEEDOR || 'No tiene'} />
-            <InfoPaciente
-              title='Tipo de transacción'
-              info={data?.dato?.nombrE_TIPOTRANSACCION || 'No tiene'}
             />
             <InfoPaciente title='Creado por' info={data?.dato?.creadO_NOMBRE || 'No tiene'} />
 
@@ -203,7 +208,8 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               data={data?.dato?.lineas.map((item: any, index: any) => ({
                 ...item,
                 costo: toMoney(item.costo),
-                cantidaD_ENVIADA: item.cantidaD_ENVIADA + ' ' + item.nombrE_UOM,
+                cantidaD_ENVIADA:
+                  item.cantidaD_ENVIADA ?? item.cantidaD_ENVIADA + ' ' + item.nombrE_UOM,
                 cantidad: item.cantidad + ' ' + item.nombrE_UOM
               }))}
               href='movimientos/recepcion/detalle'
@@ -222,6 +228,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               <FormRecepcion
                 initialValues={{
                   iD_RECEPCION: params.id,
+                  chofer: data?.dato?.chofer,
                   referencia: data?.dato?.referencia,
                   descripcion: data?.dato?.descripcion.toUpperCase(),
                   iD_ALMACEN: data?.dato?.iD_ALMACEN,
@@ -239,7 +246,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
 
           {showModalAddArticles && (
             //  ===================================
-            //  Modal para agregar servicos
+            //  Modal para agregar articulos
             <Modal
               title='Agregar artículo'
               showModal={showModalAddArticles}
@@ -258,12 +265,13 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   referencia: '',
                   descripcion: '',
                   iD_ITEM: '',
+                  iD_TIPO_MONEDA: 0,
                   cantidad: '',
                   iD_ALMACENORIGEN: null, //Ocupamos obtener el almacen actual
                   iD_ALMACEN: data?.dato?.iD_ALMACEN,
                   iD_UOM: '',
-                  iD_TIPO_TRANSACCION: 1,
-                  costo: '',
+                  iD_TIPO_TRANSACCION: 4,
+                  costo: 0,
 
                   segmento01: '',
                   segmento02: '',

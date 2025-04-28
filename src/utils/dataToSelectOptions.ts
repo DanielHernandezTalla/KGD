@@ -150,6 +150,12 @@ export const getAlmacen = (data: any) =>
     label: item.almacen
   }));
 
+export const getTipoMoneda = (data: any) =>
+  data?.map((item: any) => ({
+    value: item.iD_TIPO_MONEDA,
+    label: item.tipO_MONEDA
+  }));
+
 export const getEmpleado = (data: any) =>
   data?.map((item: any) => ({
     value: item.iD_EMPLEADO,

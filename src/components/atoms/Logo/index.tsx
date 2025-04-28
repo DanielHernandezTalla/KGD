@@ -1,21 +1,23 @@
-import Image from "next/image";
-import LogoCEFIS from "./../../../images/logotipo.jpg";
+import Image from 'next/image';
+import LogoCEFIS from './../../../images/logotipo.jpg';
 
 interface LogoProps {
-    heigth: number;
-    width: number;
+  heigth: number;
+  width: number;
 }
 
 export const Logo = ({ width, heigth }: LogoProps) => {
-    return (
-        <Image
-            src={LogoCEFIS}
-            alt="Logo"
-            width={width || 156}
-            height={heigth || 79}
-            priority={width !== 104} //Esta linea esta por que marcaba un warning
-            className="w-auto h-auto"
-        />
-        // <h1>Hola</h1>
-    );
+  return (
+    <div className='relative w-[156px] aspect-[156/79]'>
+      <Image
+        src={LogoCEFIS}
+        alt='Logo'
+        fill
+        priority
+        style={{ objectFit: 'contain' }}
+        sizes='(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 156px'
+      />
+    </div>
+    // <h1>Hola</h1>
+  );
 };

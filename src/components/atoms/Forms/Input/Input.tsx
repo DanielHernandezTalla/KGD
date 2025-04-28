@@ -41,10 +41,13 @@ const CustomInput = ({
   form: { touched, errors, setFieldValue },
   ...props
 }: InputProps) => {
+  const { complexAssignment, formatter, disabled, ...restProps } = props;
+
   const inputProps = {
     ...field,
-    ...props
+    ...restProps
   };
+
   // select
   const [selected, setSelected] = useState(null as string | null);
 
@@ -208,7 +211,8 @@ const CustomInput = ({
             type={type}
             {...inputProps}
             value={props.formatter ? props.formatter(inputProps.value) : inputProps.value}
-            disabled={props.complexAssignment.disabledInput || props.disabled}
+            // disabled={props.complexAssignment.disabledInput || props.disabled}
+            disabled={props.disabled}
             className={`w-full rounded-l-lg border-2 border-gray-200 bg-white p-2 text-sm   ${
               errors[field.name] ? 'focus:border-red-300' : 'focus:border-blue-300'
             } focus:outline-none disabled:opacity-100 disabled:bg-gray-100`}
@@ -233,6 +237,7 @@ const CustomInput = ({
           type={type}
           value={props.formatter ? props.formatter(inputProps.value) : inputProps.value}
           {...inputProps}
+          disabled={props.disabled}
           className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   ${
             errors[field.name] ? 'focus:border-red-300' : 'focus:border-blue-300'
           } focus:outline-none disabled:opacity-100 disabled:bg-gray-100`}

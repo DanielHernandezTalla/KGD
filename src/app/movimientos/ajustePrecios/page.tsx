@@ -8,57 +8,65 @@ import { useEffect, useState } from 'react';
 import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
-import { useSession } from 'next-auth/react';
 
-export default function MovimientosDiarios({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = ['OnHandDiario.lista'];
+export default function Recepcion({ searchParams }: { searchParams: { page: number } }) {
+  const rutasToCheck: string[] = [
+    'RecepcionCabecera.lista',
+    'RecepcionCabecera.save',
+    'RecepcionCabecera.listaid'
+  ];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
   const almacen = localStorage.getItem('almacen');
-  const { data, isError, isLoading }: IDataResponse<any> = useRequest('OnHandDiario', {
+  const { data, isError, isLoading }: IDataResponse<any> = useRequest('RecepcionCabecera', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
-    // almacen: almacen, // Aqui ponemos fijo el almacen al que pertenecemos
-    almacen: almacen || -1, // Aqui ponemos fijo el almacen al que pertenecemos
-    ...valueSearch
+    Almacen: almacen || -1,
+    FiltroName: 'Cerrada'
+    // ...valueSearch
   });
 
+  // console.log(valueSearch);
+
+  // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
-    document.title = 'Movimiento Diario KGD';
+    document.title = 'Ajuste precios KGD';
+
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
-  console.log(data);
-
   const tableHeaders: TABLECOLUMN[] = [
     {
-      name: 'item',
-      label: 'Código'
+      name: 'iD_RECEPCION'
     },
     {
       name: 'descripcion',
       label: 'Descripción'
     },
-    // {
-    //   name: 'nombrE_PROVEEDOR',
-    //   label: 'Proveedor'
-    // },
+    {
+      name: 'referencia',
+      label: 'Factura'
+    },
+    {
+      name: 'chofer',
+      label: 'Chofer'
+    },
+    {
+      name: 'nombrE_PROVEEDOR',
+      label: 'Proveedor'
+    },
     {
       name: 'nombrE_ALMACEN',
       label: 'Almacen'
     },
     {
-      name: 'sucursal',
-      label: 'Sucursal'
+      name: 'nombrE_TIPOTRANSACCION',
+      label: 'Tipo transacción'
     },
     {
-      name: 'cantidad',
-      label: 'Cantidad'
-    },
-    {
-      name: 'unidaD_MEDIDA',
-      label: 'UOM'
+      name: 'fechA_CREACION',
+      label: 'Fecha creado'
     }
     // {
     //   name: 'nombrE_RECEPCIONESTATUS',
@@ -67,7 +75,13 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
     //     <div className='w-28'>
     //       <Tag
     //         className=''
-    //         bgColor={estatus === 'CANCELADO' ? 'bg-red-200' : 'bg-blue-200'}
+    //         bgColor={
+    //           estatus === 'ABIERTA'
+    //             ? 'bg-blue-200'
+    //             : estatus === 'CANCELADO'
+    //             ? 'bg-red-200'
+    //             : 'bg-emerald-200'
+    //         }
     //         text={estatus}
     //       />
     //     </div>
@@ -77,7 +91,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='OnHandDiario.lista'>
+      <LayoutPermiso checked={checked} name='RecepcionCabecera.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -88,18 +102,19 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
             <DataViewer
               isLoading={isLoading}
               isError={isError}
-              title='Movimientos diarios'
-              idColumn='item'
-              // nuevo={checked['movimientos.recepcion.store']}
+              title='Ajuste precios recepción'
+              idColumn='iD_RECEPCION'
               nuevo={false}
-              // createHref='movimientos/recepcion'
-              singleHref={checked['OnHandDiario.lista'] && 'movimientos/diario'}
+              // nuevo={checked['RecepcionCabecera.save']}
+              // createHref='movimientos/ajustePrecios'
+              singleHref={checked['RecepcionCabecera.listaid'] && 'movimientos/ajustePrecios'}
               cols={tableHeaders}
               data={data?.listado?.map((item: any) => ({
                 ...item,
                 nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
-                referencia: item.referencia?.toUpperCase(),
-                descripcion: item.descripcion?.toUpperCase(),
+                chofer: item.chofer ? item.chofer : '-',
+                referencia: item.referencia ? item.referencia.toUpperCase() : '-',
+                descripcion: item.descripcion.toUpperCase(),
                 fechA_CREACION: new Date(item.fechA_CREACION)
                   .toLocaleDateString('es-ES', {
                     year: 'numeric',

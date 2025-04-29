@@ -8,6 +8,7 @@ import { IDataResponse } from '@/interface/request';
 import {
   getAlmacen,
   getArticulos,
+  getTipoMoneda,
   getTipoTransaccion,
   getUnidadMedida
 } from '@/utils/dataToSelectOptions';
@@ -28,23 +29,9 @@ export const FormRecepcionDetalle = ({
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('RecepcionDetalle/relacion');
 
-  console.log(data);
+  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
-    // {
-    //   name: 'referencia',
-    //   label: 'Referencia',
-    //   type: 'text',
-    //   placeholder: 'Escribe una referencia...',
-    //   fullWidth: true
-    // },
-    // {
-    //   name: 'descripcion',
-    //   label: 'Descripción',
-    //   type: 'text',
-    //   placeholder: 'Escribe una descripción...',
-    //   fullWidth: true
-    // },
     {
       name: 'iD_ITEM',
       label: 'Artículo',
@@ -59,60 +46,46 @@ export const FormRecepcionDetalle = ({
       placeholder: 'Escribe  la cantidad'
     },
     {
+      name: 'iD_UOM',
+      label: 'Unidades de medida',
+      type: 'select',
+      options: getUnidadMedida(data?.relacion?.unidad)
+      // fullWidth: true
+    },
+    {
       name: 'costo',
       label: 'Costo',
       type: 'number',
       placeholder: 'Escribe  el costo del artículo'
     },
 
-    // {
-    //   name: 'iD_ALMACENORIGEN',
-    //   label: 'Almacen origen',
-    //   type: 'select',
-    //   options: getAlmacen(data?.relacion?.almacenOrigen)
-    //   // fullWidth: true
-    // },
-    // {
-    //   name: 'iD_ALMACEN',
-    //   label: 'Almacen destino',
-    //   type: 'select',
-    //   options: getAlmacen(data?.relacion?.almacen),
-    //   fullWidth: true
-    // },
     {
-      name: 'iD_UOM',
-      label: 'Unidades de medida',
+      name: 'iD_TIPO_MONEDA',
+      label: 'Tipo moneda',
       type: 'select',
-      options: getUnidadMedida(data?.relacion?.unidad),
-      fullWidth: true
-    },
-    // {
-    //   name: 'iD_TIPO_TRANSACCION',
-    //   label: 'Tipo transacción',
-    //   type: 'select',
-    //   options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
-    //   // fullWidth: true
-    // },
-    {
+      options: getTipoMoneda(data?.relacion?.tipoMoneda)
+      // fullWidth: true
+    }
+  ];
+
+  if (!isEditForm) {
+    formInputs.push({
       name: 'fechA_RECEPCION',
       label: 'Fecha recepción',
       type: 'date',
       placeholder: 'Selecciona la fecha...',
       fullWidth: true
-    }
-    // {
-    //   name: 'estatus',
-    //   label: 'Activo',
-    //   type: 'checkbox'
-    // }
-  ];
+    });
+  }
 
   const validationSchema = Yup.object().shape({
     // referencia: Yup.string()
     //   .min(3, 'El estatus tiene que tener 3 caracteres')
     //   .required('Este campo es requerido')
     // fechA_RECEPCION: Yup.date().required('Este campo es requerido'),
-    // iD_ALMACEN: Yup.date().required('Este campo es requerido'),
+    iD_ITEM: Yup.string().required('Este campo es requerido'),
+    cantidad: Yup.number().required('Este campo es requerido'),
+    iD_UOM: Yup.number().required('Este campo es requerido')
     // iD_PROVEEDOR: Yup.date().required('Este campo es requerido'),
     // iD_TIPO_TRANSACCION: Yup.date().required('Este campo es requerido')
   });
@@ -136,8 +109,7 @@ export const FormRecepcionDetalle = ({
             values = {
               ...values,
               descripcion,
-              item,
-              creadO_POR: 3
+              item
             };
 
             handlePost({

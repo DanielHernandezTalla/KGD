@@ -11,11 +11,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function CentroDeCosto({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = [
-    'contabilidad.cc.index',
-    'contabilidad.cc.store',
-    'contabilidad.cc.show'
-  ];
+  const rutasToCheck: string[] = ['centrocosto.lista', 'centrocosto.save', 'centrocosto.listaid'];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
@@ -60,7 +56,7 @@ export default function CentroDeCosto({ searchParams }: { searchParams: { page: 
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='contabilidad.cc.index'>
+      <LayoutPermiso checked={checked} name='centrocosto.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +69,9 @@ export default function CentroDeCosto({ searchParams }: { searchParams: { page: 
               isError={isError}
               title='Centro de costo'
               idColumn='iD_CENTRO_COSTO'
-              nuevo={checked['contabilidad.cc.store']}
+              nuevo={checked['centrocosto.save']}
               createHref='contabilidad/centroDeCosto'
-              singleHref={checked['contabilidad.cc.show'] && 'contabilidad/centroDeCosto'}
+              singleHref={checked['centrocosto.listaid'] && 'contabilidad/centroDeCosto'}
               cols={tableHeaders}
               data={data?.listado}
             />

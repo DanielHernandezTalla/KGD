@@ -13,7 +13,7 @@ export default function RegistrarAlmacen() {
           iD_SUCURSAL: '',
           iD_ESTADO: '',
           iD_CIUDAD: '',
-          iD_ENCARGADO: '',
+          // iD_ENCARGADO: '',
           estatus: true
         }}
         url={`almacen`}

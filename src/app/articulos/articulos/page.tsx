@@ -49,7 +49,11 @@ export default function Articulos({ searchParams }: { searchParams: { page: numb
     },
     {
       name: 'nombrE_CATEGORIA',
-      label: 'Categoria'
+      label: 'Categoría'
+    },
+    {
+      name: 'nombrE_SUBCATEGORIA',
+      label: 'Subcategoría'
     },
     {
       name: 'transF_INVENTARIOS',

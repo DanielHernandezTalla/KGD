@@ -8,6 +8,7 @@ import { IDataResponse } from '@/interface/request';
 import {
   getCategoriaActivos,
   getCategoriaArticulos,
+  getSubcategoriaArticulos,
   getUnidadMedida
 } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
@@ -31,6 +32,8 @@ export const FormArticulos = ({
     activoFijo: initialValues?.activO_FIJO || false,
     controL_MAX_MIX: initialValues?.controL_MAX_MIX || false
   });
+
+  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
     {
@@ -56,8 +59,15 @@ export const FormArticulos = ({
       name: 'iD_CATEGORIA',
       label: 'Categoría artículo',
       type: 'select',
-      options: getCategoriaArticulos(data?.relacion?.articulosCategoria),
-      fullWidth: true
+      options: getCategoriaArticulos(data?.relacion?.articulosCategoria)
+      // fullWidth: true
+    },
+    {
+      name: 'iD_SUBCATEGORIA',
+      label: 'Subcategoría artículo',
+      type: 'select',
+      options: getSubcategoriaArticulos(data?.relacion?.articulosSubCategoria)
+      // fullWidth: true
     },
     {
       name: 'controL_MAX_MIX',
@@ -67,7 +77,7 @@ export const FormArticulos = ({
     },
     {
       name: 'iD_UOM_PRIMARIA',
-      label: 'Categoría artículo',
+      label: 'Unidad de medida',
       type: 'select',
       options: getUnidadMedida(data?.relacion?.unidadMedida)
     }
@@ -186,9 +196,9 @@ export const FormArticulos = ({
       onSubmit={(values) => {
         values = {
           ...values,
-          creadO_POR: 3,
-          inV_MINIMO: values.inV_MINIMO ? values.inV_MINIMO : 0,
-          inV_MAXIMO: values.inV_MAXIMO ? values.inV_MAXIMO : 0
+          iD_SUBCATEGORIA: values.iD_SUBCATEGORIA || 0,
+          inV_MINIMO: values.inV_MINIMO || 0,
+          inV_MAXIMO: values.inV_MAXIMO || 0
         };
 
         handlePost({
@@ -203,3 +213,17 @@ export const FormArticulos = ({
     />
   );
 };
+
+// activO_FIJO: false
+// codigO_SAT: "0011"
+// controL_MAX_MIX: false
+// descripcion: "Cemento 25 KG"
+// estatus: true
+// iD_CATEGORIA: 4
+// iD_CATEGORIA_ACTIVO: ""
+// iD_SUBCATEGORIA: ""
+// iD_UOM_PRIMARIA: 1
+// inV_MAXIMO: 0
+// inV_MINIMO: 0
+// item: "23423"
+// transF_INVENTARIOS: false

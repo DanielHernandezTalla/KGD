@@ -2,12 +2,9 @@ import * as Yup from 'yup';
 import { FORMINPUT } from '@/interface/types';
 import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
-import { useRequest } from '@/hooks/useRequest';
-import { IDataResponse } from '@/interface/request';
-import { getEstados } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
-export const FormCiudades = ({
+export const FormSubcategoriaArticulos = ({
   initialValues,
   url,
   isEditForm,
@@ -19,21 +16,20 @@ export const FormCiudades = ({
   permisoToEdit?: boolean;
 }) => {
   const { toast } = useToast();
-  const { data }: IDataResponse<any> = useRequest('ciudad/relacion');
 
   const formInputs: FORMINPUT[] = [
     {
-      name: 'nombrE_CIUDAD',
-      label: 'Nombre de la ciudad',
+      name: 'subcategoriA_ARTICULOS',
+      label: 'Subcategoría',
       type: 'text',
-      placeholder: 'Escribe el nombre de la ciudad...',
+      placeholder: 'Escribe la subcategoría del artículo...',
       fullWidth: true
     },
     {
-      name: 'iD_ESTADO',
-      label: 'Estado',
-      type: 'select',
-      options: getEstados(data?.relacion?.estados),
+      name: 'descripcion',
+      label: 'Descripción',
+      type: 'text',
+      placeholder: 'Escribe la descripción...',
       fullWidth: true
     },
     {
@@ -44,10 +40,9 @@ export const FormCiudades = ({
   ];
 
   const validationSchema = Yup.object().shape({
-    nombrE_CIUDAD: Yup.string()
-      .min(3, 'El descuento tiene que tener 3 caracteres')
-      .required('Este campo es requerido'),
-    iD_ESTADO: Yup.number().required('Este campo es requerido')
+    subcategoriA_ARTICULOS: Yup.string()
+      .min(3, 'El tipo de pago tiene que tener 3 caracteres')
+      .required('Este campo es requerido')
   });
 
   return (
@@ -59,6 +54,10 @@ export const FormCiudades = ({
       submitButton={true}
       isBack
       onSubmit={(values) => {
+        values = {
+          ...values
+        };
+
         handlePost({
           url,
           values,

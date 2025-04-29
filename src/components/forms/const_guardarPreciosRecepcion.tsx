@@ -46,13 +46,13 @@ export const FormGuardarPreciosRecepcion = ({
         console.log('GUARDANDO CAMBIOS');
         console.log(values);
 
-        // handlePost({
-        //   url: url,
-        //   values,
-        //   method: 'PUT',
-        //   toast,
-        //   closeModal
-        // });
+        handlePost({
+          url: url,
+          values,
+          method: 'POST',
+          toast,
+          closeModal
+        });
       }}
       isEditForm={isEditForm}
     >

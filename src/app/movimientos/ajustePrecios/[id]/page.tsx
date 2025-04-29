@@ -246,10 +246,11 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               <FormGuardarPreciosRecepcion
                 initialValues={{
                   iD_RECEPCION: data?.dato?.iD_RECEPCION,
-                  costos,
+                  iD_TIPO_TRANSACCION: 4,
+                  lineas: costos,
                   guardar: false
                 }}
-                url='RecepcionCabecera'
+                url='RecepcionCabecera/precios'
                 closeModal={setShowModalGuardar}
               />
             </Modal>

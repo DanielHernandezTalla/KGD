@@ -8,7 +8,7 @@ interface LogoProps {
 
 export const Logo = ({ width, heigth }: LogoProps) => {
   return (
-    <div className='relative w-[156px] aspect-[156/79]'>
+    <div className='relative w-[79px] md:w-[156px] aspect-[156/79]'>
       <Image
         src={LogoCEFIS}
         alt='Logo'

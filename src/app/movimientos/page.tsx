@@ -31,7 +31,10 @@ const Movimientos = () => {
           <TitlePage title='Movimientos' />
           <div className='grid grid-cols-buttonData gap-6 rounded-xl border-2 border-gray-200 bg-white p-4 md:p-6'>
             {checked['RecepcionCabecera.lista'] && (
-              <ButtonData icon='faCartArrowDown' text='Recepcion' href='/movimientos/recepcion' />
+              <ButtonData icon='history' text='Precios de recepción' href='/movimientos/ajustePrecios' />
+            )}
+            {checked['RecepcionCabecera.lista'] && (
+              <ButtonData icon='faCartArrowDown' text='Recepción' href='/movimientos/recepcion' />
             )}
             {checked['SalidasCabecera.lista'] && (
               <ButtonData icon='faCartFlatbedSuitcase' text='Salidas' href='/movimientos/salidas' />
@@ -39,14 +42,14 @@ const Movimientos = () => {
             {checked['RecepcionEstatus.lista'] && (
               <ButtonData
                 icon='faListCheck'
-                text='Estatus recepción'
+                text='Estatus de recepción'
                 href='/movimientos/estatusRecepcion'
               />
             )}
             {checked['SalidaEstatus.lista'] && (
               <ButtonData
                 icon='faListCheck'
-                text='Estatus salida'
+                text='Estatus de salida'
                 href='/movimientos/estatusSalida'
               />
             )}

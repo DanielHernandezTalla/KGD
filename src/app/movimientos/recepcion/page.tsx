@@ -23,7 +23,7 @@ export default function Recepcion({ searchParams }: { searchParams: { page: numb
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('RecepcionCabecera', {
     pagina: searchParams?.page || 1,
     cantidadRegistrosPorPagina: 10,
-    Almacen: almacen,
+    Almacen: almacen || -1,
     ...valueSearch
   });
 

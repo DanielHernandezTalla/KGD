@@ -98,7 +98,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       label: 'Costo',
       component: (id: string) => (
         <div className='w-28'>
-          {data?.dato?.iD_RECEPCION_ESTATUS === 4 ? (
+          {data?.dato?.iD_RECEPCION_ESTATUS === 2 ? (
             <input
               type='number'
               value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo ?? ''}
@@ -136,7 +136,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       component: (id: string) => {
         return (
           <div className='w-28'>
-            {data?.dato?.iD_RECEPCION_ESTATUS === 4 ? (
+            {data?.dato?.iD_RECEPCION_ESTATUS === 2 ? (
               <select
                 value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA ?? ''}
                 className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   
@@ -241,7 +241,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                 cantidad: item.cantidad + ' ' + item.nombrE_UOM
               }))}
             />
-            {data?.dato?.iD_RECEPCION_ESTATUS === 4 && (
+            {data?.dato?.iD_RECEPCION_ESTATUS === 2 && (
               <div className='flex justify-end'>
                 <Button
                   size='small'

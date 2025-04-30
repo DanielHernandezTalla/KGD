@@ -18,7 +18,7 @@ import { toMoney } from '@/utils/toMoney';
 import { useEffect, useState } from 'react';
 
 export default function RecepcionDetalleSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'movimientos.salida.show';
+  const rutaToCheck: string = 'SalidasDetalle.listaid';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -50,7 +50,7 @@ export default function RecepcionDetalleSingle({ params }: { params: { id: numbe
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='movimientos.salida.show'>
+      <LayoutPermiso checked={checked} name='SalidasDetalle.listaid'>
         <>
           <div className='flex justify-between'>
             <TitlePage title='Información Detalle Salida' />

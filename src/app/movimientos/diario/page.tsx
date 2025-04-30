@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { IDataResponse } from '@/interface/request';
 import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
-import { useSession } from 'next-auth/react';
 
 export default function MovimientosDiarios({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = ['OnHandDiario.lista'];
@@ -18,7 +17,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
   const almacen = localStorage.getItem('almacen');
   const { data, isError, isLoading }: IDataResponse<any> = useRequest('OnHandDiario', {
     pagina: searchParams?.page || 1,
-    cantidadRegistrosPorPagina: 10,
+    cantidadRegistrosPorPagina: 100,
     // almacen: almacen, // Aqui ponemos fijo el almacen al que pertenecemos
     almacen: almacen || -1, // Aqui ponemos fijo el almacen al que pertenecemos
     ...valueSearch
@@ -29,7 +28,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
     handrePermisos(rutasToCheck, setChecked);
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -100,6 +99,7 @@ export default function MovimientosDiarios({ searchParams }: { searchParams: { p
                 nombrE_PROVEEDOR: item.nombrE_PROVEEDOR ? item.nombrE_PROVEEDOR : '-',
                 referencia: item.referencia?.toUpperCase(),
                 descripcion: item.descripcion?.toUpperCase(),
+                cantidad: item.cantidad,
                 fechA_CREACION: new Date(item.fechA_CREACION)
                   .toLocaleDateString('es-ES', {
                     year: 'numeric',

@@ -51,21 +51,21 @@ export const FormRecepcionDetalle = ({
       type: 'select',
       options: getUnidadMedida(data?.relacion?.unidad)
       // fullWidth: true
-    },
-    {
-      name: 'costo',
-      label: 'Costo',
-      type: 'number',
-      placeholder: 'Escribe  el costo del artículo'
-    },
-
-    {
-      name: 'iD_TIPO_MONEDA',
-      label: 'Tipo moneda',
-      type: 'select',
-      options: getTipoMoneda(data?.relacion?.tipoMoneda)
-      // fullWidth: true
     }
+    // {
+    //   name: 'costo',
+    //   label: 'Costo',
+    //   type: 'number',
+    //   placeholder: 'Escribe  el costo del artículo'
+    // },
+
+    // {
+    //   name: 'iD_TIPO_MONEDA',
+    //   label: 'Tipo moneda',
+    //   type: 'select',
+    //   options: getTipoMoneda(data?.relacion?.tipoMoneda)
+    //   // fullWidth: true
+    // }
   ];
 
   if (!isEditForm) {

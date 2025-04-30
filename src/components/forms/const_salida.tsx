@@ -22,6 +22,9 @@ export const FormSalida = ({
 }) => {
   const { toast } = useToast();
   const { data }: IDataResponse<any> = useRequest('RecepcionCabecera/relacion');
+  const { data: dataAsignados }: IDataResponse<any> = useRequest('EmpleadosAlmacen/Asignados'); // Obtenemos los almacenes desde los almacenes que tengo asignados
+  const almacenes = dataAsignados?.listado;
+  // console.log(data);
 
   const formInputs: FORMINPUT[] = [
     // {
@@ -42,7 +45,7 @@ export const FormSalida = ({
       name: 'iD_ALMACEN',
       label: 'Almacen',
       type: 'select',
-      options: getAlmacen(data?.relacion?.almacen)
+      options: getAlmacen(almacenes)
       // fullWidth: true
     },
     // {
@@ -56,7 +59,11 @@ export const FormSalida = ({
       name: 'iD_TIPO_TRANSACCION',
       label: 'Tipo transacción',
       type: 'select',
-      options: getTipoTransaccion(data?.relacion?.tipoTransaccion)
+      options: getTipoTransaccion(
+        data?.relacion?.tipoTransaccion?.filter(
+          (item: any) => item.iD_TIPO_TRANSACCION == 2 || item.iD_TIPO_TRANSACCION == 5
+        )
+      )
       // fullWidth: true
     },
     {
@@ -96,10 +103,8 @@ export const FormSalida = ({
           isBackOnCancel={!isEditForm}
           closeModal={closeModal}
           onSubmit={(values) => {
-            values = {
-              ...values,
-              creadO_POR: 3
-            };
+            // La función o el procedimiento SP_RECEPCION_DETALLE tiene demasiados argumento
+            console.log(values);
 
             handlePost({
               url,

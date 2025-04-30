@@ -98,10 +98,11 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       label: 'Costo',
       component: (id: string) => (
         <div className='w-28'>
-          <input
-            type='number'
-            value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo ?? ''}
-            className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   
+          {data?.dato?.iD_RECEPCION_ESTATUS === 4 ? (
+            <input
+              type='number'
+              value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo ?? ''}
+              className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   
               ${
                 costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo !=
                 costosFijos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo
@@ -109,16 +110,23 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   : 'border-blue-300'
               }
              focus:outline-none disabled:opacity-100 disabled:bg-gray-100`}
-            onChange={(e) => {
-              const updatedCostos = costos?.map((item) => {
-                if (item.iD_DETAIL_RECEPCION == id) {
-                  return { ...item, costo: e.target.value };
-                }
-                return item;
-              });
-              setCostos(updatedCostos);
-            }}
-          />
+              onChange={(e) => {
+                const updatedCostos = costos?.map((item) => {
+                  if (item.iD_DETAIL_RECEPCION == id) {
+                    return { ...item, costo: e.target.value };
+                  }
+                  return item;
+                });
+                setCostos(updatedCostos);
+              }}
+            />
+          ) : (
+            <p className='text-end'>
+              {toMoney(
+                parseInt(costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.costo || '')
+              )}
+            </p>
+          )}
         </div>
       )
     },
@@ -128,9 +136,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
       component: (id: string) => {
         return (
           <div className='w-28'>
-            <select
-              value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA ?? ''}
-              className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   
+            {data?.dato?.iD_RECEPCION_ESTATUS === 4 ? (
+              <select
+                value={costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA ?? ''}
+                className={`w-full rounded-lg border-2 border-gray-200 bg-white p-2 text-sm   
                 ${
                   costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA !=
                   costosFijos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA
@@ -138,22 +147,33 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                     : 'border-blue-300'
                 }
                focus:outline-none disabled:opacity-100 disabled:bg-gray-100`}
-              onChange={(e) => {
-                const updatedMoneda = costos?.map((item) => {
-                  if (item.iD_DETAIL_RECEPCION == id) {
-                    return { ...item, iD_TIPO_MONEDA: e.target.value };
-                  }
-                  return item;
-                });
-                setCostos(updatedMoneda);
-              }}
-            >
-              {dataForms?.relacion?.tipoMoneda?.map((item: any) => (
-                <option key={item.iD_TIPO_MONEDA} value={item.iD_TIPO_MONEDA}>
-                  {item.tipO_MONEDA}
-                </option>
-              ))}
-            </select>
+                onChange={(e) => {
+                  const updatedMoneda = costos?.map((item) => {
+                    if (item.iD_DETAIL_RECEPCION == id) {
+                      return { ...item, iD_TIPO_MONEDA: e.target.value };
+                    }
+                    return item;
+                  });
+                  setCostos(updatedMoneda);
+                }}
+              >
+                {dataForms?.relacion?.tipoMoneda?.map((item: any) => (
+                  <option key={item.iD_TIPO_MONEDA} value={item.iD_TIPO_MONEDA}>
+                    {item.tipO_MONEDA}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <>
+                {
+                  dataForms?.relacion?.tipoMoneda?.find(
+                    (item: any) =>
+                      item.iD_TIPO_MONEDA ===
+                      costos?.find((item) => item.iD_DETAIL_RECEPCION == id)?.iD_TIPO_MONEDA
+                  )?.tipO_MONEDA
+                }
+              </>
+            )}
           </div>
         );
       }
@@ -221,17 +241,19 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                 cantidad: item.cantidad + ' ' + item.nombrE_UOM
               }))}
             />
-            <div className='flex justify-end'>
-              <Button
-                size='small'
-                rounded
-                variant='primary'
-                text='Guardar cambios'
-                icon='pen'
-                // disabled={data?.dato?.iD_RECEPCION_ESTATUS != 1}
-                onClick={saveChanges}
-              />
-            </div>
+            {data?.dato?.iD_RECEPCION_ESTATUS === 4 && (
+              <div className='flex justify-end'>
+                <Button
+                  size='small'
+                  rounded
+                  variant='primary'
+                  text='Guardar cambios'
+                  icon='pen'
+                  // disabled={data?.dato?.iD_RECEPCION_ESTATUS !== 4}
+                  onClick={saveChanges}
+                />
+              </div>
+            )}
           </div>
 
           {showModalGuardar && (

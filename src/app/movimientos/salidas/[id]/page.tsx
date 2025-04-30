@@ -36,7 +36,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     { updateData }
   );
 
-  console.log(data);
+  // console.log(data);
 
   // Consultar permisos y poner nombre a la pagina
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
     showModalAddArticles
   ]);
 
-  console.log(data?.dato);
+  // console.log(data?.dato);
 
   const tableHeaders: TABLECOLUMN[] = [
     {
@@ -280,9 +280,10 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   cantidad: '',
                   iD_ALMACEN: data?.dato?.iD_ALMACEN,
                   iD_ALMACENDESTINO: '',
+                  iD_TIPO_MONEDA: 1,
                   iD_UOM: '',
                   iD_TIPO_TRANSACCION: data?.dato?.iD_TIPO_TRANSACCION,
-                  costo: '',
+                  costo: 0,
 
                   segmento01: '',
                   segmento02: '',

@@ -119,7 +119,8 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               disabled={
                 data?.dato?.lineas?.length == 0 ||
                 data?.dato?.iD_RECEPCION_ESTATUS == 2 ||
-                data?.dato?.iD_RECEPCION_ESTATUS == 4
+                data?.dato?.iD_RECEPCION_ESTATUS == 4 ||
+                data?.dato?.iD_RECEPCION_ESTATUS == 5
               }
               onClick={() => setShowModalCerrarRecepcion(true)}
             />
@@ -130,7 +131,9 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
               text='Cancelar recepción'
               icon='trash'
               disabled={
-                data?.dato?.iD_RECEPCION_ESTATUS == 2 || data?.dato?.iD_RECEPCION_ESTATUS == 4
+                data?.dato?.iD_RECEPCION_ESTATUS == 2 ||
+                data?.dato?.iD_RECEPCION_ESTATUS == 4 ||
+                data?.dato?.iD_RECEPCION_ESTATUS == 5
               }
               onClick={() => setShowModalCancelarRecepcion(true)}
             />
@@ -194,7 +197,9 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                 text='Nuevo'
                 icon='plus'
                 disabled={
-                  data?.dato?.iD_RECEPCION_ESTATUS == 2 || data?.dato?.iD_RECEPCION_ESTATUS == 4
+                  data?.dato?.iD_RECEPCION_ESTATUS == 2 ||
+                  data?.dato?.iD_RECEPCION_ESTATUS == 4 ||
+                  data?.dato?.iD_RECEPCION_ESTATUS == 5
                 }
               />
             </div>
@@ -265,7 +270,7 @@ export default function RecepcionSingle({ params }: { params: { id: number } }) 
                   referencia: '',
                   descripcion: '',
                   iD_ITEM: '',
-                  iD_TIPO_MONEDA: 0,
+                  iD_TIPO_MONEDA: 1,
                   cantidad: '',
                   iD_ALMACENORIGEN: null, //Ocupamos obtener el almacen actual
                   iD_ALMACEN: data?.dato?.iD_ALMACEN,

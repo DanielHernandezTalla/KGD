@@ -42,10 +42,7 @@ export const FormCerrarSalida = ({
       isBackOnCancel={false}
       closeModal={closeModal}
       onSubmit={(values) => {
-        values = {
-          ...values,
-          usuario_id: user?.id
-        };
+        
         handlePost({
           url: url,
           values,

@@ -5,7 +5,7 @@ import { Form } from '../atoms';
 import { handlePost } from '@/utils/handlePost';
 import { useRequest } from '@/hooks/useRequest';
 import { IDataResponse } from '@/interface/request';
-import { getAlmacen2, getEmpleado, getSucursal } from '@/utils/dataToSelectOptions';
+import { getAlmacen, getAlmacen2, getEmpleado, getSucursal } from '@/utils/dataToSelectOptions';
 import { useToast } from '@/hooks/toast';
 
 export const FormEmpleadosPorAlmacen = ({
@@ -49,7 +49,7 @@ export const FormEmpleadosPorAlmacen = ({
       name: 'iD_ALMACEN',
       label: 'Almacen',
       type: 'select',
-      options: getAlmacen2(data?.relacion?.almacen, sucursal),
+      options: getAlmacen(data?.relacion?.almacen),
       fullWidth: true
     },
     {

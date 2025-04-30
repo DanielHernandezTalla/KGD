@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function TipoSalarioSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'personal.tiposalario.update';
+  const rutaToCheck: string = 'tiposalario.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function TipoSalarioSingle({ params }: { params: { id: number } }
   return (
     <FormLayout
       title='Modificar tipo de salario'
-      rutaToCheck='personal.tiposalario.show'
+      rutaToCheck='tiposalario.listaid'
       isLoading={isLoading}
       isError={isError}
     >

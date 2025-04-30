@@ -11,11 +11,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function TipoPago({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = [
-    'personal.tipopago.index',
-    'personal.tipopago.store',
-    'personal.tipopago.show'
-  ];
+  const rutasToCheck: string[] = ['tipopago.lista', 'tipopago.save', 'tipopago.listaid'];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
@@ -60,7 +56,7 @@ export default function TipoPago({ searchParams }: { searchParams: { page: numbe
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.tipopago.index'>
+      <LayoutPermiso checked={checked} name='tipopago.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +69,9 @@ export default function TipoPago({ searchParams }: { searchParams: { page: numbe
               isError={isError}
               title='Tipo de pago'
               idColumn='iD_TIPO_PAGO'
-              nuevo={checked['personal.tipopago.store']}
+              nuevo={checked['tipopago.save']}
               createHref='personal/tipoPago'
-              singleHref={checked['personal.tipopago.show'] && 'personal/tipoPago'}
+              singleHref={checked['tipopago.listaid'] && 'personal/tipoPago'}
               cols={tableHeaders}
               data={data?.listado}
             />

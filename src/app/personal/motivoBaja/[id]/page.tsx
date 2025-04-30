@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function MotivoBajaSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'ciudad.edit';
+  const rutaToCheck: string = 'motivobaja.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function MotivoBajaSingle({ params }: { params: { id: number } })
   return (
     <FormLayout
       title='Modificar motivo de baja'
-      rutaToCheck='personal.motivobaja.show'
+      rutaToCheck='motivobaja.listaid'
       isLoading={isLoading}
       isError={isError}
     >

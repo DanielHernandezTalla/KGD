@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function Areas({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'personal.areas.index',
-    'personal.areas.store',
-    'personal.areas.show'
+    'areas.lista',
+    'areas.save',
+    'areas.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function Areas({ searchParams }: { searchParams: { page: number }
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.areas.index'>
+      <LayoutPermiso checked={checked} name='areas.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function Areas({ searchParams }: { searchParams: { page: number }
               isError={isError}
               title='Areas'
               idColumn='iD_AREA'
-              nuevo={checked['personal.areas.store']}
+              nuevo={checked['areas.save']}
               createHref='personal/areas'
-              singleHref={checked['personal.areas.show'] && 'personal/areas'}
+              singleHref={checked['areas.listaid'] && 'personal/areas'}
               cols={tableHeaders}
               data={data?.listado}
             />

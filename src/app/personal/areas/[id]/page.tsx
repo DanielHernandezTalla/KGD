@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function AreaSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'personal.areas.update';
+  const rutaToCheck: string = 'areas.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function AreaSingle({ params }: { params: { id: number } }) {
   return (
     <FormLayout
       title='Modificar Area'
-      rutaToCheck='personal.areas.show'
+      rutaToCheck='areas.listaid'
       isLoading={isLoading}
       isError={isError}
     >

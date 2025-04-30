@@ -4,7 +4,7 @@ import { FormLayout } from '@/components/molecules/FormLayout';
 
 export default function RegistrarTipoPago() {
   return (
-    <FormLayout title='Registrar tipo pago' rutaToCheck='personal.tipopago.store'>
+    <FormLayout title='Registrar tipo pago' rutaToCheck='tipopago.save'>
       <FormTipoPago
         initialValues={{
           tipO_PAGO: '',

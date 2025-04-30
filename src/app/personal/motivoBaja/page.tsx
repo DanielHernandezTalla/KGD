@@ -11,11 +11,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function MotivoBaja({ searchParams }: { searchParams: { page: number } }) {
-  const rutasToCheck: string[] = [
-    'personal.motivobaja.index',
-    'personal.motivobaja.store',
-    'personal.motivobaja.show'
-  ];
+  const rutasToCheck: string[] = ['motivobaja.lista', 'motivobaja.save', 'motivobaja.listaid'];
 
   const [checked, setChecked] = useState([] as any);
   const [valueSearch, setValueSearch] = useState({});
@@ -60,7 +56,7 @@ export default function MotivoBaja({ searchParams }: { searchParams: { page: num
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.motivobaja.index'>
+      <LayoutPermiso checked={checked} name='motivobaja.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +69,9 @@ export default function MotivoBaja({ searchParams }: { searchParams: { page: num
               isError={isError}
               title='Motivo De Baja'
               idColumn='iD_MOTIVO_BAJA'
-              nuevo={checked['personal.motivobaja.store']}
+              nuevo={checked['motivobaja.save']}
               createHref='personal/motivoBaja'
-              singleHref={checked['personal.motivobaja.show'] && 'personal/motivoBaja'}
+              singleHref={checked['motivobaja.listaid'] && 'personal/motivoBaja'}
               cols={tableHeaders}
               data={data?.listado}
             />

@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function TipoPersonal({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'personal.tipopersonal.index',
-    'personal.tipopersonal.store',
-    'personal.tipopersonal.show'
+    'tipopersonal.lista',
+    'tipopersonal.save',
+    'tipopersonal.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function TipoPersonal({ searchParams }: { searchParams: { page: n
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.tipopersonal.index'>
+      <LayoutPermiso checked={checked} name='tipopersonal.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function TipoPersonal({ searchParams }: { searchParams: { page: n
               isError={isError}
               title='Tipo de personal'
               idColumn='iD_TIPO_PERSONAL'
-              nuevo={checked['personal.tipopersonal.store']}
+              nuevo={checked['tipopersonal.save']}
               createHref='personal/tipoPersonal'
-              singleHref={checked['personal.tipopersonal.show'] && 'personal/tipoPersonal'}
+              singleHref={checked['tipopersonal.listaid'] && 'personal/tipoPersonal'}
               cols={tableHeaders}
               data={data?.listado}
             />

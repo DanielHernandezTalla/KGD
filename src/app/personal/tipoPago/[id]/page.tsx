@@ -7,7 +7,7 @@ import { handrePermisos } from '@/utils/handlePermisos';
 import { useEffect, useState } from 'react';
 
 export default function TipoPagoSingle({ params }: { params: { id: number } }) {
-  const rutaToCheck: string = 'personal.tipopago.update';
+  const rutaToCheck: string = 'tipopago.edit';
   const rutasToCheck: string[] = [rutaToCheck];
   const [checked, setChecked] = useState([] as any);
 
@@ -21,7 +21,7 @@ export default function TipoPagoSingle({ params }: { params: { id: number } }) {
   return (
     <FormLayout
       title='Modificar tipo de pago'
-      rutaToCheck='personal.tipopago.show'
+      rutaToCheck='tipopago.listaid'
       isLoading={isLoading}
       isError={isError}
     >

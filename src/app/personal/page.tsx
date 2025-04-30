@@ -10,10 +10,10 @@ const Personal = () => {
   const rutasToCheck = [
     'personal.personal.index',
     'empleados.lista',
-    'personal.tipopersonal.index',
-    'personal.tipopago.index',
-    'personal.motivobaja.index',
-    'personal.tiposalario.index',
+    'tipopersonal.lista',
+    'tipopago.lista',
+    'motivobaja.lista',
+    'tiposalario.lista',
     'personal.areas.index'
   ];
 
@@ -37,16 +37,16 @@ const Personal = () => {
             {checked['empleados.lista'] && (
               <ButtonData icon='personal' text='Empleados por almacen' href='/personal/empleadosPorAlmacen'/>
             )}
-            {checked['personal.tipopersonal.index'] && (
+            {checked['tipopersonal.lista'] && (
               <ButtonData icon='userGroup' text='Tipo personal' href='/personal/tipoPersonal' />
             )}
-            {checked['personal.tipopago.index'] && (
+            {checked['tipopago.lista'] && (
               <ButtonData icon='dollarSing' text='Tipo pago' href='/personal/tipoPago' />
             )}
-            {checked['personal.motivobaja.index'] && (
+            {checked['motivobaja.lista'] && (
               <ButtonData icon='faCircleDown' text='Motivo baja' href='/personal/motivoBaja' />
             )}
-            {checked['personal.tiposalario.index'] && (
+            {checked['tiposalario.lista'] && (
               <ButtonData icon='coins' text='Tipo salario' href='/personal/tipoSalario' />
             )}
             {checked['personal.areas.index'] && (

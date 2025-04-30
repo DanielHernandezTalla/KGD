@@ -12,9 +12,9 @@ import LayoutPermiso from '@/components/molecules/Permiso/Permiso';
 
 export default function TipoSalario({ searchParams }: { searchParams: { page: number } }) {
   const rutasToCheck: string[] = [
-    'personal.tiposalario.index',
-    'personal.tiposalario.store',
-    'personal.tiposalario.show'
+    'tiposalario.lista',
+    'tiposalario.save',
+    'tiposalario.listaid'
   ];
 
   const [checked, setChecked] = useState([] as any);
@@ -60,7 +60,7 @@ export default function TipoSalario({ searchParams }: { searchParams: { page: nu
 
   return (
     <MainLayout>
-      <LayoutPermiso checked={checked} name='personal.tiposalario.index'>
+      <LayoutPermiso checked={checked} name='tiposalario.lista'>
         <Pager
           pageSize={10}
           currentPage={Number(searchParams?.page) || 1}
@@ -73,9 +73,9 @@ export default function TipoSalario({ searchParams }: { searchParams: { page: nu
               isError={isError}
               title='Tipo de salario'
               idColumn='iD_TIPO_SALARIO'
-              nuevo={checked['personal.tiposalario.store']}
+              nuevo={checked['tiposalario.save']}
               createHref='personal/tipoSalario'
-              singleHref={checked['personal.tiposalario.show'] && 'personal/tipoSalario'}
+              singleHref={checked['tiposalario.listaid'] && 'personal/tipoSalario'}
               cols={tableHeaders}
               data={data?.listado}
             />
